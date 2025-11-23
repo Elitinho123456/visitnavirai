@@ -26,15 +26,7 @@ export default function EventsWidget() {
                     return (
                         <div key={index} className="flex gap-3 items-start border-b border-(--color-neutral-gray)/20 pb-3 last:border-0 last:pb-0 group cursor-pointer">
                             {/* Bloco da Data */}
-                            <div className="
-                                flex flex-col items-center justify-center 
-                                bg-(--color-neutral-light) 
-                                rounded-(--border-radius-sm) 
-                                p-2 min-w-14
-                                border border-(--color-neutral-gray)/30
-                                group-hover:border-(--color-secondary)
-                                transition-colors
-                            ">
+                            <div className="flex flex-col items-center justify-center bg-(--color-neutral-light) rounded-(--border-radius-sm) p-2 min-w-14 border border-(--color-neutral-gray)/30 group-hover:border-(--color-secondary) transition-colors">
                                 <span className="text-xl font-bold text-(--color-secondary)">
                                     {dateInfo.day}
                                 </span>
