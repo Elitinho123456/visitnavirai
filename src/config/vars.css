@@ -1,0 +1,46 @@
+:root {
+    /* --- Typography & Defaults --- */
+    --font-family: 'system-ui', 'Avenir', 'Helvetica', 'Arial', sans-serif;
+    --line-height: 1.6; /* Slightly increased for better readability on long-form content */
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    --font-synthesis: none;
+    --text-rendering: optimizeLegibility;
+    --webkit-font-smoothing: antialiased;
+    --moz-osx-font-smoothing: grayscale;
+
+    /* --- Provided Colors (Adjusted/Refined) --- */
+    --color-primary: #3e913e; /* Green (from your --primary) - Represents the nature/foliage (Coffee, Cotton) */
+    --color-secondary: #ff0000; /* Bright Red (from your --secondary) - Represents the banner/ribbon and Coffee berries */
+    --color-tertiary: #ad7ac0; /* Purple/Violet (from your --thirdary and the flower in the shield) - A unique accent color */
+
+    /* --- Colors Extracted from the Naviraí Coat of Arms --- */
+    --color-accent-gold: #ffc900; /* Gold/Yellow (from the wood cross-sections and crown detail) - For accents, buttons, and highlights */
+    --color-neutral-light: #f0f0f0; /* Very Light Gray/Off-White (from the shield background) - For background areas */
+    --color-neutral-dark: #333333; /* Dark Gray/Brown (from the wood logs/outline) - For main text and dark backgrounds */
+    --color-neutral-white: #ffffff; /* Pure White (for text contrast) */
+    --color-neutral-gray: #aaaaaa; /* Medium Gray (from the crown) - For borders, separators, or subtle text */
+
+    /* --- Functional Colors --- */
+    --color-text-body: var(--color-neutral-dark);
+    --color-text-header: var(--color-primary);
+    --color-background: var(--color-neutral-light);
+    --color-button-background: var(--color-accent-gold);
+    --color-button-text: var(--color-neutral-dark);
+    --color-link: var(--color-secondary);
+    --color-link-hover: var(--color-tertiary);
+
+    /* --- Spacing & Radius --- */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 32px;
+    --spacing-xl: 64px;
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+}
+
+
+@import 'tailwindcss';
