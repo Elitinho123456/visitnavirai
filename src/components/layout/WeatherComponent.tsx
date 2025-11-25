@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Tipagem simples para os dados da API
 interface WeatherData {
@@ -13,19 +14,20 @@ interface WeatherData {
     };
 }
 
+// Função simples para traduzir o código do tempo da Open-Meteo
+const getWeatherDescription = (code: number, t: (key: string) => string) => {
+    if (code === 0) return t('weather.description.clear_sky');
+    if (code >= 1 && code <= 3) return t('weather.description.partly_cloudy');
+    if (code >= 45 && code <= 48) return t('weather.description.fog');
+    if (code >= 51 && code <= 67) return t('weather.description.light_rain');
+    if (code >= 80 && code <= 99) return t('weather.description.heavy_rain');
+    return t('weather.description.variable');
+};
+
 export default function WeatherWidget() {
+    const { t } = useTranslation();
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [loading, setLoading] = useState(true);
-
-    // Função simples para traduzir o código do tempo da Open-Meteo
-    const getWeatherDescription = (code: number) => {
-        if (code === 0) return 'Céu Limpo ☀️';
-        if (code >= 1 && code <= 3) return 'Parcialmente Nublado ⛅';
-        if (code >= 45 && code <= 48) return 'Nevoeiro 🌫️';
-        if (code >= 51 && code <= 67) return 'Chuva Leve 🌦️';
-        if (code >= 80 && code <= 99) return 'Chuva Forte/Tempestade ⛈️';
-        return 'Clima Variável';
-    };
 
     useEffect(() => {
         // Coordenadas de Naviraí: -23.0645, -54.1959
@@ -38,7 +40,7 @@ export default function WeatherWidget() {
             .catch(err => console.error("Erro ao carregar clima:", err));
     }, []);
 
-    if (loading) return <div className="text-(--color-neutral-gray)">Carregando clima...</div>;
+    if (loading) return <div className="text-(--color-neutral-gray)">{t('weather.loading')}</div>;
 
     if (!weather) return null;
 
@@ -53,7 +55,7 @@ export default function WeatherWidget() {
             max-w-xs w-full
         ">
             <h3 className="text-(--color-text-header) font-bold text-lg mb-2">
-                Tempo em Naviraí
+                {t('weather.title')}
             </h3>
             
             <div className="text-4xl font-bold text-(--color-neutral-dark) mb-1">
@@ -61,24 +63,24 @@ export default function WeatherWidget() {
             </div>
             
             <div className="text-(--color-text-body) font-medium mb-3">
-                {getWeatherDescription(weather.current.weather_code)}
+                {getWeatherDescription(weather.current.weather_code, t)}
             </div>
 
             <div className="w-full flex justify-between text-sm text-(--color-neutral-gray) px-(--spacing-lg)">
                 <div className="flex flex-col items-center">
-                    <span>Mín</span>
+                    <span>{t('weather.min')}</span>
                     <span className="font-bold text-(--color-secondary)">
                         {Math.round(weather.daily.temperature_2m_min[0])}°
                     </span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <span>Umidade</span>
+                    <span>{t('weather.humidity')}</span>
                     <span className="font-bold text-(--color-primary)">
                         {weather.current.relative_humidity_2m}%
                     </span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <span>Máx</span>
+                    <span>{t('weather.max')}</span>
                     <span className="font-bold text-(--color-accent-gold)">
                         {Math.round(weather.daily.temperature_2m_max[0])}°
                     </span>

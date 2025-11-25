@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "home": "Home",
+    "history": "History",
+    "where_to_sleep": "Where to Stay",
+    "what_to_visit": "What to Visit",
+    "where_to_eat": "Where to Eat",
+    "services": "Services",
+    "calendar": "Calendar",
+    "contact": "Contact",
+    "sub": {
+      "how_to_get_there": "How to Get There",
+      "tourist_data": "Tourist Data",
+      "history": "History",
+      "hotels": "Hotels",
+      "inns": "Inns",
+      "camping_area": "Camping Area",
+      "flat": "Flat",
+      "crafts": "Crafts",
+      "shopping": "Shopping",
+      "monuments": "Monuments",
+      "museums": "Museums",
+      "squares_and_parks": "Squares and Parks",
+      "ranch": "Ranch",
+      "fishing_spot": "Fishing Spot",
+      "bars": "Bars",
+      "coffee_shops": "Coffee Shops",
+      "snacks_and_sweets": "Snacks and Sweets",
+      "burger_joints": "Burger Joints",
+      "pastry_shops": "Pastry Shops",
+      "pizzerias": "Pizzerias",
+      "restaurants": "Restaurants",
+      "travel_agency": "Travel Agency",
+      "event_spaces": "Event Spaces",
+      "car_rental": "Car Rental",
+      "event_organizers": "Event Organizers",
+      "taxi": "Taxi",
+      "road_carriers": "Road Carriers",
+      "tourist_carriers": "Tourist Carriers",
+      "events_calendar_2025": "Events Calendar 2025",
+      "upcoming_events": "Upcoming Events",
+      "event_registration": "Event Registration"
+    }
+  },
+  "hero": {
+    "title": "Our History",
+    "subtitle": "From Planned Settlement to Cone South Capital"
+  },
+  "home": {
+    "explore_title": "Explore Naviraí",
+    "explore_p1": "Discover the beauty and attractions of Naviraí, a city rich in culture, nature, and hospitality. From lush parks to vibrant events, there is something for everyone to enjoy.",
+    "explore_p2_trans": "Naviraí is located in the southeast region of the state, being considered an important regional agro-industrial and service hub, known as the <1>Capital of the Conesul</1>.",
+    "explore_p3": "Founded in 1952, the city has a modern infrastructure and is the ideal starting point for exploring the region's tourist potential.",
+    "weather_title": "Weather in Naviraí",
+    "events_title": "Upcoming Events",
+    "slider": {
+      "navirai_at_night": "Naviraí at Night",
+      "cumundai_park": "Cumundaí Municipal Park",
+      "amambai_river": "Amambai River",
+      "city_entrance": "City Entrance",
+      "central_square": "Central Square",
+      "fejunavi": "Fejunavi"
+    }
+  },
+  "weather": {
+    "loading": "Loading weather...",
+    "title": "Weather in Naviraí",
+    "min": "Min",
+    "humidity": "Humidity",
+    "max": "Max",
+    "description": {
+      "clear_sky": "Clear Sky ☀️",
+      "partly_cloudy": "Partly Cloudy ⛅",
+      "fog": "Fog 🌫️",
+      "light_rain": "Light Rain 🌦️",
+      "heavy_rain": "Heavy Rain/Storm ⛈️",
+      "variable": "Variable Weather"
+    }
+  },
+  "events": {
+    "title": "Upcoming Events",
+    "view_full_schedule": "View Full Schedule",
+    "festa_junina": {
+      "name": "Festa Junina",
+      "description": "Traditional celebration with typical food, square dancing, and lots of fun."
+    },
+    "music_festival": {
+      "name": "Music Festival",
+      "description": "Performances by local and national bands in an unmissable event for music lovers."
+    },
+    "craft_fair": {
+      "name": "Craft Fair",
+      "description": "Exhibition and sale of handmade products by talented artisans from the region."
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 VISITNaviraí. All rights reserved.",
+    "developed_by": "Developed by:"
+  },
+  "history": {
+    "hero": {
+      "alt": "History of Naviraí",
+      "title": "Our History",
+      "subtitle": "From a Planned Town to the Capital of the Conesul"
+    },
+    "introduction": {
+      "title": "Naviraí",
+      "subtitle": "The March to the West",
+      "p1": "The history of Naviraí is an exemplary study of the interiorization policies known as the \"March to the West\". Unlike many spontaneous settlements, Naviraí was not born by chance.",
+      "p2": "The municipality was conceived in a planned manner in 1952 by the <1>Colonizadora Vera Cruz</1>, with a peculiar urban layout in the shape of a \"spider web\", reflecting a high degree of organization and anticipation of growth.",
+      "p3": "Strategically located in the Paraná River Basin, the city was born isolated, depending on river transport on the Amambai River, until the first roads were opened, allowing for the transport of timber and the arrival of settlers."
+    },
+    "pioneers": {
+      "alt": "Old Colonization",
+      "caption": "The beginning of logging in the 1950s.",
+      "title": "The Pioneer Years (1952-1958)",
+      "p1": "The initial nucleus, named <1>Povoado Vera Cruz</1>, was driven by the sawmills installed in 1953. Figures like Moryoshi Fukuda and Antônio Augusto dos Santos were essential in this phase.",
+      "p2": "An important cultural milestone occurred in 1961, with the founding of the <1>Japanese Colony</1>, which brought 25 families who introduced vital agricultural techniques for the future of the region."
+    },
+    "timeline": {
+      "title": "Path to Emancipation",
+      "item1": {
+        "title": "Founding",
+        "desc": "Start of colonization by Vera Cruz Ltda."
+      },
+      "item2": {
+        "title": "District",
+        "desc": "Elevated to a District by Law No. 1,195."
+      },
+      "item3": {
+        "title": "Municipality",
+        "desc": "Emancipation via Law No. 1,944, by Weimar Torres."
+      },
+      "item4": {
+        "title": "Installation",
+        "desc": "Inauguration of the 1st Mayor, João Martins Cardoso."
+      }
+    },
+    "economy": {
+      "title": "Economic Evolution",
+      "card1": {
+        "title": "The Timber Cycle",
+        "desc": "Dominated by extraction and sawmills. It was the period of initial settlement and the opening of the first transport routes."
+      },
+      "card2": {
+        "title": "Diversification",
+        "desc": "The 70s and 80s. Expansion of livestock farming and the peak of the cotton cycle, modernizing the agricultural base."
+      },
+      "card3": {
+        "title": "Agro-industry",
+        "desc": "Post-1980 with Proálcool, sugarcane mills, and more recently, high technology in soy and corn."
+      }
+    },
+    "today": {
+      "title": "Naviraí Today",
+      "desc": "Currently, Naviraí transcends its role as an agro-industrial hub. With robust infrastructure, such as the BR-163 highway, and investments in education and services, the city has consolidated itself as the regional support center, ensuring the sustainable development of the Cone-Sul of Mato Grosso do Sul."
+    }
+  },
+  "hotels": {
+    "search": {
+      "checkin_checkout": "Check-in - Check-out",
+      "guests_rooms": "2 guests, 1 room",
+      "button": "Search"
+    },
+    "map": {
+      "view_on_map": "View on map"
+    },
+    "filters": {
+      "title": "Filters",
+      "price_per_night": "Price per night",
+      "rating": "Rating",
+      "fantastic": "Fantastic",
+      "very_good": "Very good",
+      "amenities": "Amenities"
+    },
+    "amenities": {
+      "pool": "Pool",
+      "wifi": "Wi-Fi",
+      "parking": "Parking",
+      "breakfast": "Breakfast"
+    },
+    "accommodations_found": "Naviraí: {{count}} accommodations found",
+    "sort": {
+      "relevance": "Our recommendation",
+      "price_asc": "Price: Lowest first",
+      "rating_desc": "Rating and Suggestions"
+    },
+    "distance_from_center": "{{distance}} from center",
+    "reviews": "{{count}} reviews",
+    "ratings": {
+      "excellent": "Excellent",
+      "very_good": "Very good",
+      "good": "Good",
+      "satisfactory": "Satisfactory"
+    },
+    "pricing": {
+      "from": "From",
+      "free_cancellation": "Free cancellation",
+      "view_prices": "View prices",
+      "from_sites": "View prices from {{count}} sites"
+    },
+    "features": {
+      "pool": "Outdoor Pool",
+      "breakfast": "Breakfast included",
+      "parking": "Free parking",
+      "exceptional_service": "Exceptional Service",
+      "free_wifi": "Free Wi-Fi",
+      "ac": "Air conditioning",
+      "central_location": "Central Location",
+      "restaurant": "Restaurant",
+      "reception_24h": "24h Reception",
+      "pets_allowed": "Pets Allowed",
+      "garden": "Garden",
+      "gym": "Gym",
+      "economic": "Economic",
+      "main_avenue": "Main Ave."
+    },
+    "badges": {
+      "popular": "Popular choice",
+      "best_price": "Best Price"
+    }
+  }
+}

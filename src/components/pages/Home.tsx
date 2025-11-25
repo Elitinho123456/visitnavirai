@@ -1,6 +1,7 @@
 // Default Home Page Component
 import { register } from 'swiper/element/bundle';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useTranslation, Trans } from 'react-i18next';
 import { navImages } from '../../config/const.ts';
 
 // Components
@@ -15,8 +16,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function Home() {
+    const { t } = useTranslation();
+
     return (
-        <div className="flex flex-col min-h-screen bg-(--color-background)">
+        <div className="flex flex-col min-h-screen bg-background">
             <Header />
             <main className="grow">
 
@@ -40,12 +43,12 @@ export default function Home() {
                                             <div className="w-full h-full relative">
                                                 <img
                                                     src={image.src}
-                                                    alt={image.name}
+                                                    alt={t(image.tKey)}
                                                     className="w-full h-full object-cover"
                                                     loading={index === 0 ? "eager" : "lazy"}
                                                 />
                                                 <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/70 to-transparent p-6 md:p-10">
-                                                    <h2 className="text-white text-2xl md:text-4xl font-bold">{image.name}</h2>
+                                                    <h2 className="text-white text-2xl md:text-4xl font-bold">{t(image.tKey)}</h2>
                                                 </div>
                                             </div>
                                         </SwiperSlide>
@@ -71,22 +74,22 @@ export default function Home() {
                                 <div className='flex flex-col md:flex-row gap-8 items-start'>
                                     <div className='w-full pt-4'>
                                         <h2 className='text-(--color-primary) text-3xl md:text-5xl font-bold mb-4 text-center md:text-left'>
-                                            Explore Naviraí
+                                            {t('home.explore_title')}
                                         </h2>
                                         <hr className='w-24 mx-auto md:mx-0 border-t-4 border-(--color-accent-gold) mb-6' />
 
                                         <div className='text-(--color-text-body) text-lg leading-relaxed space-y-4 text-justify'>
                                             <p>
-                                                Descubra as belezas e atrações de Naviraí, uma cidade rica em cultura, natureza e hospitalidade.
-                                                Desde parques exuberantes até eventos vibrantes, há algo para todos aproveitarem.
+                                                {t('home.explore_p1')}
                                             </p>
                                             <p>
-                                                Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional
-                                                agroindustrial e de serviços, conhecida como a <span className="font-bold text-(--color-primary)">"Capital do Conesul"</span>.
+                                                <Trans i18nKey="home.explore_p2_trans">
+                                                    Naviraí is located in the southeast region of the state and is considered an important regional
+                                                    agribusiness and service hub, known as the <span className="font-bold text-(--color-primary)">"Capital of the Conesul"</span>.
+                                                </Trans>
                                             </p>
                                             <p>
-                                                Fundada em 1952, a cidade possui uma infraestrutura moderna e é o ponto de partida ideal
-                                                para explorar o potencial turístico da região.
+                                                {t('home.explore_p3')}
                                             </p>
                                         </div>
                                     </div>

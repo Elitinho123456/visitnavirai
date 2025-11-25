@@ -9,6 +9,7 @@ import router from './config/routes.tsx'
 // Importing global CSS styles
 import './index.css'
 import './config/vars.css'
+import './lib/i18n'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

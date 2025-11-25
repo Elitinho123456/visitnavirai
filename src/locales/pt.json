@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "home": "Início",
+    "history": "História",
+    "where_to_sleep": "Onde Dormir",
+    "what_to_visit": "O Que Visitar",
+    "where_to_eat": "Onde Comer",
+    "services": "Serviços",
+    "calendar": "Calendário",
+    "contact": "Contato",
+    "sub": {
+      "how_to_get_there": "Como Chegar",
+      "tourist_data": "Dados Turísticos",
+      "history": "História",
+      "hotels": "Hotéis",
+      "inns": "Pousadas",
+      "camping_area": "Área de Camping",
+      "flat": "Flat",
+      "crafts": "Artesanatos",
+      "shopping": "Compras",
+      "monuments": "Monumentos",
+      "museums": "Museus",
+      "squares_and_parks": "Praças e Parques",
+      "ranch": "Rancho",
+      "fishing_spot": "Pesqueiro",
+      "bars": "Bares",
+      "coffee_shops": "Cafeterias",
+      "snacks_and_sweets": "Lanches e Doces",
+      "burger_joints": "Hamburguerias",
+      "pastry_shops": "Pastelarias",
+      "pizzerias": "Pizzarias",
+      "restaurants": "Restaurantes",
+      "travel_agency": "Agência de Viagens",
+      "event_spaces": "Espaços para Eventos",
+      "car_rental": "Locadora de Veículos",
+      "event_organizers": "Organizadoras de Eventos",
+      "taxi": "Taxi",
+      "road_carriers": "Transportadoras Rodoviárias",
+      "tourist_carriers": "Transportadoras Turísticas",
+      "events_calendar_2025": "Calendário de Eventos 2025",
+      "upcoming_events": "Próximos Eventos",
+      "event_registration": "Cadastro de Eventos"
+    }
+  },
+  "hero": {
+    "title": "Nossa História",
+    "subtitle": "De Povoado Planejado à Capital do Conesul"
+  },
+  "home": {
+    "explore_title": "Explore Naviraí",
+    "explore_p1": "Descubra as belezas e atrações de Naviraí, uma cidade rica em cultura, natureza e hospitalidade. Desde parques exuberantes até eventos vibrantes, há algo para todos aproveitarem.",
+    "explore_p2_trans": "Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional agroindustrial e de serviços, conhecida como a <1>Capital do Conesul</1>.",
+    "explore_p3": "Fundada em 1952, a cidade possui uma infraestrutura moderna e é o ponto de partida ideal para explorar o potencial turístico da região.",
+    "weather_title": "Tempo em Naviraí",
+    "events_title": "Próximos Eventos",
+    "slider": {
+      "navirai_at_night": "Naviraí à Noite",
+      "cumundai_park": "Parque Municipal Cumundaí",
+      "amambai_river": "Rio Amambai",
+      "city_entrance": "Entrada da Cidade",
+      "central_square": "Praça Central",
+      "fejunavi": "Fejunavi"
+    }
+  },
+  "weather": {
+    "loading": "Carregando clima...",
+    "title": "Tempo em Naviraí",
+    "min": "Mín",
+    "humidity": "Umidade",
+    "max": "Máx",
+    "description": {
+      "clear_sky": "Céu Limpo ☀️",
+      "partly_cloudy": "Parcialmente Nublado ⛅",
+      "fog": "Nevoeiro 🌫️",
+      "light_rain": "Chuva Leve 🌦️",
+      "heavy_rain": "Chuva Forte/Tempestade ⛈️",
+      "variable": "Clima Variável"
+    }
+  },
+  "events": {
+    "title": "Próximos Eventos",
+    "view_full_schedule": "Ver Agenda Completa",
+    "festa_junina": {
+      "name": "Festa Junina",
+      "description": "Celebração tradicional com comidas típicas, quadrilhas e muita diversão."
+    },
+    "music_festival": {
+      "name": "Festival de Música",
+      "description": "Apresentações de bandas locais e nacionais em um evento imperdível para os amantes da música."
+    },
+    "craft_fair": {
+      "name": "Feira de Artesanato",
+      "description": "Exposição e venda de produtos artesanais feitos por talentosos artesãos da região."
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 VISITNaviraí. Todos os direitos reservados.",
+    "developed_by": "Desenvolvido por:"
+  },
+  "history": {
+    "hero": {
+      "alt": "História de Naviraí",
+      "title": "Nossa História",
+      "subtitle": "De Povoado Planejado à Capital do Conesul"
+    },
+    "introduction": {
+      "title": "Naviraí",
+      "subtitle": "A Marcha para o Oeste",
+      "p1": "A história de Naviraí é um estudo exemplar das políticas de interiorização conhecidas como \"Marcha para o Oeste\". Diferente de muitos assentamentos espontâneos, Naviraí não nasceu do acaso.",
+      "p2": "O município foi concebido de forma planejada em 1952 pela <1>Colonizadora Vera Cruz</1>, com um traçado urbano peculiar em formato de \"teia de aranha\", refletindo um alto grau de organização e antecipação de crescimento.",
+      "p3": "Localizada estrategicamente na Bacia do Rio Paraná, a cidade nasceu isolada, dependendo do transporte fluvial pelo Rio Amambai, até a abertura das primeiras estradas que permitiram o escoamento da madeira e a chegada de colonos."
+    },
+    "pioneers": {
+      "alt": "Colonização Antiga",
+      "caption": "O início do extrativismo madeireiro na década de 50.",
+      "title": "Os Anos Pioneiros (1952-1958)",
+      "p1": "O núcleo inicial, batizado de <1>Povoado Vera Cruz</1>, teve como motor econômico as serrarias instaladas em 1953. Figuras como Moryoshi Fukuda e Antônio Augusto dos Santos foram essenciais nessa fase.",
+      "p2": "Um marco cultural importante ocorreu em 1961, com a fundação da <1>Colônia Japonesa</1>, trazendo 25 famílias que introduziram técnicas agrícolas vitais para o futuro da região."
+    },
+    "timeline": {
+      "title": "Caminho para a Emancipação",
+      "item1": {
+        "title": "Fundação",
+        "desc": "Início da colonização pela Vera Cruz Ltda."
+      },
+      "item2": {
+        "title": "Distrito",
+        "desc": "Elevado a Distrito pela Lei nº 1.195."
+      },
+      "item3": {
+        "title": "Município",
+        "desc": "Emancipação via Lei nº 1.944, por Weimar Torres."
+      },
+      "item4": {
+        "title": "Instalação",
+        "desc": "Posse do 1º Prefeito, João Martins Cardoso."
+      }
+    },
+    "economy": {
+      "title": "Evolução Econômica",
+      "card1": {
+        "title": "Ciclo da Madeira",
+        "desc": "Dominado pelo extrativismo e serrarias. Foi o período de fixação inicial e abertura das primeiras vias de transporte."
+      },
+      "card2": {
+        "title": "Diversificação",
+        "desc": "Décadas de 70 e 80. Expansão da pecuária e o auge do ciclo do algodão, modernizando a base agrícola."
+      },
+      "card3": {
+        "title": "Agroindústria",
+        "desc": "Pós-1980 com o Proálcool, Usinas de Cana, e mais recentemente a alta tecnologia na Soja e Milho."
+      }
+    },
+    "today": {
+      "title": "Naviraí Hoje",
+      "desc": "Atualmente, Naviraí transcende o papel de polo agroindustrial. Com infraestrutura robusta, como a BR-163 e investimentos em educação e serviços, a cidade se consolidou como o centro de apoio regional, garantindo o desenvolvimento sustentável do Cone-Sul de Mato Grosso do Sul."
+    }
+  },
+  "hotels": {
+    "search": {
+      "checkin_checkout": "Check-in - Check-out",
+      "guests_rooms": "2 hóspedes, 1 quarto",
+      "button": "Pesquisar"
+    },
+    "map": {
+      "view_on_map": "Ver no mapa"
+    },
+    "filters": {
+      "title": "Filtros",
+      "price_per_night": "Preço por noite",
+      "rating": "Avaliação",
+      "fantastic": "Fantástico",
+      "very_good": "Muito bom",
+      "amenities": "Comodidades"
+    },
+    "amenities": {
+      "pool": "Piscina",
+      "wifi": "Wi-Fi",
+      "parking": "Estacionamento",
+      "breakfast": "Café da manhã"
+    },
+    "accommodations_found": "Naviraí: {{count}} acomodações encontradas",
+    "sort": {
+      "relevance": "Nossa recomendação",
+      "price_asc": "Preço: Menor primeiro",
+      "rating_desc": "Avaliação e Sugestões"
+    },
+    "distance_from_center": "{{distance}} do centro",
+    "reviews": "{{count}} avaliações",
+    "ratings": {
+      "excellent": "Excelente",
+      "very_good": "Muito bom",
+      "good": "Bom",
+      "satisfactory": "Satisfatório"
+    },
+    "pricing": {
+      "from": "A partir de",
+      "free_cancellation": "Cancelamento grátis",
+      "view_prices": "Ver preços",
+      "from_sites": "Ver preços de {{count}} sites"
+    },
+    "features": {
+      "pool": "Piscina Externa",
+      "breakfast": "Café da manhã incluído",
+      "parking": "Estacionamento grátis",
+      "exceptional_service": "Atendimento Excepcional",
+      "free_wifi": "Wi-Fi Grátis",
+      "ac": "Ar-condicionado",
+      "central_location": "Localização Central",
+      "restaurant": "Restaurante",
+      "reception_24h": "Recepção 24h",
+      "pets_allowed": "Aceita Pets",
+      "garden": "Jardim",
+      "gym": "Academia",
+      "economic": "Econômico",
+      "main_avenue": "Av. Principal"
+    },
+    "badges": {
+      "popular": "Opção popular",
+      "best_price": "Melhor Preço"
+    }
+  }
+}
