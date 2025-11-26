@@ -1,7 +1,8 @@
 import { type Hotel } from "../types/interfacesTypes";
+
 const navItems = [
     {
-        name: 'nav.history',
+        name: 'Naviraí',
         path: '/historia',
         subItems: [
             { name: 'Como Chegar', path: '#', tKey: 'nav.sub.how_to_get_there' },
