@@ -2,13 +2,16 @@ interface Hotel {
     id: number;
     name: string;
     image: string;
-    stars: number;
-    rating: number;
-    reviews: number;
     distance: string; // Distância do centro
-    price: number;
     features: string[];
-    badges?: string[]; // Ex: "Opção popular"
+    highlight?: boolean;
+    latitude: number;
+    longitude: number;
+    socials: {
+        facebook?: string;
+        instagram?: string;
+        website?: string;
+    };
 }
 
 export { type Hotel };

@@ -111,58 +111,66 @@ const hotelsData: Hotel[] = [
         id: 1,
         name: "Villa Verde Hotel",
         image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Villa+Verde",
-        stars: 3,
-        rating: 8.3,
-        reviews: 688,
         distance: "0.4 km do centro",
-        price: 209,
         features: ["hotels.features.pool", "hotels.features.breakfast", "hotels.features.parking"],
-        badges: ["hotels.badges.popular"]
+        highlight: true,
+        latitude: -23.0657,
+        longitude: -54.1921,
+        socials: {
+            website: "https://example.com",
+            instagram: "https://instagram.com/villaverde",
+        }
     },
     {
         id: 2,
         name: "Dubai Hotel",
         image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Dubai+Hotel",
-        stars: 3,
-        rating: 9.1,
-        reviews: 339,
         distance: "0.6 km do centro",
-        price: 115,
         features: ["hotels.features.exceptional_service", "hotels.features.free_wifi", "hotels.features.ac"],
+        latitude: -23.0683,
+        longitude: -54.1958,
+        socials: {
+            facebook: "https://facebook.com/dubaihotel",
+        }
     },
     {
         id: 3,
         name: "Hotel 2 Gaúchos",
         image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Hotel+2+Gauchos",
-        stars: 3,
-        rating: 8.8,
-        reviews: 155,
         distance: "0.4 km do centro",
-        price: 279,
         features: ["hotels.features.central_location", "hotels.features.restaurant", "hotels.features.reception_24h"],
+        latitude: -23.0640,
+        longitude: -54.2005,
+        socials: {
+            website: "https://example.com",
+        }
     },
     {
         id: 4,
         name: "Nav Park Hotel",
         image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Nav+Park",
-        stars: 4,
-        rating: 8.2,
-        reviews: 652,
         distance: "0.8 km do centro",
-        price: 310,
         features: ["hotels.features.pets_allowed", "hotels.features.garden", "hotels.features.gym"],
+        highlight: true,
+        latitude: -23.0721,
+        longitude: -54.1944,
+        socials: {
+            website: "https://example.com",
+            instagram: "https://instagram.com/navpark",
+            facebook: "https://facebook.com/navpark"
+        }
     },
     {
         id: 5,
         name: "Gold Hotel Naviraí",
         image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Gold+Hotel",
-        stars: 3,
-        rating: 8.8,
-        reviews: 33,
         distance: "1.0 km do centro",
-        price: 120,
         features: ["hotels.features.economic", "hotels.features.main_avenue", "hotels.features.breakfast"],
-        badges: ["hotels.badges.best_price"]
+        latitude: -23.0619,
+        longitude: -54.1878,
+        socials: {
+            website: "https://example.com",
+        }
     }
 ];
 

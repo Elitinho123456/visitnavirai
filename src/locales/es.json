@@ -158,47 +158,17 @@
   },
   "hotels": {
     "search": {
-      "checkin_checkout": "Check-in - Check-out",
-      "guests_rooms": "2 huéspedes, 1 habitación",
-      "button": "Buscar"
+      "placeholder": "Buscar por nombre de hotel...",
+      "no_results_title": "No se encontraron hoteles",
+      "no_results_subtitle": "Intenta ajustar tu búsqueda o buscar por otro nombre."
     },
     "map": {
-      "view_on_map": "Ver en el mapa"
-    },
-    "filters": {
-      "title": "Filtros",
-      "price_per_night": "Precio por noche",
-      "rating": "Evaluación",
-      "fantastic": "Fantástico",
-      "very_good": "Muy bueno",
-      "amenities": "Comodidades"
-    },
-    "amenities": {
-      "pool": "Piscina",
-      "wifi": "Wi-Fi",
-      "parking": "Estacionamiento",
-      "breakfast": "Desayuno"
+      "view_on_map": "Ver en el mapa",
+      "title": "Mapa de Hoteles",
+      "select_hotel": "Selecciona un hotel de la lista para ver su ubicación en el mapa."
     },
     "accommodations_found": "Naviraí: {{count}} alojamientos encontrados",
-    "sort": {
-      "relevance": "Nuestra recomendación",
-      "price_asc": "Precio: Menor primero",
-      "rating_desc": "Evaluación y Sugerencias"
-    },
     "distance_from_center": "{{distance}} del centro",
-    "reviews": "{{count}} evaluaciones",
-    "ratings": {
-      "excellent": "Excelente",
-      "very_good": "Muy bueno",
-      "good": "Bueno",
-      "satisfactory": "Satisfactorio"
-    },
-    "pricing": {
-      "from": "Desde",
-      "free_cancellation": "Cancelación gratuita",
-      "view_prices": "Ver precios",
-      "from_sites": "Ver precios de {{count}} sitios"
-    },
     "features": {
       "pool": "Piscina al aire libre",
       "breakfast": "Desayuno incluido",
@@ -216,8 +186,7 @@
       "main_avenue": "Av. Principal"
     },
     "badges": {
-      "popular": "Opción popular",
-      "best_price": "Mejor Precio"
+      "highlight": "Destacado"
     }
   }
 }

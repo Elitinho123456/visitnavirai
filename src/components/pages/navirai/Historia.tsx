@@ -43,7 +43,7 @@ export default function Historia() {
                             <h2 className="text-(--color-primary) text-4xl md:text-5xl font-bold leading-tight">
                                 {t('history.introduction.title')}
                             </h2>
-                            <div className="w-30 h-1 bg-(--color-secondary) mt-4 mb-6"></div>
+                            <div className="w-30 h-1 bg-(--color-accent-gold) mt-4 mb-6"></div>
                             <p className="text-(--color-neutral-gray) font-medium text-sm uppercase tracking-widest">
                                 {t('history.introduction.subtitle')}
                             </p>

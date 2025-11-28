@@ -158,47 +158,17 @@
   },
   "hotels": {
     "search": {
-      "checkin_checkout": "Check-in - Check-out",
-      "guests_rooms": "2 guests, 1 room",
-      "button": "Search"
+      "placeholder": "Search by hotel name...",
+      "no_results_title": "No hotels found",
+      "no_results_subtitle": "Try adjusting your search or searching for another name."
     },
     "map": {
-      "view_on_map": "View on map"
-    },
-    "filters": {
-      "title": "Filters",
-      "price_per_night": "Price per night",
-      "rating": "Rating",
-      "fantastic": "Fantastic",
-      "very_good": "Very good",
-      "amenities": "Amenities"
-    },
-    "amenities": {
-      "pool": "Pool",
-      "wifi": "Wi-Fi",
-      "parking": "Parking",
-      "breakfast": "Breakfast"
+      "view_on_map": "View on map",
+      "title": "Hotels Map",
+      "select_hotel": "Select a hotel from the list to see its location on the map."
     },
     "accommodations_found": "Naviraí: {{count}} accommodations found",
-    "sort": {
-      "relevance": "Our recommendation",
-      "price_asc": "Price: Lowest first",
-      "rating_desc": "Rating and Suggestions"
-    },
     "distance_from_center": "{{distance}} from center",
-    "reviews": "{{count}} reviews",
-    "ratings": {
-      "excellent": "Excellent",
-      "very_good": "Very good",
-      "good": "Good",
-      "satisfactory": "Satisfactory"
-    },
-    "pricing": {
-      "from": "From",
-      "free_cancellation": "Free cancellation",
-      "view_prices": "View prices",
-      "from_sites": "View prices from {{count}} sites"
-    },
     "features": {
       "pool": "Outdoor Pool",
       "breakfast": "Breakfast included",
@@ -216,8 +186,7 @@
       "main_avenue": "Main Ave."
     },
     "badges": {
-      "popular": "Popular choice",
-      "best_price": "Best Price"
+      "highlight": "Highlight"
     }
   }
 }
