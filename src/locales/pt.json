@@ -49,7 +49,8 @@
   "home": {
     "explore_title": "Explore Naviraí",
     "explore_p1": "Descubra as belezas e atrações de Naviraí, uma cidade rica em cultura, natureza e hospitalidade. Desde parques exuberantes até eventos vibrantes, há algo para todos aproveitarem.",
-    "explore_p2_trans": "Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional agroindustrial e de serviços, conhecida como a <1>Capital do Conesul</1>.",
+    "explore_p2": "Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional agroindustrial e de serviços, conhecida como a",
+    "capital_conesul": "Capital do Conesul",
     "explore_p3": "Fundada em 1952, a cidade possui uma infraestrutura moderna e é o ponto de partida ideal para explorar o potencial turístico da região.",
     "weather_title": "Tempo em Naviraí",
     "events_title": "Próximos Eventos",
@@ -107,16 +108,17 @@
       "title": "Naviraí",
       "subtitle": "A Marcha para o Oeste",
       "p1": "A história de Naviraí é um estudo exemplar das políticas de interiorização conhecidas como \"Marcha para o Oeste\". Diferente de muitos assentamentos espontâneos, Naviraí não nasceu do acaso.",
-      "p2": "O município foi concebido de forma planejada em 1952 pela <1>Colonizadora Vera Cruz</1>, com um traçado urbano peculiar em formato de \"teia de aranha\", refletindo um alto grau de organização e antecipação de crescimento.",
+      "p2": "O município foi concebido de forma planejada em 1952 pela Colonizadora Vera Cruz, com um traçado urbano peculiar em formato de \"teia de aranha\", refletindo um alto grau de organização e antecipação de crescimento.",
       "p3": "Localizada estrategicamente na Bacia do Rio Paraná, a cidade nasceu isolada, dependendo do transporte fluvial pelo Rio Amambai, até a abertura das primeiras estradas que permitiram o escoamento da madeira e a chegada de colonos."
     },
     "pioneers": {
       "alt": "Colonização Antiga",
       "caption": "O início do extrativismo madeireiro na década de 50.",
       "title": "Os Anos Pioneiros (1952-1958)",
-      "p1": "O núcleo inicial, batizado de <1>Povoado Vera Cruz</1>, teve como motor econômico as serrarias instaladas em 1953. Figuras como Moryoshi Fukuda e Antônio Augusto dos Santos foram essenciais nessa fase.",
-      "p2": "Um marco cultural importante ocorreu em 1961, com a fundação da <1>Colônia Japonesa</1>, trazendo 25 famílias que introduziram técnicas agrícolas vitais para o futuro da região."
+      "p1": "O núcleo inicial, batizado de Povoado Vera Cruz, teve como motor econômico as serrarias instaladas em 1953. Figuras como Moryoshi Fukuda e Antônio Augusto dos Santos foram essenciais nessa fase.",
+      "p2": "Um marco cultural importante ocorreu em 1961, com a fundação da Colônia Japonesa, trazendo 25 famílias que introduziram técnicas agrícolas vitais para o futuro da região."
     },
+    
     "timeline": {
       "title": "Caminho para a Emancipação",
       "item1": {

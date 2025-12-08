@@ -83,10 +83,7 @@ export default function Home() {
                                                 {t('home.explore_p1')}
                                             </p>
                                             <p>
-                                                <Trans i18nKey="home.explore_p2_trans">
-                                                    Naviraí is located in the southeast region of the state and is considered an important regional
-                                                    agribusiness and service hub, known as the <span className="font-bold text-(--color-primary)">"Capital of the Conesul"</span>.
-                                                </Trans>
+                                                {t('home.explore_p2')} <span className="font-bold text-(--color-primary)">{t('home.capital_conesul')}</span>.
                                             </p>
                                             <p>
                                                 {t('home.explore_p3')}

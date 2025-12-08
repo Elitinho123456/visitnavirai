@@ -49,7 +49,8 @@
   "home": {
     "explore_title": "Explore Naviraí",
     "explore_p1": "Discover the beauty and attractions of Naviraí, a city rich in culture, nature, and hospitality. From lush parks to vibrant events, there is something for everyone to enjoy.",
-    "explore_p2_trans": "Naviraí is located in the southeast region of the state, being considered an important regional agro-industrial and service hub, known as the <1>Capital of the Conesul</1>.",
+    "explore_p2": "Naviraí is located in the southeast region of the state, being considered an important regional agro-industrial and service hub, known as the",
+    "capital_conesul": "Capital of the Conesul.",
     "explore_p3": "Founded in 1952, the city has a modern infrastructure and is the ideal starting point for exploring the region's tourist potential.",
     "weather_title": "Weather in Naviraí",
     "events_title": "Upcoming Events",
@@ -107,15 +108,15 @@
       "title": "Naviraí",
       "subtitle": "The March to the West",
       "p1": "The history of Naviraí is an exemplary study of the interiorization policies known as the \"March to the West\". Unlike many spontaneous settlements, Naviraí was not born by chance.",
-      "p2": "The municipality was conceived in a planned manner in 1952 by the <1>Colonizadora Vera Cruz</1>, with a peculiar urban layout in the shape of a \"spider web\", reflecting a high degree of organization and anticipation of growth.",
+      "p2": "The municipality was conceived in a planned manner in 1952 by the Colonizadora Vera Cruz, with a peculiar urban layout in the shape of a \"spider web\", reflecting a high degree of organization and anticipation of growth.",
       "p3": "Strategically located in the Paraná River Basin, the city was born isolated, depending on river transport on the Amambai River, until the first roads were opened, allowing for the transport of timber and the arrival of settlers."
     },
     "pioneers": {
       "alt": "Old Colonization",
       "caption": "The beginning of logging in the 1950s.",
       "title": "The Pioneer Years (1952-1958)",
-      "p1": "The initial nucleus, named <1>Povoado Vera Cruz</1>, was driven by the sawmills installed in 1953. Figures like Moryoshi Fukuda and Antônio Augusto dos Santos were essential in this phase.",
-      "p2": "An important cultural milestone occurred in 1961, with the founding of the <1>Japanese Colony</1>, which brought 25 families who introduced vital agricultural techniques for the future of the region."
+      "p1": "The initial nucleus, named Povoado Vera Cruz, was driven by the sawmills installed in 1953. Figures like Moryoshi Fukuda and Antônio Augusto dos Santos were essential in this phase.",
+      "p2": "An important cultural milestone occurred in 1961, with the founding of the Japanese Colony, which brought 25 families who introduced vital agricultural techniques for the future of the region."
     },
     "timeline": {
       "title": "Path to Emancipation",

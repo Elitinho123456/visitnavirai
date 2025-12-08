@@ -18,9 +18,9 @@ export default function Historia() {
 
             <main className="grow">
                 {/* --- Hero Section (Banner) --- */}
-                <section className="relative h-[400px] md:h-[900px] w-full">
+                <section className="relative h-[400px] md:h-[500px] w-full">
                     <img 
-                        src="/navirai_noite.png" 
+                        src="/historia_hero.png" 
                         alt={t('history.hero.alt')}
                         className="w-full h-full object-cover tras"
                     />

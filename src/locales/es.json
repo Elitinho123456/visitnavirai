@@ -49,7 +49,8 @@
   "home": {
     "explore_title": "Explora Naviraí",
     "explore_p1": "Descubre la belleza y las atracciones de Naviraí, una ciudad rica en cultura, naturaleza y hospitalidad. Desde exuberantes parques hasta vibrantes eventos, hay algo para que todos disfruten.",
-    "explore_p2_trans": "Naviraí se encuentra en la región sureste del estado, siendo considerada un importante centro regional agroindustrial y de servicios, conocida como la <1>Capital del Conesul</1>.",
+    "explore_p2": "Naviraí se encuentra en la región sureste del estado, siendo considerada un importante centro regional agroindustrial y de servicios, conocida como la",
+    "capital_conesul": "Capital del Conesul.",
     "explore_p3": "Fundada en 1952, la ciudad cuenta con una infraestructura moderna y es el punto de partida ideal para explorar el potencial turístico de la región.",
     "weather_title": "Tiempo en Naviraí",
     "events_title": "Próximos Eventos",
@@ -107,15 +108,15 @@
       "title": "Naviraí",
       "subtitle": "La Marcha hacia el Oeste",
       "p1": "La historia de Naviraí es un estudio ejemplar de las políticas de interiorización conocidas como la \"Marcha hacia el Oeste\". A diferencia de muchos asentamientos espontáneos, Naviraí no nació por casualidad.",
-      "p2": "El municipio fue concebido de forma planificada en 1952 por la <1>Colonizadora Vera Cruz</1>, con un peculiar trazado urbano en forma de \"tela de araña\", reflejando un alto grado de organización y anticipación del crecimiento.",
+      "p2": "El municipio fue concebido de forma planificada en 1952 por la Colonizadora Vera Cruz, con un peculiar trazado urbano en forma de \"tela de araña\", reflejando un alto grado de organización y anticipación del crecimiento.",
       "p3": "Estratégicamente ubicada en la Cuenca del Río Paraná, la ciudad nació aislada, dependiendo del transporte fluvial por el Río Amambai, hasta la apertura de las primeras carreteras que permitieron el transporte de madera y la llegada de colonos."
     },
     "pioneers": {
       "alt": "Colonización Antigua",
       "caption": "El inicio de la extracción de madera en la década de 1950.",
       "title": "Los Años Pioneros (1952-1958)",
-      "p1": "El núcleo inicial, llamado <1>Povoado Vera Cruz</1>, fue impulsado por los aserraderos instalados en 1953. Figuras como Moryoshi Fukuda y Antônio Augusto dos Santos fueron esenciales en esta fase.",
-      "p2": "Un hito cultural importante ocurrió en 1961, con la fundación de la <1>Colonia Japonesa</1>, que trajo a 25 familias que introdujeron técnicas agrícolas vitales para el futuro de la región."
+      "p1": "El núcleo inicial, llamado Povoado Vera Cruz, fue impulsado por los aserraderos instalados en 1953. Figuras como Moryoshi Fukuda y Antônio Augusto dos Santos fueron esenciales en esta fase.",
+      "p2": "Un hito cultural importante ocurrió en 1961, con la fundación de la Colonia Japonesa, que trajo a 25 familias que introdujeron técnicas agrícolas vitales para el futuro de la región."
     },
     "timeline": {
       "title": "Camino hacia la Emancipación",
