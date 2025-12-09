@@ -39,7 +39,8 @@
       "tourist_carriers": "Transportadoras Turísticas",
       "events_calendar_2025": "Calendário de Eventos 2025",
       "upcoming_events": "Próximos Eventos",
-      "event_registration": "Cadastro de Eventos"
+      "event_registration": "Cadastro de Eventos",
+      "invest": "Investir"
     }
   },
   "hero": {
@@ -62,6 +63,12 @@
       "central_square": "Praça Central",
       "fejunavi": "Fejunavi"
     }
+  },
+  "invest_widget": {
+    "image_alt": "Pessoas de negócios discutindo investimentos",
+    "title": "Invista em Naviraí",
+    "description": "Descubra por que Naviraí é o local ideal para o seu próximo grande investimento. Um hub de crescimento e oportunidades.",
+    "button": "Saiba Mais"
   },
   "weather": {
     "loading": "Carregando clima...",
@@ -158,6 +165,44 @@
       "desc": "Atualmente, Naviraí transcende o papel de polo agroindustrial. Com infraestrutura robusta, como a BR-163 e investimentos em educação e serviços, a cidade se consolidou como o centro de apoio regional, garantindo o desenvolvimento sustentável do Cone-Sul de Mato Grosso do Sul."
     }
   },
+  "invest": {
+    "hero": {
+      "alt": "Vista panorâmica de Naviraí",
+      "title": "Invista em Naviraí",
+      "subtitle": "Um hub de oportunidades no coração do Brasil."
+    },
+    "introduction": {
+      "title": "Por que Naviraí?",
+      "subtitle": "Crescimento, Inovação e Qualidade de Vida.",
+      "p1": "Naviraí representa um centro de oportunidades para investidores que buscam um ambiente de negócios dinâmico, com infraestrutura em expansão e uma localização geográfica estratégica.",
+      "p2": "A cidade oferece uma combinação única de acesso a mercados, recursos naturais e uma comunidade trabalhadora, tornando-se um destino ideal para novos empreendimentos e expansão industrial."
+    },
+    "sectors": {
+      "alt": "Maquinário agrícola em campo de soja",
+      "title": "Setores Estratégicos",
+      "p1": "O agronegócio é a espinha dorsal da economia local, com destaque para a produção de soja, milho e cana-de-açúcar. A industrialização, focada na transformação de produtos agrícolas, e um setor de comércio e serviços em constante crescimento, complementam o cenário econômico.",
+      "p2": "Incentivos fiscais e um ambiente de negócios favorável estão disponíveis para empresas que desejam se estabelecer nos principais polos industriais da cidade."
+    },
+    "advantages": {
+      "title": "Vantagens Competitivas",
+      "card1": {
+        "title": "Logística Privilegiada",
+        "desc": "Acesso rápido a importantes rodovias (BR-163) e proximidade com mercados do Mercosul."
+      },
+      "card2": {
+        "title": "Ecossistema em Crescimento",
+        "desc": "Forte sinergia entre cooperativas, produtores e indústrias, fomentando inovação e desenvolvimento."
+      },
+      "card3": {
+        "title": "Apoio e Incentivos",
+        "desc": "Políticas públicas de atração de investimentos e apoio ao empreendedor local."
+      }
+    },
+    "cta": {
+      "title": "Faça Parte do Futuro de Naviraí",
+      "desc": "Entre em contato com a prefeitura para conhecer os projetos de incentivo e descubra como seu negócio pode prosperar em uma das cidades que mais crescem no estado."
+    }
+  },
   "hotels": {
     "search": {
       "placeholder": "Pesquisar por nome do hotel...",
@@ -189,6 +234,11 @@
     },
     "badges": {
       "highlight": "Destaque"
+    },
+    "hero": {
+      "title": "Encontre o Lugar Perfeito",
+      "subtitle": "De hotéis luxuosos a pousadas aconchegantes, encontre a acomodação ideal para sua visita em Naviraí.",
+      "alt": "Praça central de Naviraí"
     }
   }
 }

@@ -1,7 +1,8 @@
 :root {
     /* --- Typography & Defaults --- */
     --font-family: 'system-ui', 'Avenir', 'Helvetica', 'Arial', sans-serif;
-    --line-height: 1.6; /* Slightly increased for better readability on long-form content */
+    --line-height: 1.6;
+    /* Slightly increased for better readability on long-form content */
     --font-weight-regular: 400;
     --font-weight-bold: 700;
     --font-synthesis: none;
@@ -10,16 +11,26 @@
     --moz-osx-font-smoothing: grayscale;
 
     /* --- Provided Colors (Adjusted/Refined) --- */
-    --color-primary: #3e913e; /* Green (from your --primary) - Represents the nature/foliage (Coffee, Cotton) */
-    --color-secondary: #ff0000; /* Bright Red (from your --secondary) - Represents the banner/ribbon and Coffee berries */
-    --color-tertiary: #ad7ac0; /* Purple/Violet (from your --thirdary and the flower in the shield) - A unique accent color */
+    --color-primary: #3e913e;
+    /* Green (from your --primary) - Represents the nature/foliage (Coffee, Cotton) */
+    --color-secondary: #ff0000;
+    /* Bright Red (from your --secondary) - Represents the banner/ribbon and Coffee berries */
+    --color-tertiary: #ad7ac0;
+    /* Purple/Violet (from your --thirdary and the flower in the shield) - A unique accent color */
+    --color-primary-dark: #356d35;
+
 
     /* --- Colors Extracted from the Naviraí Coat of Arms --- */
-    --color-accent-gold: #ffc900; /* Gold/Yellow (from the wood cross-sections and crown detail) - For accents, buttons, and highlights */
-    --color-neutral-light: #f0f0f0; /* Very Light Gray/Off-White (from the shield background) - For background areas */
-    --color-neutral-dark: #333333; /* Dark Gray/Brown (from the wood logs/outline) - For main text and dark backgrounds */
-    --color-neutral-white: #ffffff; /* Pure White (for text contrast) */
-    --color-neutral-gray: #aaaaaa; /* Medium Gray (from the crown) - For borders, separators, or subtle text */
+    --color-accent-gold: #ffc900;
+    /* Gold/Yellow (from the wood cross-sections and crown detail) - For accents, buttons, and highlights */
+    --color-neutral-light: #f0f0f0;
+    /* Very Light Gray/Off-White (from the shield background) - For background areas */
+    --color-neutral-dark: #333333;
+    /* Dark Gray/Brown (from the wood logs/outline) - For main text and dark backgrounds */
+    --color-neutral-white: #ffffff;
+    /* Pure White (for text contrast) */
+    --color-neutral-gray: #aaaaaa;
+    /* Medium Gray (from the crown) - For borders, separators, or subtle text */
 
     /* --- Functional Colors --- */
     --color-text-body: var(--color-neutral-dark);
@@ -40,6 +51,18 @@
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
     --border-radius-lg: 12px;
+
+    /* Ouro para detalhes (Sol) */
+    --color-background: #F3F4F6;
+    /* Cinza muito claro, quase branco */
+    --color-neutral-white: #FFFFFF;
+    --color-text-header: #111827;
+    --color-text-body: #4B5563;
+
+    --border-radius-lg: 1rem;
+    /* Bordas mais arredondadas */
+    --border-radius-md: 0.75rem;
+
 }
 
 

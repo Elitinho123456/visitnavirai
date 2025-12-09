@@ -8,6 +8,7 @@ const navItems = [
             { name: 'Como Chegar', path: '#', tKey: 'nav.sub.how_to_get_there' },
             { name: 'Dados Turísticos', path: '#', tKey: 'nav.sub.tourist_data' },
             { name: 'História', path: '/historia', tKey: 'nav.sub.history' },
+            { name: 'Investir', path: '/investir', tKey: 'nav.sub.invest' },
         ],
     },
     {

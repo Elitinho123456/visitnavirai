@@ -1,0 +1,71 @@
+{
+  "hotel": {
+    "name": "Villa Verde Hotel",
+    "location": {
+      "city": "Naviraí, MS",
+      "address": "Rua Faustina Andrade Silva, 392",
+      "postalCode": "79950-000"
+    },
+    "rating": "8,8/10 Excelente",
+    "hero": {
+      "title": "Villa Verde Hotel",
+      "subtitle": "Conforto e tranquilidade em Naviraí. Sua melhor escolha com nota 8,8 (Excelente).",
+      "imageAlt": "Fachada e Piscina do Villa Verde Hotel"
+    },
+    "about": {
+      "title": "Sobre a Propriedade",
+      "subtitle": "HOSPITALIDADE E LAZER",
+      "p1": "Localizado em Naviraí, Mato Grosso do Sul, o Villa Verde Hotel oferece uma experiência completa de hospedagem. Com uma avaliação excelente de 8,8, somos reconhecidos pelo conforto e atendimento.",
+      "p2": "Nossa estrutura conta com piscina externa para os dias de sol, jardim relaxante e estacionamento sem manobrista incluído para sua total comodidade.",
+      "p3": "Todos os quartos dispõem de ar-condicionado e Wi-Fi grátis, garantindo que sua estadia seja refrescante e conectada, seja a lazer ou a negócios."
+    },
+    "accommodation": {
+      "title": "Opções de Quarto",
+      "caption": "Conforto garantido",
+      "imageAlt": "Quarto do Villa Verde Hotel",
+      "p1": "Oferecemos diversas configurações para atender sua necessidade: Quarto Casal, Duplo (2 camas de solteiro), Triplo Standard e até opções para famílias maiores.",
+      "p2": "Todas as reservas incluem nosso elogiado café da manhã continental e a política de cancelamento flexível. Crianças são bem-vindas em nossa estrutura familiar."
+    },
+    "policies": [
+      {
+        "label": "13:00",
+        "title": "Check-in",
+        "desc": "Horário de início do check-in. Chegue e relaxe."
+      },
+      {
+        "label": "12:00",
+        "title": "Check-out",
+        "desc": "Horário limite para liberar o quarto (Meio-dia)."
+      },
+      {
+        "label": "Café",
+        "title": "Incluso",
+        "desc": "Café da manhã continental servido diariamente."
+      },
+      {
+        "label": "Wi-Fi",
+        "title": "Grátis",
+        "desc": "Internet de alta velocidade em todas as áreas."
+      }
+    ],
+    "amenities": {
+      "title": "Destaques e Comodidades",
+      "card1": {
+        "title": "Lazer e Relaxamento",
+        "desc": "Aproveite nossa piscina externa e a área de jardim para descansar após um longo dia de viagem ou trabalho."
+      },
+      "card2": {
+        "title": "Facilidades no Quarto",
+        "desc": "Ambientes climatizados com ar-condicionado, roupas de cama confortáveis e limpeza impecável."
+      },
+      "card3": {
+        "title": "Serviços Inclusos",
+        "desc": "Estacionamento gratuito sem manobrista no local e recepção pronta para auxiliar em sua estadia."
+      }
+    },
+    "cta": {
+      "title": "Reserve sua estadia hoje",
+      "desc": "Garanta sua vaga no Villa Verde Hotel. Pagamento em até 12x sem juros e cancelamento grátis em opções selecionadas."
+    }
+  }
+}

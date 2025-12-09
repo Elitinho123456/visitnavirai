@@ -39,7 +39,8 @@
       "tourist_carriers": "Tourist Carriers",
       "events_calendar_2025": "Events Calendar 2025",
       "upcoming_events": "Upcoming Events",
-      "event_registration": "Event Registration"
+      "event_registration": "Event Registration",
+      "invest": "Invest"
     }
   },
   "hero": {
@@ -62,6 +63,12 @@
       "central_square": "Central Square",
       "fejunavi": "Fejunavi"
     }
+  },
+  "invest_widget": {
+    "image_alt": "Business people discussing investments",
+    "title": "Invest in Naviraí",
+    "description": "Discover why Naviraí is the ideal location for your next major investment. A hub of growth and opportunity.",
+    "button": "Learn More"
   },
   "weather": {
     "loading": "Loading weather...",
@@ -157,6 +164,44 @@
       "desc": "Currently, Naviraí transcends its role as an agro-industrial hub. With robust infrastructure, such as the BR-163 highway, and investments in education and services, the city has consolidated itself as the regional support center, ensuring the sustainable development of the Cone-Sul of Mato Grosso do Sul."
     }
   },
+  "invest": {
+    "hero": {
+      "alt": "Panoramic view of Naviraí",
+      "title": "Invest in Naviraí",
+      "subtitle": "A hub of opportunities in the heart of Brazil."
+    },
+    "introduction": {
+      "title": "Why Naviraí?",
+      "subtitle": "Growth, Innovation, and Quality of Life.",
+      "p1": "Naviraí represents a center of opportunities for investors seeking a dynamic business environment, with expanding infrastructure and a strategic geographical location.",
+      "p2": "The city offers a unique combination of market access, natural resources, and a hardworking community, making it an ideal destination for new ventures and industrial expansion."
+    },
+    "sectors": {
+      "alt": "Agricultural machinery in a soybean field",
+      "title": "Strategic Sectors",
+      "p1": "Agribusiness is the backbone of the local economy, with emphasis on the production of soy, corn, and sugarcane. Industrialization, focused on the transformation of agricultural products, and a constantly growing trade and services sector complement the economic scenario.",
+      "p2": "Tax incentives and a favorable business environment are available for companies wishing to establish themselves in the city's main industrial hubs."
+    },
+    "advantages": {
+      "title": "Competitive Advantages",
+      "card1": {
+        "title": "Privileged Logistics",
+        "desc": "Quick access to important highways (BR-163) and proximity to Mercosur markets."
+      },
+      "card2": {
+        "title": "Growing Ecosystem",
+        "desc": "Strong synergy between cooperatives, producers, and industries, fostering innovation and development."
+      },
+      "card3": {
+        "title": "Support and Incentives",
+        "desc": "Public policies to attract investment and support local entrepreneurs."
+      }
+    },
+    "cta": {
+      "title": "Be Part of Naviraí's Future",
+      "desc": "Contact the city hall to learn about incentive projects and discover how your business can thrive in one of the fastest-growing cities in the state."
+    }
+  },
   "hotels": {
     "search": {
       "placeholder": "Search by hotel name...",
@@ -188,6 +233,11 @@
     },
     "badges": {
       "highlight": "Highlight"
+    },
+    "hero": {
+      "title": "Find the Perfect Place",
+      "subtitle": "From luxurious hotels to cozy inns, find the ideal accommodation for your visit in Naviraí.",
+      "alt": "Naviraí's central square"
     }
   }
 }
