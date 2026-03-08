@@ -1,12 +1,85 @@
 // Header.tsx
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; // Importar hook
 import { navItems } from '../../config/const';
+import { Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react';
 
 export default function Header() {
     const { t, i18n } = useTranslation(); // Hook de tradução
+    const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const userMenuRef = useRef<HTMLDivElement>(null);
+    const [userRole, setUserRole] = useState<string | null>(null);
+
+    // Fechar menu de usuário ao clicar fora
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setIsUserMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const fetchUserRole = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const payload = token.split(".")[1];
+                const decoded = JSON.parse(atob(payload));
+                setUserRole(decoded.role || "user");
+            } catch (e) {
+                setUserRole(null);
+            }
+        } else {
+            setUserRole(null);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserRole();
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setUserRole(null);
+        setIsUserMenuOpen(false);
+        navigate('/login');
+    };
+
+    const handleUserClick = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        } else {
+            setIsUserMenuOpen(!isUserMenuOpen);
+        }
+    };
+
+    // Tema Escuro
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        // Checando na primeira renderização sem window para ser safe no SSR futuro, mas como é Client site direto = ok
+        return document.documentElement.classList.contains('dark');
+    });
+
+    useEffect(() => {
+        // Ao montar, garante leitura correta (especialmente útil via recarregamento de dev server)
+        setIsDarkMode(document.documentElement.classList.contains('dark'));
+    }, []);
+
+    const toggleTheme = () => {
+        const root = document.documentElement;
+        if (root.classList.contains('dark')) {
+            root.classList.remove('dark');
+            setIsDarkMode(false);
+        } else {
+            root.classList.add('dark');
+            setIsDarkMode(true);
+        }
+    };
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -95,8 +168,59 @@ export default function Header() {
                             </Link>
                         </li>
 
+                        {/* --- Botão Tema Escuro/Claro e Conta --- */}
+                        <li className="flex items-center gap-2 lg:ml-4 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2 rounded-full bg-(--color-background) border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors"
+                                aria-label="Alternar tema"
+                            >
+                                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+
+                            <div className="relative" ref={userMenuRef}>
+                                <button
+                                    onClick={handleUserClick}
+                                    className={`p-2 rounded-full border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors ${userRole ? "bg-(--color-primary)/10 text-(--color-primary) border-(--color-primary)/50" : "bg-(--color-background)"
+                                        }`}
+                                    aria-label="Minha Conta"
+                                >
+                                    <User size={20} />
+                                </button>
+
+                                {/* Dropdown Menu de Usuário */}
+                                {isUserMenuOpen && userRole && (
+                                    <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-(--color-neutral-light) rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 py-2 z-50">
+                                        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800 mb-1">
+                                            <p className="text-sm font-medium text-gray-500 text-center">
+                                                {userRole === 'admin' ? 'Administrador' : 'Usuário Logado'}
+                                            </p>
+                                        </div>
+
+                                        {userRole === 'admin' && (
+                                            <button
+                                                onClick={() => { setIsUserMenuOpen(false); navigate('/admin'); }}
+                                                className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-(--color-primary)/10 hover:text-(--color-primary) transition-colors flex items-center gap-2"
+                                            >
+                                                <LayoutDashboard size={16} />
+                                                Acessar Painel
+                                            </button>
+                                        )}
+
+                                        <button
+                                            onClick={handleLogout}
+                                            className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2"
+                                        >
+                                            <LogOut size={16} />
+                                            Sair
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </li>
+
                         {/* --- Seletor de Idioma --- */}
-                        <li className="flex gap-2 lg:ml-4 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
+                        <li className="flex gap-2 lg:ml-2 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
                             <button onClick={() => changeLanguage('pt')} className={`w-8 h-8 rounded-full overflow-hidden border-2 ${i18n.language === 'pt' ? 'border-(--color-primary)' : 'border-transparent opacity-50 hover:opacity-100'}`}>
                                 <img src="https://flagcdn.com/br.svg" alt="Português" className="w-full h-full object-cover" />
                             </button>

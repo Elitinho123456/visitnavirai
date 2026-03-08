@@ -65,5 +65,15 @@
 
 }
 
+/* Dark Theme Variables */
+.dark {
+    --color-background: #111827;
+    --color-neutral-white: #1f2937;
+    --color-neutral-light: #374151;
+    --color-neutral-dark: #f3f4f6;
+    --color-neutral-gray: #9ca3af;
+    --color-text-header: #f9fafb;
+    --color-text-body: #d1d5db;
+}
 
 @import 'tailwindcss';

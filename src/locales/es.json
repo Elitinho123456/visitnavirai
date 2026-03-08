@@ -239,5 +239,26 @@
       "subtitle": "Desde hoteles de lujo hasta posadas acogedoras, encuentre el alojamiento ideal para su visita en Naviraí.",
       "alt": "Plaza central de Naviraí"
     }
+  },
+  "login": {
+    "title": "Accede a tu cuenta",
+    "register_title": "Crea tu cuenta",
+    "email": "Correo electrónico",
+    "email_placeholder": "Ingresa tu correo electrónico",
+    "password": "Contraseña",
+    "password_placeholder": "Ingresa tu contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "confirm_password_placeholder": "Ingresa tu contraseña nuevamente",
+    "login": "Iniciar Sesión",
+    "login_subtitle": "¡Qué bueno tenerte de vuelta!",
+    "register": "Crear Cuenta",
+    "register_subtitle": "¡Súmate hoy mismo!",
+    "switch_to_register": "¿No tienes cuenta? Regístrate",
+    "switch_to_login": "¿Ya tienes una cuenta? Iniciar sesión",
+    "login_success": "¡Inicio de sesión exitoso!",
+    "register_success": "¡Cuenta creada exitosamente!",
+    "error_login": "Error al iniciar sesión",
+    "error_register": "Error al crear cuenta",
+    "error_connection": "Error de conexión con el servidor"
   }
 }

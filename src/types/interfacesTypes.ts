@@ -1,5 +1,6 @@
-interface Hotel {
-    id: number;
+export interface Hotel {
+    id?: number | string;
+    _id?: string;
     name: string;
     image: string;
     distance: string; // Distância do centro
@@ -7,11 +8,38 @@ interface Hotel {
     highlight?: boolean;
     latitude: number;
     longitude: number;
-    socials: {
+    socials?: {
         facebook?: string;
         instagram?: string;
         website?: string;
     };
+    gallery?: string[];
+    about?: {
+        title?: string;
+        subtitle?: string;
+        desc?: string[];
+    };
+    accommodation?: {
+        title?: string;
+        image?: string;
+        imageCaption?: string;
+        desc?: string[];
+    };
+    policies?: {
+        label?: string;
+        title?: string;
+        desc?: string;
+    }[];
+    amenities?: {
+        title?: string;
+        cards?: {
+            icon?: string;
+            title?: string;
+            desc?: string;
+        }[];
+    };
+    cta?: {
+        title?: string;
+        desc?: string;
+    };
 }
-
-export { type Hotel };

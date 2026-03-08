@@ -239,5 +239,26 @@
       "subtitle": "From luxurious hotels to cozy inns, find the ideal accommodation for your visit in Naviraí.",
       "alt": "Naviraí's central square"
     }
+  },
+  "login": {
+    "title": "Access your account",
+    "register_title": "Create your account",
+    "email": "Email",
+    "email_placeholder": "Enter your email",
+    "password": "Password",
+    "password_placeholder": "Enter your password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Enter your password again",
+    "login": "Log In",
+    "login_subtitle": "It's great to have you back!",
+    "register": "Sign Up",
+    "register_subtitle": "Join us today!",
+    "switch_to_register": "Don't have an account? Sign up",
+    "switch_to_login": "Already have an account? Log in",
+    "login_success": "Login successful!",
+    "register_success": "Account created successfully!",
+    "error_login": "Error logging in",
+    "error_register": "Error creating account",
+    "error_connection": "Server connection error"
   }
 }

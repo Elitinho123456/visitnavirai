@@ -125,7 +125,6 @@
       "p1": "O núcleo inicial, batizado de Povoado Vera Cruz, teve como motor econômico as serrarias instaladas em 1953. Figuras como Moryoshi Fukuda e Antônio Augusto dos Santos foram essenciais nessa fase.",
       "p2": "Um marco cultural importante ocorreu em 1961, com a fundação da Colônia Japonesa, trazendo 25 famílias que introduziram técnicas agrícolas vitais para o futuro da região."
     },
-    
     "timeline": {
       "title": "Caminho para a Emancipação",
       "item1": {
@@ -240,5 +239,26 @@
       "subtitle": "De hotéis luxuosos a pousadas aconchegantes, encontre a acomodação ideal para sua visita em Naviraí.",
       "alt": "Praça central de Naviraí"
     }
+  },
+  "login": {
+    "title": "Acesse sua conta",
+    "register_title": "Crie sua conta",
+    "email": "E-mail",
+    "email_placeholder": "Digite seu e-mail",
+    "password": "Senha",
+    "password_placeholder": "Digite sua senha",
+    "confirm_password": "Confirmar Senha",
+    "confirm_password_placeholder": "Digite sua senha novamente",
+    "login": "Entrar",
+    "login_subtitle": "Que bom ver você novamente.",
+    "register": "Criar Conta",
+    "register_subtitle": "Junte-se a nós hoje.",
+    "switch_to_register": "Não tem uma conta? Cadastre-se",
+    "switch_to_login": "Já possui uma conta? Entrar",
+    "login_success": "Login realizado com sucesso!",
+    "register_success": "Conta criada com sucesso!",
+    "error_login": "Erro ao fazer login",
+    "error_register": "Erro ao criar conta",
+    "error_connection": "Erro de conexão com o servidor"
   }
 }
