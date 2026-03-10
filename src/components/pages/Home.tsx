@@ -24,10 +24,10 @@ export default function Home() {
 
     // Ícones
     const quickLinks = [
-        { icon: <Hotel />, title: t('nav.sub.hotels'), link: "/hoteis", color: "bg-blue-500" },
-        { icon: <History />, title: t('nav.sub.history'), link: "/historia", color: "bg-emerald-500" },
-        { icon: <ShoppingBag />, title: t('nav.sub.shopping'), link: "/compras", color: "bg-purple-500" },
-        { icon: <TrendingUp />, title: t('nav.sub.invest'), link: "/investir", color: "bg-amber-500" },
+        { icon: <Hotel />, title: t('nav.sub.hotels'), link: "/hoteis", color: "bg-emerald-600", hoverColor: "group-hover:text-sky-500" },
+        { icon: <History />, title: t('nav.sub.history'), link: "/historia", color: "bg-emerald-600", hoverColor: "group-hover:text-emerald-500" },
+        { icon: <ShoppingBag />, title: t('nav.sub.shopping'), link: "/compras", color: "bg-emerald-600", hoverColor: "group-hover:text-purple-500" },
+        { icon: <TrendingUp />, title: t('nav.sub.invest'), link: "/investir", color: "bg-emerald-600", hoverColor: "group-hover:text-amber-500" },
     ];
 
     return (
@@ -89,10 +89,10 @@ export default function Home() {
                                     to={item.link}
                                     className="flex flex-col items-center justify-center group hover:-translate-y-1 transition-transform duration-300"
                                 >
-                                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-full ${item.color} text-white flex items-center justify-center mb-3 shadow-lg group-hover:shadow-xl transition-shadow [&>svg]:w-6 [&>svg]:h-6 md:[&>svg]:w-7 md:[&>svg]:h-7`}>
+                                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-(--border-radius-lg) ${item.color} text-white flex items-center justify-center mb-3 shadow-lg group-hover:shadow-xl transition-shadow [&>svg]:w-6 [&>svg]:h-6 md:[&>svg]:w-7 md:[&>svg]:h-7`}>
                                         {item.icon}
                                     </div>
-                                    <span className="text-(--color-secondary) font-bold text-sm md:text-base group-hover:text-(--color-primary) transition-colors">
+                                    <span className={`text-gray-700 font-bold text-sm md:text-base ${item.hoverColor} transition-colors`}>
                                         {item.title}
                                     </span>
                                 </Link>

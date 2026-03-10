@@ -96,7 +96,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link to="/" className="group z-50 relative">
                     <h1 className="text-black text-2xl md:text-3xl font-bold tracking-tight group-hover:opacity-80 transition-opacity">
-                        <b className='text-(--color-accent-gold)'>VISIT</b>Naviraí
+                        <b className='text-(--color-primary)'>VISIT</b>Naviraí
                     </h1>
                 </Link>
 
@@ -142,13 +142,13 @@ export default function Header() {
                                             {t(item.name)}
                                         </span>
                                     </Link>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 ml-1 hidden lg:block transition-transform duration-300 group-hover:rotate-180 text-(--color-accent-gold)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 ml-1 hidden lg:block transition-transform duration-300 group-hover:rotate-180 text-(--color-primary)">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </div>
 
                                 {/* Submenu - Nota: Subitems precisariam de chaves no JSON se você quiser traduzi-los também */}
-                                <div className="relative lg:absolute lg:top-full lg:left-0 lg:pt-4 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 z-50 min-w-[220px]">
+                                <div className="relative lg:absolute lg:top-full lg:left-0 lg:pt-4 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 z-50 min-w-55">
                                     <ul className="pl-4 lg:pl-0 border-l-2 border-(--color-accent-gold) lg:border-l-0 lg:bg-(--color-neutral-white) lg:rounded-(--border-radius-lg) lg:shadow-xl lg:border lg:border-(--color-neutral-gray)/20 lg:border-t-4 lg:border-t-(--color-accent-gold)">
                                         {item.subItems.map((subItem) => (
                                             <li key={subItem.name} className="py-1 lg:py-0">
@@ -163,7 +163,7 @@ export default function Header() {
                         ))}
 
                         <li className="mt-4 lg:mt-0">
-                            <Link to="/contato" className="inline-block w-full text-center lg:w-auto px-5 py-2 bg-(--color-button-background) text-(--color-button-text) font-bold rounded-full shadow-md hover:bg-(--color-accent-gold)/90 -all transition-transform duration-300 hover:scale-110" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link to="/contato" className="inline-block w-full text-center lg:w-auto px-5 py-2 bg-(--color-primary) text-white font-bold rounded-full shadow-md hover:bg-(--color-primary-dark)/90 -all transition-transform duration-300 hover:scale-110" onClick={() => setIsMobileMenuOpen(false)}>
                                 {t('nav.contact')}
                             </Link>
                         </li>

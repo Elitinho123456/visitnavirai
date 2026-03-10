@@ -1,0 +1,4 @@
+- [ ] Cor principal
+- [ ] Tirar o rounded do navbar
+- [ ] Icones da mesma forma
+- [ ] Cor dos widgets de anuncio
