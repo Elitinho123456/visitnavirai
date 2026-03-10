@@ -149,13 +149,37 @@ export default function Header() {
 
                                 {/* Submenu - Nota: Subitems precisariam de chaves no JSON se você quiser traduzi-los também */}
                                 <div className="relative lg:absolute lg:top-full lg:left-0 lg:pt-4 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 z-50 min-w-55">
-                                    <ul className="pl-4 lg:pl-0 border-l-2 border-(--color-accent-gold) lg:border-l-0 lg:bg-(--color-neutral-white) lg:rounded-(--border-radius-lg) lg:shadow-xl lg:border lg:border-(--color-neutral-gray)/20 lg:border-t-4 lg:border-t-(--color-accent-gold)">
+                                    <ul className="pl-4 lg:pl-0  border-(--color-accent-gold)  lg:bg-(--color-neutral-white) lg:rounded-(--border-radius-lg) lg:shadow-xl  lg:border-(--color-neutral-gray)/20 lg:border-t-4 lg:border-t-(--color-accent-gold)">
                                         {item.subItems.map((subItem) => (
+
+
                                             <li key={subItem.name} className="py-1 lg:py-0">
-                                                <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-xl transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                                    {t(subItem.tKey)}
-                                                </Link>
+
+                                                {subItem === item.subItems[0] ? (
+                                                    <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-tr-xl lg:hover:rounded-tl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                        {t(subItem.tKey)}
+                                                    </Link>
+                                                ):(
+                                                    <>
+                                                        {subItem === item.subItems[item.subItems.length - 1] ? (
+                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-br-xl lg:hover:rounded-bl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                                {t(subItem.tKey)}
+                                                            </Link>
+                                                        ):(
+                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white)  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                                {t(subItem.tKey)}
+                                                            </Link>
+                                                        )
+
+                                                        }
+                                                      
+                                                    </>
+                                                )
+
+                                                }
+
                                             </li>
+
                                         ))}
                                     </ul>
                                 </div>

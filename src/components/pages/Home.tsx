@@ -87,7 +87,7 @@ export default function Home() {
                                 <Link
                                     key={idx}
                                     to={item.link}
-                                    className="flex flex-col items-center justify-center group hover:-translate-y-1 transition-transform duration-300"
+                                    className="flex flex-col items-center justify-center group hover:-translate-y-1 hover:drop-shadow-2xl transition-transform duration-300"
                                 >
                                     <div className={`w-12 h-12 md:w-14 md:h-14 rounded-(--border-radius-lg) ${item.color} text-white flex items-center justify-center mb-3 shadow-lg group-hover:shadow-xl transition-shadow [&>svg]:w-6 [&>svg]:h-6 md:[&>svg]:w-7 md:[&>svg]:h-7`}>
                                         {item.icon}
@@ -117,7 +117,7 @@ export default function Home() {
                                     <h2 className="text-(--color-primary) text-lg font-bold uppercase tracking-wider mb-2">
                                         {t('home.capital_conesul')}
                                     </h2>
-                                    <h3 className="text-4xl md:text-5xl font-bold text-(--color-secondary)">
+                                    <h3 className="text-4xl md:text-5xl font-bold text-(--color-primary) mb-4">
                                         {t('home.explore_title')}
                                     </h3>
                                     <div className="w-24 h-1 bg-(--color-accent-gold) mx-auto mt-6 rounded-full lg:mx-0"></div>
