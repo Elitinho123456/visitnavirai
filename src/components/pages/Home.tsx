@@ -17,7 +17,9 @@ import { Hotel, History, ShoppingBag, TrendingUp } from 'lucide-react';
 
 register();
 import 'swiper/css';
-import { EffectFade, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default function Home() {
     const { t } = useTranslation();
@@ -43,10 +45,9 @@ export default function Home() {
                 <section className="relative w-full h-[85vh] md:h-[95vh] mb-16 md:mb-20">
                     <Swiper
                         className='w-full h-full'
-                        modules={[EffectFade, Pagination, Navigation]}
                         fadeEffect={{ crossFade: true }}
                         slidesPerView={1}
-                        pagination={{ clickable: true, dynamicBullets: true }}
+                        pagination={{ clickable: true,type: "bullets", bulletClass: "swiper-pagination-bullet bg-white/80"}}
                         navigation={true}
                         loop={true}
                         autoplay={{ delay: 6000, disableOnInteraction: false }}
@@ -54,7 +55,7 @@ export default function Home() {
                     >
                         {navImages.map((image, index) => (
                             <SwiperSlide key={index}>
-                                <div className="w-full h-full relative">
+                                <div className="w-full h-full relative overflow-hidden">
                                     <img
                                         src={image.src}
                                         alt={t(image.tKey)}
@@ -126,7 +127,7 @@ export default function Home() {
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
                                     {/* Texto descritivo */}
                                     <div className="space-y-6 text-(--color-text-body) text-lg leading-relaxed text-justify">
-                                        <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-(--color-primary) first-letter:float-left first-letter:mr-3">
+                                        <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-(--color-primary) first-letter:float-left first-letter:mr-3 first-letter:line-height-0">
                                             {t('home.explore_p1')}
                                         </p>
                                         <p>

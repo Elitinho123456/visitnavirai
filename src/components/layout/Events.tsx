@@ -58,8 +58,8 @@ export default function EventsWidget() {
                         {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                     </h3>
                     <div className="flex gap-2">
-                        <button onClick={prevMonth} className="p-2 bg-(--color-background) hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
-                        <button onClick={nextMonth} className="p-2 bg-(--color-background) hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
+                        <button onClick={prevMonth} className="p-2 bg-gray-400 hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
+                        <button onClick={nextMonth} className="p-2 bg-gray-400 hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@ export default function EventsWidget() {
                     {calendarDays.map((day, idx) => (
                         <div key={idx} className={`
                                 flex items-center justify-center rounded-lg h-12 text-sm md:text-base font-medium relative transition-all duration-300
-                                ${day ? 'hover:bg-(--color-background) cursor-pointer' : ''} 
+                                ${day ? 'hover:bg-gray-300 cursor-pointer' : ''} 
                                 ${hasEventOnDay(day) ? 'bg-(--color-primary) text-white font-bold shadow-md hover:bg-(--color-primary-dark)' : ''}
                             `}>
                             {day}
@@ -88,7 +88,7 @@ export default function EventsWidget() {
                 {loading ? (
                     <div className="flex-1 flex justify-center items-center"><div className="animate-spin w-8 h-8 border-4 border-(--color-primary) border-t-transparent rounded-full"></div></div>
                 ) : (
-                    <div className="flex-1 overflow-y-auto max-h-[350px] pr-2 space-y-4 customized-scrollbar">
+                    <div className="flex-1 overflow-y-auto max-h-87.5 pr-2 space-y-4 customized-scrollbar">
                         {monthEvents.length > 0 ? (
                             monthEvents.map((event, idx) => {
                                 const [, , day] = event.date.split('-').map(Number);
