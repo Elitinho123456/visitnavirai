@@ -72,7 +72,7 @@ export default function WeatherWidget() {
 
             <div className="relative z-10 w-full">
                 <div className="flex justify-between items-start w-full mb-6">
-                    <h3 className="text-(--color-text-body) font-black text-xl tracking-tight uppercase opacity-80">
+                    <h3 className="text-gray-800 font-black text-xl tracking-tight uppercase">
                         {t('weather.title')}
                     </h3>
                     <motion.div

@@ -65,7 +65,7 @@ export default function Home() {
                                     <div className="absolute inset-0 bg-black/40 bg-linear-to-b from-black/60 via-black/10 to-black/80" />
 
                                     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 mt-16 z-10">
-                                        <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-sm md:text-sm mb-4 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                                        <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-medium md:text-medium mb-1 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                                             Bem-vindo a Naviraí
                                         </span>
                                         <h2 className="text-white text-5xl md:text-8xl font-black max-w-4xl leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] mb-6 animate-fade-in-up delay-100">
@@ -117,7 +117,7 @@ export default function Home() {
                                     <h2 className="text-(--color-primary) text-lg font-bold uppercase tracking-wider mb-2">
                                         {t('home.capital_conesul')}
                                     </h2>
-                                    <h3 className="text-4xl md:text-5xl font-bold text-(--color-primary) mb-4">
+                                    <h3 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
                                         {t('home.explore_title')}
                                     </h3>
                                     <div className="w-24 h-1 bg-(--color-accent-gold) mx-auto mt-6 rounded-full lg:mx-0"></div>
@@ -126,7 +126,7 @@ export default function Home() {
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
                                     {/* Texto descritivo */}
                                     <div className="space-y-6 text-(--color-text-body) text-lg leading-relaxed text-justify">
-                                        <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-(--color-primary) first-letter:float-left first-letter:mr-3 first-letter:mt-2.5">
+                                        <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-(--color-primary) first-letter:float-left first-letter:mr-3">
                                             {t('home.explore_p1')}
                                         </p>
                                         <p>
@@ -162,8 +162,8 @@ export default function Home() {
                                                 <div className="inline-flex items-center justify-center p-3 bg-(--color-primary)/10 text-(--color-primary) rounded-2xl mb-4 group-hover:scale-110 transition-transform">
                                                     <TrendingUp strokeWidth={2.5} size={28} />
                                                 </div>
-                                                <h4 className="font-black text-2xl text-(--color-text-header) mb-2">Investir em Naviraí</h4>
-                                                <p className="text-(--color-text-body) mb-6 line-clamp-3">
+                                                <h4 className="font-black text-2xl text-gray-800 mb-2">Investir em Naviraí</h4>
+                                                <p className="text-gray-600 mb-6 line-clamp-3">
                                                     Sua porta de entrada para oportunidades únicas no Conesul. Descubra vantagens competitivas, logística de ponta e uma cidade pronta para o futuro.
                                                 </p>
                                             </div>
