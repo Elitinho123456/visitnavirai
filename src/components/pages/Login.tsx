@@ -4,6 +4,10 @@ import { Mail, Lock, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
+//É PRECISO ADCIONAR ISSO DE OPÇÃO
+//gestor de informações gerais, gestor de pousadas, gestor de turismo, gestor alimenticio, gestor de serviços, gestor de eventos, gestor chefe
+
+
 // Components
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -13,6 +17,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [isRegistering, setIsRegistering] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -21,7 +26,7 @@ export default function Login() {
         e.preventDefault();
         try {
             const url = isRegistering ? `http://localhost:${import.meta.env.VITE_API_PORT}/auth/register` : `http://localhost:${import.meta.env.VITE_API_PORT}/auth/login`;
-            const bodyData = isRegistering ? { email, password, confirmPassword } : { email, password };
+            const bodyData = isRegistering ? { email, password, confirmPassword, name } : { email, password };
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -156,6 +161,22 @@ export default function Login() {
                                                         placeholder={t('login.confirm_password_placeholder')}
                                                         value={confirmPassword}
                                                         onChange={(e) => setConfirmPassword(e.target.value)}
+                                                    />
+                                                </div>
+
+
+                                                <label className="block text-sm font-bold text-(--color-text-header) mb-1 ml-1" htmlFor="name">
+                                                    {t('login.name')}
+                                                </label>
+                                                <div className="relative group">
+                                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
+                                                    <input
+                                                        className="w-full pl-10 pr-4 py-3 bg-white dark:bg-(--color-neutral-light) border border-(--color-neutral-gray)/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm"
+                                                        type="text"
+                                                        id="name"
+                                                        placeholder={t('login.name_placeholder')}
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
                                                     />
                                                 </div>
                                             </motion.div>

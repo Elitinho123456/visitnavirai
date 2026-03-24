@@ -253,6 +253,8 @@
     "login_subtitle": "Que bom ver você novamente.",
     "register": "Criar Conta",
     "register_subtitle": "Junte-se a nós hoje.",
+    "name": "Nome",
+    "name_placeholder": "Digite seu nome",
     "switch_to_register": "Não tem uma conta? Cadastre-se",
     "switch_to_login": "Já possui uma conta? Entrar",
     "login_success": "Login realizado com sucesso!",

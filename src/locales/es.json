@@ -251,6 +251,8 @@
     "confirm_password_placeholder": "Ingresa tu contraseña nuevamente",
     "login": "Iniciar Sesión",
     "login_subtitle": "¡Qué bueno tenerte de vuelta!",
+    "name": "Nombre",
+    "name_placeholder": "Ingresa tu nombre",
     "register": "Crear Cuenta",
     "register_subtitle": "¡Súmate hoy mismo!",
     "switch_to_register": "¿No tienes cuenta? Regístrate",

@@ -253,6 +253,8 @@
     "login_subtitle": "It's great to have you back!",
     "register": "Sign Up",
     "register_subtitle": "Join us today!",
+    "name": "Name",
+    "name_placeholder": "Enter your name",
     "switch_to_register": "Don't have an account? Sign up",
     "switch_to_login": "Already have an account? Log in",
     "login_success": "Login successful!",

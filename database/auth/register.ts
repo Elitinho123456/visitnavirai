@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../db/models/User";
 
+
 export default async function register(req: Request, res: Response): Promise<void> {
     try {
         const { email, password, confirmPassword, name } = req.body;
