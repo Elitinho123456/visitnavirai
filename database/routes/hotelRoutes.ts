@@ -40,10 +40,22 @@ router.post("/", verifyToken, isAdmin, async (req: Request, res: Response) => {
 // UPDATE
 router.put("/:id", verifyToken, isAdmin, async (req: Request, res: Response) => {
     try {
-        const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" });
         res.json(updatedHotel);
     } catch (error) {
         res.status(400).json({ message: "Erro ao atualizar" });
+    }
+});
+
+// DELETE
+router.delete("/:id", verifyToken, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const deletedHotel = await Hotel.findByIdAndDelete(req.params.id);
+
+        if (!deletedHotel) return res.status(404).json({ message: "Hotel não encontrado" });
+        res.json({ message: "Hotel excluído com sucesso" });
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao excluir hotel" });
     }
 });
 

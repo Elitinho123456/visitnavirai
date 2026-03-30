@@ -1,5 +1,5 @@
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function Dashboard() {
@@ -18,15 +18,22 @@ export default function Dashboard() {
 
         // Decodificando Token
         const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const payload = token.split(".")[1];
-                const decoded = JSON.parse(atob(payload));
-                setUser({ name: decoded.name || "Admin", email: decoded.email || "admin@navirai.ms.gov.br" });
-            } catch (e) {
-                console.error("Erro ao ler token:", e);
+        async function fecthUser() {
+            if (token) {
+                try {
+                    const payload = token.split(".")[1];
+                    const decoded = JSON.parse(atob(payload));
+                    const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/users/${decoded.id}`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+                    setUser({ name: data.name, email: data.email });
+                } catch (e) {
+                    console.error("Erro ao ler token:", e);
+                }
             }
         }
+        fecthUser();
     }, []);
 
     const handleLogout = () => {
@@ -37,8 +44,9 @@ export default function Dashboard() {
     const navItems = [
         { path: "/admin", icon: LayoutDashboard, label: "Visão Geral" },
         { path: "/admin/usuarios", icon: Users, label: "Usuários" },
-        { path: "/admin/hoteis/novo", icon: Hotel, label: "Hotéis e Pousadas" },
+        { path: "/admin/hoteis", icon: Hotel, label: "Alojamentos" },
         { path: "/admin/eventos/novo", icon: Calendar, label: "Eventos Locais" },
+        { path: "/", icon: Home, label: "Home" },
     ];
 
     // Fecha a sidebar no mobile ao clicar em um link
@@ -47,7 +55,7 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="flex h-screen bg-[#F8FAFC] overflow-hidden font-sans selection:bg-(--color-primary) selection:text-white">
+        <div className="flex h-screen bg-gray-50 overflow-hidden font-sans selection:bg-(--color-primary) selection:text-white">
 
             {/* Overlay Mobile */}
             {isSidebarOpen && (
@@ -117,7 +125,7 @@ export default function Dashboard() {
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors font-bold text-sm border border-transparent hover:border-red-100"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-200 transition-colors font-bold text-sm border border-transparent hover:border-red-100 cursor-pointer"
                     >
                         <LogOut size={18} />
                         Sair do Sistema
@@ -227,16 +235,8 @@ function OverviewArea() {
                     <p className="text-slate-600 text-sm md:text-base leading-relaxed">
                         Acompanhe o crescimento do turismo e dos usuários locais. Utilize o menu lateral para cadastrar e gerenciar hotéis, eventos e os acessos ao sistema. As mudanças refletem instantaneamente no site público.
                     </p>
-                    <div className="mt-6 flex gap-3">
-                        <Link to="/admin/eventos/novo" className="px-5 py-2.5 bg-(--color-primary) text-white font-bold rounded-xl shadow-md shadow-(--color-primary)/20 hover:bg-opacity-90 transition-all text-sm">
-                            + Novo Evento
-                        </Link>
-                        <Link to="/admin/hoteis/novo" className="px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all text-sm border border-slate-200">
-                            Cadastrar Hotel
-                        </Link>
-                    </div>
                 </div>
-                {/* Ilustração ou Decoração Abstrata (Simulada com formas) */}
+                {/* Decoração Abstrata (Simulada com formas) */}
                 <div className="absolute -right-10 -bottom-20 opacity-10 pointer-events-none hidden md:block">
                     <LayoutDashboard size={300} className="text-(--color-primary)" />
                 </div>
@@ -244,26 +244,34 @@ function OverviewArea() {
 
             {/* Grid de Estatísticas (Com visual Moderno) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <StatCard
-                    title="Usuários Ativos" value={stats.users} icon={Users}
-                    trend="Cadastrados no sistema" trendUp={true}
-                    iconBg="bg-blue-100" iconColor="text-blue-600"
-                />
-                <StatCard
-                    title="Total de Hotéis" value={stats.hotels} icon={Hotel}
-                    trend="Acomodações ativas" trendUp={true}
-                    iconBg="bg-emerald-100" iconColor="text-emerald-600"
-                />
-                <StatCard
-                    title="Eventos Ativos" value={stats.events} icon={Calendar}
-                    trend="No portfólio" trendUp={null}
-                    iconBg="bg-amber-100" iconColor="text-amber-600"
-                />
-                <StatCard
-                    title="Visitas ao Portal" value="8.4k" icon={LayoutDashboard}
-                    trend="-3% que ontem" trendUp={false}
-                    iconBg="bg-purple-100" iconColor="text-purple-600"
-                />
+                <Link to="/admin/usuarios" className="transition-all duration-300 hover:scale-105">
+                    <StatCard
+                        title="Usuários Ativos" value={stats.users} icon={Users}
+                        trend="Cadastrados no sistema" trendUp={true}
+                        iconBg="bg-blue-100" iconColor="text-blue-600"
+                    />
+                </Link>
+                <Link to="/admin/hoteis" className="transition-all duration-300 hover:scale-105">
+                    <StatCard
+                        title="Total de Hotéis" value={stats.hotels} icon={Hotel}
+                        trend="Acomodações ativas" trendUp={true}
+                        iconBg="bg-emerald-100" iconColor="text-emerald-600"
+                    />
+                </Link>
+                <Link to="/admin/eventos" className="transition-all duration-300 hover:scale-105">
+                    <StatCard
+                        title="Eventos Ativos" value={stats.events} icon={Calendar}
+                        trend="No portfólio" trendUp={null}
+                        iconBg="bg-amber-100" iconColor="text-amber-600"
+                    />
+                </Link>
+                <Link to="#" className="transition-all duration-300 hover:scale-105">
+                    <StatCard
+                        title="Visitas ao Portal" value="8.4k" icon={LayoutDashboard}
+                        trend="-3% que ontem" trendUp={false}
+                        iconBg="bg-purple-100" iconColor="text-purple-600"
+                    />
+                </Link>
             </div>
         </div>
     );

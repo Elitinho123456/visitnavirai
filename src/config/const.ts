@@ -5,79 +5,79 @@ const navItems = [
         name: 'Naviraí',
         path: '/historia',
         subItems: [
-            { name: 'Como Chegar', path: '#', tKey: 'nav.sub.how_to_get_there' },
-            { name: 'Dados Turísticos', path: '#', tKey: 'nav.sub.tourist_data' },
-            { name: 'História', path: '/historia', tKey: 'nav.sub.history' },
-            { name: 'Investir', path: '/investir', tKey: 'nav.sub.invest' },
+            { name: 'Como Chegar', path: '#', label: 'Como Chegar' },
+            { name: 'Dados Turísticos', path: '#', label: 'Dados Turísticos' },
+            { name: 'História', path: '/historia', label: 'História' },
+            { name: 'Investir', path: '/investir', label: 'Investir' },
         ],
     },
     {
         name: 'nav.where_to_sleep',
-        path: '#',
+        path: '/acomodacoes',
         subItems: [
-            { name: 'Hotéis', path: '/hoteis', tKey: 'nav.sub.hotels' },
-            { name: 'Pousadas', path: '#', tKey: 'nav.sub.inns' },
-            { name: 'Área de Camping', path: '#', tKey: 'nav.sub.camping_area' },
-            { name: 'Flat', path: '#', tKey: 'nav.sub.flat' },
+            { name: 'Hotéis', path: '/acomodacoes?tipo=Hotel', label: 'Hotéis' },
+            { name: 'Pousadas', path: '/acomodacoes?tipo=Pousada', label: 'Pousadas' },
+            { name: 'Área de Camping', path: '/acomodacoes?tipo=Área de Camping', label: 'Área de Camping' },
+            { name: 'Flat', path: '/acomodacoes?tipo=Flat', label: 'Flat' },
         ],
     },
     {
         name: 'nav.what_to_visit',
         path: '#',
         subItems: [
-            { name: 'Artesanatos', path: '#', tKey: 'nav.sub.crafts' },
-            { name: 'Compras', path: '#', tKey: 'nav.sub.shopping' },
-            { name: 'Monumentos', path: '#', tKey: 'nav.sub.monuments' },
-            { name: 'Museus', path: '#', tKey: 'nav.sub.museums' },
-            { name: 'Praça e Parques', path: '#', tKey: 'nav.sub.squares_and_parks' },
-            { name: 'Rancho', path: '#', tKey: 'nav.sub.ranch' },
-            { name: 'Pesqueiro', path: '#', tKey: 'nav.sub.fishing_spot' },
+            { name: 'Artesanatos', path: '#', label: 'Artesanatos' },
+            { name: 'Compras', path: '#', label: 'Compras' },
+            { name: 'Monumentos', path: '#', label: 'Monumentos' },
+            { name: 'Museus', path: '#', label: 'Museus' },
+            { name: 'Praça e Parques', path: '#', label: 'Praças e Parques' },
+            { name: 'Rancho', path: '#', label: 'Rancho' },
+            { name: 'Pesqueiro', path: '#', label: 'Pesqueiro' },
         ],
     },
     {
         name: 'nav.where_to_eat',
         path: '#',
         subItems: [
-            { name: 'Bares', path: '#', tKey: 'nav.sub.bars' },
-            { name: 'Cafeterias', path: '#', tKey: 'nav.sub.coffee_shops' },
-            { name: 'Lanches e Doces', path: '#', tKey: 'nav.sub.snacks_and_sweets' },
-            { name: 'Hamburguerias', path: '#', tKey: 'nav.sub.burger_joints' },
-            { name: 'Pastelarias', path: '#', tKey: 'nav.sub.pastry_shops' },
-            { name: 'Pizzarias', path: '#', tKey: 'nav.sub.pizzerias' },
-            { name: 'Restaurantes', path: '#', tKey: 'nav.sub.restaurants' },
+            { name: 'Bares', path: '#', label: 'Bares' },
+            { name: 'Cafeterias', path: '#', label: 'Cafeterias' },
+            { name: 'Lanches e Doces', path: '#', label: 'Lanches e Doces' },
+            { name: 'Hamburguerias', path: '#', label: 'Hamburguerias' },
+            { name: 'Pastelarias', path: '#', label: 'Pastelarias' },
+            { name: 'Pizzarias', path: '#', label: 'Pizzarias' },
+            { name: 'Restaurantes', path: '#', label: 'Restaurantes' },
         ],
     },
     {
         name: 'nav.services',
         path: '#',
         subItems: [
-            { name: 'Agência de Viagens', path: '#', tKey: 'nav.sub.travel_agency' },
-            { name: 'Espaços para Eventos', path: '#', tKey: 'nav.sub.event_spaces' },
-            { name: 'Locadora de Veículos', path: '#', tKey: 'nav.sub.car_rental' },
-            { name: 'Organizadoras de Eventos', path: '#', tKey: 'nav.sub.event_organizers' },
-            { name: 'Taxi', path: '#', tKey: 'nav.sub.taxi' },
-            { name: 'Transportadoras Rodoviárias', path: '#', tKey: 'nav.sub.road_carriers' },
-            { name: 'Transportadoras Turísticas', path: '#', tKey: 'nav.sub.tourist_carriers' },
+            { name: 'Agência de Viagens', path: '#', label: 'Agência de Viagens' },
+            { name: 'Espaços para Eventos', path: '#', label: 'Espaços para Eventos' },
+            { name: 'Locadora de Veículos', path: '#', label: 'Locadora de Veículos' },
+            { name: 'Organizadoras de Eventos', path: '#', label: 'Organizadoras de Eventos' },
+            { name: 'Taxi', path: '#', label: 'Taxi' },
+            { name: 'Transportadoras Rodoviárias', path: '#', label: 'Transportadoras Rodoviárias' },
+            { name: 'Transportadoras Turísticas', path: '#', label: 'Transportadoras Turísticas' },
         ],
     },
     {
         name: 'nav.calendar',
-        patch: '#',
+        path: '#',
         subItems: [
-            { name: 'Calendário Eventos de 2025', path: '#', tKey: 'nav.sub.events_calendar_2025' },
-            { name: 'Próximos Eventos', path: '#', tKey: 'nav.sub.upcoming_events' },
-            { name: 'Cadastro de Eventos', path: '#', tKey: 'nav.sub.event_registration' },
+            { name: 'Calendário Eventos de 2025', path: '#', label: 'Calendário de Eventos 2025' },
+            { name: 'Próximos Eventos', path: '#', label: 'Próximos Eventos' },
+            { name: 'Cadastro de Eventos', path: '#', label: 'Cadastro de Eventos' },
         ],
     },
 ];
 
 const navImages = [
-    { name: 'Naviraí à Noite', src: '/navirai_noite.png', tKey: 'home.slider.navirai_at_night' },
-    { name: 'Parque Municipal Cumundaí', src: '/parque_cumandai.png', tKey: 'home.slider.cumundai_park' },
-    { name: 'Rio Amambai', src: '/rio_amambai.png', tKey: 'home.slider.amambai_river' },
-    { name: 'Entrada da Cidade', src: '/araras.png', tKey: 'home.slider.city_entrance' },
-    { name: 'Praça Central', src: '/praca_central.png', tKey: 'home.slider.central_square' },
-    { name: 'Fejunavi', src: '/fejunavi.png', tKey: 'home.slider.fejunavi' },
+    { name: 'Naviraí à Noite', src: '/navirai_noite.png', label: 'Naviraí à Noite' },
+    { name: 'Parque Municipal Cumundaí', src: '/parque_cumandai.png', label: 'Parque Municipal Cumundaí' },
+    { name: 'Rio Amambai', src: '/rio_amambai.png', label: 'Rio Amambai' },
+    { name: 'Entrada da Cidade', src: '/araras.png', label: 'Entrada da Cidade' },
+    { name: 'Praça Central', src: '/praca_central.png', label: 'Praça Central' },
+    { name: 'Fejunavi', src: '/fejunavi.png', label: 'Fejunavi' },
 ];
 
 const navEvents = [
@@ -86,26 +86,43 @@ const navEvents = [
         date: '2024-06-24', 
         description: 'Celebração tradicional com comidas típicas, quadrilhas e muita diversão.', 
         image: "https://placehold.co/600x400",
-        nameTKey: 'events.festa_junina.name',
-        descriptionTKey: 'events.festa_junina.description'
     },
     { 
         name: 'Festival de Música', 
         date: '2024-07-15', 
         description: 'Apresentações de bandas locais e nacionais em um evento imperdível para os amantes da música.', 
         image: "https://placehold.co/600x400",
-        nameTKey: 'events.music_festival.name',
-        descriptionTKey: 'events.music_festival.description'
     },
     { 
         name: 'Feira de Artesanato', 
         date: '2024-08-10', 
         description: 'Exposição e venda de produtos artesanais feitos por talentosos artesãos da região.', 
         image: "https://placehold.co/600x400",
-        nameTKey: 'events.craft_fair.name',
-        descriptionTKey: 'events.craft_fair.description'
     },
 ];
+
+// Mapeamento de feature keys para labels legíveis
+const featureLabels: Record<string, string> = {
+    'hotels.features.pool': 'Piscina Externa',
+    'hotels.features.breakfast': 'Café da manhã incluído',
+    'hotels.features.parking': 'Estacionamento grátis',
+    'hotels.features.exceptional_service': 'Atendimento Excepcional',
+    'hotels.features.free_wifi': 'Wi-Fi Grátis',
+    'hotels.features.ac': 'Ar-condicionado',
+    'hotels.features.central_location': 'Localização Central',
+    'hotels.features.restaurant': 'Restaurante',
+    'hotels.features.reception_24h': 'Recepção 24h',
+    'hotels.features.pets_allowed': 'Aceita Pets',
+    'hotels.features.garden': 'Jardim',
+    'hotels.features.gym': 'Academia',
+    'hotels.features.economic': 'Econômico',
+    'hotels.features.main_avenue': 'Av. Principal',
+};
+
+/** Traduz uma feature key para texto legível. Se não encontrar no mapa, retorna a própria string. */
+function translateFeature(key: string): string {
+    return featureLabels[key] || key;
+}
 
 const hotelsData: Hotel[] = [
     {
@@ -175,4 +192,4 @@ const hotelsData: Hotel[] = [
     }
 ];
 
-export { navItems, navImages, navEvents, hotelsData };
+export { navItems, navImages, navEvents, hotelsData, translateFeature };

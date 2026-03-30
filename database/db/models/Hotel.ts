@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const HotelSchema = new Schema({
     name: { type: String, required: true },
-    image: { type: String, required: true },
-    distance: String,
+    image: { type: String, required: true }, 
+    category: { type: String, required: true, enum: ['Hotel', 'Pousada', 'Flat', 'Área de Camping'] },
     features: [String],
     highlight: { type: Boolean, default: false },
     latitude: { type: Number, required: true },
@@ -28,6 +28,7 @@ const HotelSchema = new Schema({
         desc: [String]
     },
     policies: [{
+        type: { type: String, enum: ['horario', 'regra'], default: 'horario' },
         label: String,
         title: String,
         desc: String

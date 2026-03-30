@@ -1,12 +1,10 @@
 // Header.tsx
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // Importar hook
 import { navItems } from '../../config/const';
-import { Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Sun, Moon, User, LogOut, LayoutDashboard, Globe } from 'lucide-react';
 
 export default function Header() {
-    const { t, i18n } = useTranslation(); // Hook de tradução
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -61,12 +59,10 @@ export default function Header() {
 
     // Tema Escuro
     const [isDarkMode, setIsDarkMode] = useState(() => {
-        // Checando na primeira renderização sem window para ser safe no SSR futuro, mas como é Client site direto = ok
         return document.documentElement.classList.contains('dark');
     });
 
     useEffect(() => {
-        // Ao montar, garante leitura correta (especialmente útil via recarregamento de dev server)
         setIsDarkMode(document.documentElement.classList.contains('dark'));
     }, []);
 
@@ -83,10 +79,13 @@ export default function Header() {
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-    // Função para mudar idioma
-    const changeLanguage = (lng: string) => {
-        i18n.changeLanguage(lng);
-        setIsMobileMenuOpen(false); // Fecha menu mobile se estiver aberto
+    // Labels para os navItems (substituindo t())
+    const navLabels: Record<string, string> = {
+        'nav.where_to_sleep': 'Onde Dormir',
+        'nav.what_to_visit': 'O Que Visitar',
+        'nav.where_to_eat': 'Onde Comer',
+        'nav.services': 'Serviços',
+        'nav.calendar': 'Calendário',
     };
 
     return (
@@ -100,13 +99,12 @@ export default function Header() {
                     </h1>
                 </Link>
 
-                {/* Botão Hambúrguer (Mobile) - Mantido igual */}
+                {/* Botão Hambúrguer (Mobile) */}
                 <button
                     className="lg:hidden z-50 text-(--color-primary) focus:outline-none"
                     onClick={toggleMenu}
                     aria-label="Abrir menu"
                 >
-                    {/* SVG do ícone ... */}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
                         {isMobileMenuOpen ? (
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -130,7 +128,7 @@ export default function Header() {
 
                         <li className='mt-10 lg:mt-0'>
                             <Link to="/" className="text-(--color-text-body) font-medium hover:text-(--color-link-hover) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
-                                {t('nav.home')}
+                                Início
                             </Link>
                         </li>
 
@@ -139,7 +137,7 @@ export default function Header() {
                                 <div className="flex items-center justify-between text-(--color-text-body) font-medium lg:group-hover:text-(--color-link-hover) transition-colors py-2">
                                     <Link to={String(item.path)}>
                                         <span className="relative inline-block transition-transform duration-300 lg:group-hover:scale-110 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-(--color-primary) after:transition-all after:duration-300 after:w-0 lg:group-hover:after:w-full">
-                                            {t(item.name)}
+                                            {navLabels[item.name] || item.name}
                                         </span>
                                     </Link>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 ml-1 hidden lg:block transition-transform duration-300 group-hover:rotate-180 text-(--color-primary)">
@@ -147,37 +145,32 @@ export default function Header() {
                                     </svg>
                                 </div>
 
-                                {/* Submenu - Nota: Subitems precisariam de chaves no JSON se você quiser traduzi-los também */}
+                                {/* Submenu */}
                                 <div className="relative lg:absolute lg:top-full lg:left-0 lg:pt-4 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 z-50 min-w-55">
                                     <ul className="pl-4 lg:pl-0  border-(--color-accent-gold)  lg:bg-(--color-neutral-white) lg:rounded-(--border-radius-lg) lg:shadow-xl  lg:border-(--color-neutral-gray)/20 lg:border-t-4 lg:border-t-(--color-accent-gold)">
                                         {item.subItems.map((subItem) => (
-
 
                                             <li key={subItem.name} className="py-1 lg:py-0">
 
                                                 {subItem === item.subItems[0] ? (
                                                     <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-tr-xl lg:hover:rounded-tl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                                        {t(subItem.tKey)}
+                                                        {subItem.label}
                                                     </Link>
-                                                ):(
+                                                ) : (
                                                     <>
                                                         {subItem === item.subItems[item.subItems.length - 1] ? (
                                                             <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-br-xl lg:hover:rounded-bl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                                                {t(subItem.tKey)}
+                                                                {subItem.label}
                                                             </Link>
-                                                        ):(
+                                                        ) : (
                                                             <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white)  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                                                {t(subItem.tKey)}
+                                                                {subItem.label}
                                                             </Link>
                                                         )
-
                                                         }
-                                                      
                                                     </>
                                                 )
-
                                                 }
-
                                             </li>
 
                                         ))}
@@ -188,7 +181,7 @@ export default function Header() {
 
                         <li className="mt-4 lg:mt-0">
                             <Link to="/contato" className="inline-block w-full text-center lg:w-auto px-5 py-2 bg-(--color-primary) text-white font-bold rounded-full shadow-md hover:bg-(--color-primary-dark)/90 -all transition-transform duration-300 hover:scale-110" onClick={() => setIsMobileMenuOpen(false)}>
-                                {t('nav.contact')}
+                                Contato
                             </Link>
                         </li>
 
@@ -243,17 +236,12 @@ export default function Header() {
                             </div>
                         </li>
 
-                        {/* --- Seletor de Idioma --- */}
-                        <li className="flex gap-2 lg:ml-2 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
-                            <button onClick={() => changeLanguage('pt')} className={`w-8 h-8 rounded-full overflow-hidden border-2 ${i18n.language === 'pt' ? 'border-(--color-primary)' : 'border-transparent opacity-50 hover:opacity-100'}`}>
-                                <img src="https://flagcdn.com/br.svg" alt="Português" className="w-full h-full object-cover" />
-                            </button>
-                            <button onClick={() => changeLanguage('es')} className={`w-8 h-8 rounded-full overflow-hidden border-2 ${i18n.language === 'es' ? 'border-(--color-primary)' : 'border-transparent opacity-50 hover:opacity-100'}`}>
-                                <img src="https://flagcdn.com/py.svg" alt="Español" className="w-full h-full object-cover" /> {/* Bandeira Paraguai por proximidade ou ES geral */}
-                            </button>
-                            <button onClick={() => changeLanguage('en')} className={`w-8 h-8 rounded-full overflow-hidden border-2 ${i18n.language === 'en' ? 'border-(--color-primary)' : 'border-transparent opacity-50 hover:opacity-100'}`}>
-                                <img src="https://flagcdn.com/us.svg" alt="English" className="w-full h-full object-cover" />
-                            </button>
+                        {/* --- Google Translate Widget --- */}
+                        <li className="flex items-center gap-2 lg:ml-2 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
+                            <div className="flex items-center gap-2 bg-(--color-background) border border-(--color-neutral-gray)/30 rounded-full px-3 py-1.5 min-h-[38px] overflow-hidden">
+                                <Globe size={16} className="text-(--color-primary) shrink-0" />
+                                <div id="google_translate_element" className="notranslate"></div>
+                            </div>
                         </li>
 
                     </ul>
