@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Hotel } from "../../../types/interfacesTypes";
 import { Plus, Search, MapPin, Edit3, Trash2, Hotel as HotelIcon, AlertTriangle, X, Star } from "lucide-react";
+import { API_BASE_URL } from "../../../config/api";
+import { jwtDecode } from "jwt-decode";
 
 const CATEGORY_FILTERS = [
     { label: "Todos", value: "all" },
@@ -19,10 +21,13 @@ export default function ListHotel() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [hotelToDelete, setHotelToDelete] = useState<string | null>(null);
 
+    const [permissions, setPermissions] = useState<any>({});
+    const [isAdmin, setIsAdmin] = useState(false);
+
     const fetchHotels = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/hotels`);
+            const res = await fetch(`${API_BASE_URL}/api/hotels`);
             if (res.ok) {
                 const data = await res.json();
                 setHotelsData(data);
@@ -35,14 +40,28 @@ export default function ListHotel() {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decoded: any = jwtDecode(token);
+                if (decoded.role === "admin") setIsAdmin(true);
+                setPermissions(decoded.permissions?.where_to_sleep || {});
+            } catch (error) {
+                console.error("Token parsing error");
+            }
+        }
         fetchHotels();
     }, []);
+
+    const canCreate = isAdmin || permissions?.create === true;
+    const canEdit = isAdmin || permissions?.edit === true;
+    const canDelete = isAdmin || permissions?.delete === true;
 
     const handleDelete = async () => {
         if (!hotelToDelete) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/hotels/${hotelToDelete}`, {
+            const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelToDelete}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });
@@ -91,13 +110,15 @@ export default function ListHotel() {
                                 Gerencie todos os tipos de acomodações cadastradas no portal.
                             </p>
                         </div>
-                        <Link
-                            to="novo"
-                            className="bg-(--color-primary) text-white px-6 py-4 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg shadow-(--color-primary)/20 flex items-center gap-2 font-bold text-lg self-start md:self-center"
-                        >
-                            <Plus size={24} />
-                            Novo
-                        </Link>
+                        {canCreate && (
+                            <Link
+                                to="novo"
+                                className="bg-(--color-primary) text-white px-6 py-4 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg shadow-(--color-primary)/20 flex items-center gap-2 font-bold text-lg self-start md:self-center"
+                            >
+                                <Plus size={24} />
+                                Novo
+                            </Link>
+                        )}
                     </div>
 
                     {/* Search + Category Filters */}
@@ -182,19 +203,23 @@ export default function ListHotel() {
                                 </div>
 
                                 <div className="flex items-center gap-3 mt-6">
-                                    <Link
-                                        to={`editar/${hotel._id}`}
-                                        className="flex-1 bg-(--color-primary) text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-(--color-primary)/80 transition-colors border border-(--color-primary) cursor-pointer"
-                                    >
-                                        <Edit3 size={16} />
-                                        Editar
-                                    </Link>
-                                    <button
-                                        onClick={() => confirmDelete(hotel._id!)}
-                                        className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-colors border border-red-100 cursor-pointer"
-                                    >
-                                        <Trash2 size={20} />
-                                    </button>
+                                    {canEdit && (
+                                        <Link
+                                            to={`editar/${hotel._id}`}
+                                            className="flex-1 bg-(--color-primary) text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-(--color-primary)/80 transition-colors border border-(--color-primary) cursor-pointer"
+                                        >
+                                            <Edit3 size={16} />
+                                            Editar
+                                        </Link>
+                                    )}
+                                    {canDelete && (
+                                        <button
+                                            onClick={() => confirmDelete(hotel._id!)}
+                                            className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-colors border border-red-100 cursor-pointer"
+                                        >
+                                            <Trash2 size={20} />
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>

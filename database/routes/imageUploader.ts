@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { sanitizeName, categoryFolder } from "../utils/fileUtils";
 
 const router = Router();
 
@@ -10,25 +11,7 @@ if (!fs.existsSync(baseUploadDir)) {
     fs.mkdirSync(baseUploadDir, { recursive: true });
 }
 
-// Formata o nome para uso em pastas (lowercase, sem espaços, sem acentos)
-function sanitizeName(name: string): string {
-    return name
-        .toLowerCase()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos
-        .replace(/\s+/g, "_") // espaços → underscores
-        .replace(/[^a-z0-9_-]/g, ""); // remove caracteres especiais
-}
-
-// Mapeia categoria para nome de pasta
-function categoryFolder(category: string): string {
-    const map: Record<string, string> = {
-        "Hotel": "hoteis",
-        "Pousada": "pousadas",
-        "Flat": "flats",
-        "Área de Camping": "campings",
-    };
-    return map[category] || "diversos";
-}
+// Utiliza fileUtils para formatar nomes das pastas
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -79,7 +62,7 @@ router.post("/upload", upload.single("file"), (req: Request, res: Response): any
         const category = req.body.category || "diversos";
         const name = req.body.name || "sem_nome";
         const relativePath = `${categoryFolder(category)}/${sanitizeName(name)}/${req.file.filename}`;
-        const imageUrl = `http://localhost:${process.env.VITE_API_PORT || 3000}/imgs/${relativePath}`;
+        const imageUrl = `/imgs/${relativePath}`;
 
         return res.status(200).json({ url: imageUrl });
     } catch (error: any) {
@@ -101,7 +84,7 @@ router.post("/upload-multiple", upload.array("files", 20), (req: Request, res: R
 
         const urls = files.map(file => {
             const relativePath = `${categoryFolder(category)}/${sanitizeName(name)}/${file.filename}`;
-            return `http://localhost:${process.env.VITE_API_PORT || 3000}/imgs/${relativePath}`;
+            return `/imgs/${relativePath}`;
         });
 
         return res.status(200).json({ urls });

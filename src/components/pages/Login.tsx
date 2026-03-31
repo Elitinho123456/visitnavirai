@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -18,7 +19,7 @@ export default function Login() {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const url = isRegistering ? `http://localhost:${import.meta.env.VITE_API_PORT}/auth/register` : `http://localhost:${import.meta.env.VITE_API_PORT}/auth/login`;
+            const url = isRegistering ? `${API_BASE_URL}/auth/register` : `${API_BASE_URL}/auth/login`;
             const bodyData = isRegistering ? { email, password, confirmPassword, name } : { email, password };
 
             const response = await fetch(url, {
@@ -35,7 +36,7 @@ export default function Login() {
                     try {
                         const payload = data.token.split(".")[1];
                         const decoded = JSON.parse(atob(payload));
-                        if (decoded.role === "admin") {
+                        if (decoded.role !== "user") {
                             navigate('/admin');
                         } else {
                             navigate('/');

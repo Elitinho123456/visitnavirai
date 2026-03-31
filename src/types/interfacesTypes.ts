@@ -6,6 +6,7 @@ export interface Hotel {
     distance: string; // Distância do centro
     features: string[];
     highlight?: boolean;
+    highlightExpiration?: string;
     latitude: number;
     longitude: number;
     socials?: {

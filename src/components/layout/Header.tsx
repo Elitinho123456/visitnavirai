@@ -189,7 +189,7 @@ export default function Header() {
                         <li className="flex items-center gap-2 lg:ml-4 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 rounded-full bg-(--color-background) border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors"
+                                className="p-2 rounded-full bg-(--color-background) border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors cursor-pointer"
                                 aria-label="Alternar tema"
                             >
                                 {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -198,7 +198,7 @@ export default function Header() {
                             <div className="relative" ref={userMenuRef}>
                                 <button
                                     onClick={handleUserClick}
-                                    className={`p-2 rounded-full border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors ${userRole ? "bg-(--color-primary)/10 text-(--color-primary) border-(--color-primary)/50" : "bg-(--color-background)"
+                                    className={`p-2 rounded-full border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors ${userRole ? "bg-(--color-primary)/10 text-(--color-primary) border-(--color-primary)/50" : "bg-(--color-background) cursor-pointer"
                                         }`}
                                     aria-label="Minha Conta"
                                 >
@@ -209,12 +209,14 @@ export default function Header() {
                                 {isUserMenuOpen && userRole && (
                                     <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-(--color-neutral-light) rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 py-2 z-50">
                                         <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800 mb-1">
-                                            <p className="text-sm font-medium text-gray-500 text-center">
-                                                {userRole === 'admin' ? 'Administrador' : 'Usuário Logado'}
+                                            <p className="text-sm font-medium text-gray-500 text-center capitalize">
+                                                {userRole === 'admin' ? 'Administrador' : 
+                                                 userRole === 'user' ? 'Usuário Comum' : 
+                                                 userRole}
                                             </p>
                                         </div>
 
-                                        {userRole === 'admin' && (
+                                        {userRole !== 'user' && (
                                             <button
                                                 onClick={() => { setIsUserMenuOpen(false); navigate('/admin'); }}
                                                 className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-(--color-primary)/10 hover:text-(--color-primary) transition-colors flex items-center gap-2"

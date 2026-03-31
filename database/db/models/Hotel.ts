@@ -8,6 +8,7 @@ const HotelSchema = new Schema({
     category: { type: String, required: true, enum: ['Hotel', 'Pousada', 'Flat', 'Área de Camping'] },
     features: [String],
     highlight: { type: Boolean, default: false },
+    highlightExpiration: { type: Date },
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
     socials: {

@@ -21,11 +21,20 @@ import PublicRoute from "../components/middleware/PublicRoute.tsx";
 
 // Admin Interface
 import Dashboard from "../components/admin/Dashboard.tsx";
+
+// Hotel Controls
 import CadGeneric from "../components/admin/hotelsControls/CadGeneric.tsx";
 import EditGeneric from "../components/admin/hotelsControls/EditGeneric.tsx";
 import ListHotel from "../components/admin/hotelsControls/ListHotel.tsx";
-import CadEvento from "../components/admin/CadEvento.tsx";
-import UserManagement from "../components/admin/UserManagement.tsx";
+
+// Event Controls
+import ListEvents from "../components/admin/eventControls/ListEvents.tsx";
+import CadEvento from "../components/admin/eventControls/CadEvento.tsx";
+
+// User Permissions
+import UserManagement from "../components/admin/usersControls/UserManagement.tsx";
+import UserPerms from "../components/admin/usersControls/UserPerms.tsx";
+import RoleManagement from "../components/admin/usersControls/RoleManagement.tsx";
 
 import RootLayout from "../components/shared/RootLayout.tsx";
 
@@ -55,6 +64,7 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Dashboard />,
+            errorElement: <Error />,
             children: [
               {
                 path: "hoteis",
@@ -69,12 +79,24 @@ const router = createBrowserRouter([
                 element: <EditGeneric />
               },
               {
+                path: "eventos",
+                element: <ListEvents />
+              },
+              {
                 path: "eventos/novo",
                 element: <CadEvento />
               },
               {
                 path: "usuarios",
                 element: <UserManagement />
+              },
+              {
+                path: "usuarios/permissoes",
+                element: <UserPerms />
+              },
+              {
+                path: "usuarios/cargos",
+                element: <RoleManagement />
               }
             ]
           }
@@ -119,7 +141,7 @@ const router = createBrowserRouter([
       {
         path: "/investir",
         element: <Investir />
-      }
+      },
     ]
   }
 ]);

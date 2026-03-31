@@ -1,12 +1,14 @@
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home, AlertOctagon } from "lucide-react";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../../config/api";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [user, setUser] = useState<{ name: string, email: string } | null>(null);
+    const [user, setUser] = useState<{ name: string, email: string, role?: string, permissions?: any } | null>(null);
+    const [loadingUser, setLoadingUser] = useState(true);
     const [greeting, setGreeting] = useState("Bem-vindo");
 
     useEffect(() => {
@@ -23,14 +25,19 @@ export default function Dashboard() {
                 try {
                     const payload = token.split(".")[1];
                     const decoded = JSON.parse(atob(payload));
-                    const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/users/${decoded.id}`, {
+                    const res = await fetch(`${API_BASE_URL}/api/users/${decoded.id}`, {
                         headers: { "Authorization": `Bearer ${token}` }
                     });
                     const data = await res.json();
-                    setUser({ name: data.name, email: data.email });
+                    setUser({ name: data.name, email: data.email, role: data.role, permissions: data.permissions });
                 } catch (e) {
                     console.error("Erro ao ler token:", e);
+                } finally {
+                    setLoadingUser(false);
                 }
+            } else {
+                setLoadingUser(false);
+                navigate("/login");
             }
         }
         fecthUser();
@@ -41,13 +48,24 @@ export default function Dashboard() {
         navigate("/login");
     };
 
-    const navItems = [
-        { path: "/admin", icon: LayoutDashboard, label: "Visão Geral" },
-        { path: "/admin/usuarios", icon: Users, label: "Usuários" },
-        { path: "/admin/hoteis", icon: Hotel, label: "Alojamentos" },
-        { path: "/admin/eventos/novo", icon: Calendar, label: "Eventos Locais" },
-        { path: "/", icon: Home, label: "Home" },
+    const rawNavItems = [
+        { path: "/admin", icon: LayoutDashboard, label: "Visão Geral", categoryKey: "all" },
+        { path: "/admin/usuarios", icon: Users, label: "Usuários", categoryKey: "users" },
+        { path: "/admin/hoteis", icon: Hotel, label: "Onde Dormir", categoryKey: "where_to_sleep" },
+        { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" },
+        { path: "/", icon: Home, label: "Home", categoryKey: "all" },
     ];
+
+    const navItems = rawNavItems.filter(item => {
+        if (item.categoryKey === "all") return true; 
+        if (user?.role === "admin") return true;
+        
+        // Bloqueio Hierárquico: Usuários SÓ pode ser lida por admin literal
+        if (item.categoryKey === "users") return false;
+
+        if (!user?.role || user?.role === "user") return false;
+        return user?.permissions && user.permissions[item.categoryKey]?.read === true;
+    });
 
     // Fecha a sidebar no mobile ao clicar em um link
     const closeSidebarMobile = () => {
@@ -68,7 +86,7 @@ export default function Dashboard() {
             {/* Sidebar */}
             <aside
                 className={`
-                    fixed md:relative z-50 h-full w-[280px] bg-white border-r border-slate-200 shadow-2xl md:shadow-none
+                    fixed md:relative z-50 h-full w-280px bg-white border-r border-slate-200 shadow-2xl md:shadow-none
                     transition-transform duration-300 ease-in-out flex flex-col
                     ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
                 `}
@@ -173,14 +191,80 @@ export default function Dashboard() {
                     {/* Elementos decorativos de fundo */}
                     <div className="absolute top-0 left-0 w-full h-64 bg-linear-to-b from-slate-100 to-transparent -z-10 pointer-events-none" />
 
-                    {location.pathname === "/admin" ? (
-                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <OverviewArea />
-                        </div>
-                    ) : (
-                        <div className="animate-in fade-in zoom-in-95 duration-300 h-full">
-                            <Outlet />
-                        </div>
+                    {!loadingUser && (
+                        (() => {
+                            const getCategoryFromPath = (path: string) => {
+                                if (path.startsWith("/admin/usuarios")) return "users";
+                                if (path.startsWith("/admin/hoteis")) return "where_to_sleep";
+                                if (path.startsWith("/admin/eventos")) return "events";
+                                return "all";
+                            };
+
+                            const currentCategory = getCategoryFromPath(location.pathname);
+                            
+                            let hasAccess = false;
+                            let denyReason = "Seu cargo atual não possui permissão de leitura para acessar este módulo.";
+
+                            if (user?.role === "admin") {
+                                hasAccess = true;
+                            } else if (currentCategory === "all") {
+                                hasAccess = true;
+                            } else if (currentCategory === "users") {
+                                hasAccess = false; 
+                                denyReason = "As telas de gestão de Cargos e Contas são restritas ao Administrador chefe do portal.";
+                            } else if (user?.permissions && user.permissions[currentCategory]) {
+                                const perms = user.permissions[currentCategory];
+                                if (!perms.read) {
+                                    hasAccess = false;
+                                } else if (location.pathname.includes("/novo") && !perms.create) {
+                                    hasAccess = false;
+                                    denyReason = "Permissão Negada: Você pode ler este módulo, mas não possui privilégios de CRIAÇÃO para abrir cadastros novos.";
+                                } else if (location.pathname.includes("/editar") && !perms.edit) {
+                                    hasAccess = false;
+                                    denyReason = "Permissão Negada: Você não possui privilégios de EDIÇÃO para modificar registros.";
+                                } else {
+                                    hasAccess = true;
+                                }
+                            }
+
+                            if (!hasAccess) {
+                                return (
+                                    <div className="flex flex-col items-center justify-center p-12 text-center h-full animate-in fade-in duration-500">
+                                        <div className="w-24 h-24 mb-6 rounded-full bg-red-50 text-red-500 flex items-center justify-center shadow-inner relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-red-500/10 mix-blend-multiply animate-pulse"></div>
+                                            <AlertOctagon size={48} />
+                                        </div>
+                                        <h2 className="text-3xl font-black text-slate-800 mb-2 tracking-tight">Acesso Restrito</h2>
+                                        <p className="text-slate-500 max-w-md text-base leading-relaxed mb-8">
+                                            <b>{denyReason}</b> Se precisar de acesso, converse com o dono do portal.
+                                        </p>
+                                        <Link 
+                                            to="/admin" 
+                                            className="px-6 py-3 rounded-xl bg-(--color-primary) text-white font-bold hover:bg-(--color-secondary) shadow-md transition-all active:scale-95 flex items-center gap-2"
+                                        >
+                                            <LayoutDashboard size={18} />
+                                            Voltar à Visão Geral
+                                        </Link>
+                                    </div>
+                                );
+                            }
+
+                            return location.pathname === "/admin" ? (
+                                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <OverviewArea userPerms={user?.permissions} />
+                                </div>
+                            ) : (
+                                <div className="animate-in fade-in zoom-in-95 duration-300 h-full">
+                                    <Outlet />
+                                </div>
+                            );
+                        })()
+                    )}
+
+                    {loadingUser && (
+                         <div className="flex justify-center items-center h-64">
+                             <div className="animate-spin w-10 h-10 border-4 border-(--color-primary) border-t-transparent rounded-full shadow-lg"></div>
+                         </div>
                     )}
                 </div>
             </main>
@@ -189,7 +273,7 @@ export default function Dashboard() {
 }
 
 // Componente Interno da Visão Geral (Overview)
-function OverviewArea() {
+function OverviewArea({ userPerms }: { userPerms?: any }) {
     const [stats, setStats] = useState({ users: 0, hotels: 0, events: 0 });
     const [loadingStats, setLoadingStats] = useState(true);
 
@@ -199,7 +283,7 @@ function OverviewArea() {
                 const token = localStorage.getItem("token");
                 if (!token) return;
 
-                const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/dashboard/stats`, {
+                const res = await fetch(`${API_BASE_URL}/api/dashboard/stats`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
 
@@ -244,28 +328,34 @@ function OverviewArea() {
 
             {/* Grid de Estatísticas (Com visual Moderno) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <Link to="/admin/usuarios" className="transition-all duration-300 hover:scale-105">
-                    <StatCard
-                        title="Usuários Ativos" value={stats.users} icon={Users}
-                        trend="Cadastrados no sistema" trendUp={true}
-                        iconBg="bg-blue-100" iconColor="text-blue-600"
-                    />
-                </Link>
-                <Link to="/admin/hoteis" className="transition-all duration-300 hover:scale-105">
-                    <StatCard
-                        title="Total de Hotéis" value={stats.hotels} icon={Hotel}
-                        trend="Acomodações ativas" trendUp={true}
-                        iconBg="bg-emerald-100" iconColor="text-emerald-600"
-                    />
-                </Link>
-                <Link to="/admin/eventos" className="transition-all duration-300 hover:scale-105">
-                    <StatCard
-                        title="Eventos Ativos" value={stats.events} icon={Calendar}
-                        trend="No portfólio" trendUp={null}
-                        iconBg="bg-amber-100" iconColor="text-amber-600"
-                    />
-                </Link>
-                <Link to="#" className="transition-all duration-300 hover:scale-105">
+                {(!userPerms || userPerms.users?.read) && (
+                    <Link to="/admin/usuarios" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Usuários Ativos" value={stats.users} icon={Users}
+                            trend="Cadastrados no sistema" trendUp={true}
+                            iconBg="bg-blue-100" iconColor="text-blue-600"
+                        />
+                    </Link>
+                )}
+                {(!userPerms || userPerms.where_to_sleep?.read) && (
+                    <Link to="/admin/hoteis" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Total de Alojamentos" value={stats.hotels} icon={Hotel}
+                            trend="Acomodações ativas" trendUp={true}
+                            iconBg="bg-emerald-100" iconColor="text-emerald-600"
+                        />
+                    </Link>
+                )}
+                {(!userPerms || userPerms.events?.read) && (
+                    <Link to="/admin/eventos" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Eventos Ativos" value={stats.events} icon={Calendar}
+                            trend="No portfólio" trendUp={null}
+                            iconBg="bg-amber-100" iconColor="text-amber-600"
+                        />
+                    </Link>
+                )}
+                <Link to="#" className="transition-all duration-300 hover:scale-105 h-full">
                     <StatCard
                         title="Visitas ao Portal" value="8.4k" icon={LayoutDashboard}
                         trend="-3% que ontem" trendUp={false}

@@ -57,7 +57,7 @@ export default function Home() {
                                     <div className="absolute inset-0 bg-black/40 bg-linear-to-b from-black/60 via-black/10 to-black/80" />
 
                                     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 mt-16 z-10">
-                                        <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-medium md:text-large mb-1 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                                        <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-2xl md:text-3xl mb-1 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                                             Bem-vindo a Naviraí
                                         </span>
                                         <h2 className="text-white text-5xl md:text-8xl font-black max-w-4xl leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] mb-6 animate-fade-in-up delay-100">

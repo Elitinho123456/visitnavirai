@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../db/models/User";
+import { Role } from "../db/models/Role";
 
 export default async function login(req: Request, res: Response): Promise<void> {
     try {
@@ -26,8 +27,16 @@ export default async function login(req: Request, res: Response): Promise<void> 
             return;
         }
 
+        let permissions = null;
+        if (user.role && user.role !== "admin" && user.role !== "user") {
+            const roleDoc = await Role.findOne({ name: user.role }).lean();
+            if (roleDoc) {
+                permissions = roleDoc.permissions;
+            }
+        }
+
         const token = jwt.sign(
-            { id: user._id, role: user.role },
+            { id: user._id, role: user.role, permissions },
             process.env.JWT_SECRET || "default_secret",
             { expiresIn: "12h" }
         );

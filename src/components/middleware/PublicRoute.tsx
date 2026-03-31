@@ -8,10 +8,10 @@ export default function PublicRoute() {
             const payload = token.split(".")[1];
             const decoded = JSON.parse(atob(payload));
 
-            if (decoded.role === "admin") {
-                return <Navigate to="/admin" replace />;
-            } else {
+            if (decoded.role === "user") {
                 return <Navigate to="/" replace />;
+            } else {
+                return <Navigate to="/admin" replace />;
             }
         } catch (error) {
             localStorage.removeItem("token");

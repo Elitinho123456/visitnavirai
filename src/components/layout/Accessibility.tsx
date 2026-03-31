@@ -75,7 +75,7 @@ const AccessibilityWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-6 right-6 z-50 font-sans hover:cursor-pointer">
 
       {/* Menu Aberto */}
       {isOpen && (
@@ -152,7 +152,7 @@ const AccessibilityWidget: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex items-center justify-center w-14 h-14 bg-(--color-primary) rounded-full shadow-lg hover:bg-(--color-primary-dark) hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-(--color-accent-gold)"
+          className="group flex items-center justify-center w-14 h-14 bg-(--color-primary) rounded-full shadow-lg hover:bg-(--color-primary-dark) hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-(--color-accent-gold) cursor-pointer"
           aria-label="Abrir menu de acessibilidade"
         >
           <Accessibility size={28} className="text-white group-hover:rotate-12 transition-transform" />
@@ -178,8 +178,8 @@ const FeatureButton: React.FC<FeatureButtonProps> = ({ active, onClick, icon, la
     className={`
       flex flex-col items-center justify-center p-4 rounded transition-all duration-200 border-2 hover:scale-110 hover:bg-gray-300 cursor-pointer
       ${active
-        ? 'bg(--color-primary) text-white border(--color-primary)'
-        : 'bg-white text(--color-neutral-dark) border-transparent hover:border(--color-primary) hover:bg-gray-50 shadow-sm'
+        ? 'bg(--color-primary) text-(--color-neutral-dark) border(--color-primary)'
+        : 'bg-white text-(--color-neutral-dark) border-transparent hover:border(--color-primary) hover:bg-gray-50 shadow-sm'
       }
     `}
   >

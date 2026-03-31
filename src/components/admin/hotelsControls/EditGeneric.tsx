@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Plus, Trash2, ArrowLeft, Save, Upload, Star, ImagePlus, X, Clock, ShieldAlert } from "lucide-react";
 import MapPicker from "../../shared/MapPicker";
+import { API_BASE_URL } from "../../../config/api";
 
 function getCategoryLabel(category: string): string {
     const map: Record<string, string> = {
@@ -13,7 +14,7 @@ function getCategoryLabel(category: string): string {
     return map[category] || "Sobre o Estabelecimento";
 }
 
-const API_BASE = `http://localhost:${import.meta.env.VITE_API_PORT}`;
+const API_BASE = API_BASE_URL;
 
 export default function EditHotel() {
     const { id } = useParams();
@@ -21,6 +22,7 @@ export default function EditHotel() {
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
+    const [highlightRenewMonths, setHighlightRenewMonths] = useState<number>(0);
 
     // Imagens para trocar (opcional)
     const [newBannerFile, setNewBannerFile] = useState<File | null>(null);
@@ -194,8 +196,18 @@ export default function EditHotel() {
             if (newGalleryFiles.length > 0) uploads.push(uploadMultipleFiles(newGalleryFiles, category, name).then(urls => { galleryUrls = [...galleryUrls, ...urls]; }));
             if (uploads.length > 0) await Promise.all(uploads);
 
+            let expiration = formData.highlightExpiration;
+            if (formData.highlight && highlightRenewMonths > 0) {
+                const baseDate = (formData.highlightExpiration && new Date(formData.highlightExpiration) > new Date()) 
+                                ? new Date(formData.highlightExpiration) 
+                                : new Date();
+                baseDate.setMonth(baseDate.getMonth() + highlightRenewMonths);
+                expiration = baseDate.toISOString();
+            }
+
             const payload = {
                 ...formData,
+                highlightExpiration: formData.highlight ? expiration : null,
                 image: bannerUrl,
                 about: { ...formData.about, title: getCategoryLabel(category) },
                 accommodation: { ...formData.accommodation, image: accommodationUrl || bannerUrl },
@@ -272,10 +284,38 @@ export default function EditHotel() {
                                     <Star size={16} className={formData.highlight ? "text-yellow-400 fill-yellow-400" : "text-slate-300"} />
                                     Destaque
                                 </span>
-                                <button type="button" onClick={() => setFormData({ ...formData, highlight: !formData.highlight })}
-                                    className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer ${formData.highlight ? 'bg-(--color-primary)' : 'bg-slate-300'}`}>
+                                <button type="button" onClick={() => {
+                                    if (!formData.highlight) {
+                                        setFormData({ ...formData, highlight: true });
+                                        if (highlightRenewMonths === 0) setHighlightRenewMonths(1);
+                                    } else {
+                                        setFormData({ ...formData, highlight: false });
+                                    }
+                                }}
+                                    className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer shrink-0 ${formData.highlight ? 'bg-(--color-primary)' : 'bg-slate-300'}`}>
                                     <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform ${formData.highlight ? 'translate-x-6' : 'translate-x-1'}`} />
                                 </button>
+                                {formData.highlight && (
+                                    <div className="flex items-center gap-2 ml-2">
+                                        {formData.highlightExpiration && new Date(formData.highlightExpiration) > new Date() && (
+                                            <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap bg-slate-100 px-2 py-1 rounded-md">
+                                                Expira: {new Date(formData.highlightExpiration).toLocaleDateString('pt-BR')}
+                                            </span>
+                                        )}
+                                        <select 
+                                            value={highlightRenewMonths} 
+                                            onChange={(e) => setHighlightRenewMonths(Number(e.target.value))}
+                                            className="px-3 py-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-700 outline-none w-36 cursor-pointer"
+                                        >
+                                            <option value={0}>Manter Tempo</option>
+                                            <option value={1}>+ 1 Mês</option>
+                                            <option value={2}>+ 2 Meses</option>
+                                            <option value={3}>+ 3 Meses</option>
+                                            <option value={6}>+ 6 Meses</option>
+                                            <option value={12}>+ 1 Ano</option>
+                                        </select>
+                                    </div>
+                                )}
                             </div>
                         </div>
 

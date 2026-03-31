@@ -1,13 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Star, ChevronRight, X, ExternalLink, Building2, Home, Tent, Building } from 'lucide-react';
+import { Search, MapPin, Star, ChevronRight, X, Building2, Home, Tent, Building } from 'lucide-react';
 import { translateFeature, hotelsData } from '../../../../config/const';
+import { API_BASE_URL } from '../../../../config/api';
 import type { Hotel } from '../../../../types/interfacesTypes';
 import Header from '../../../layout/Header';
 import Footer from '../../../layout/Footer';
 
-const API_BASE = `http://localhost:${import.meta.env.VITE_API_PORT}`;
+const API_BASE = API_BASE_URL;
 
 // Configuração por tipo de acomodação
 const categoryConfig: Record<string, { title: string; subtitle: string; icon: React.ReactNode; heroImage: string }> = {
@@ -47,7 +48,8 @@ function HotelCard({ hotel, onQuickView }: { hotel: Hotel; onQuickView: (h: Hote
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1"
+            onClick={() => onQuickView(hotel)}
+            className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col"
         >
             {/* Imagem */}
             <div className="relative h-52 overflow-hidden">
@@ -88,22 +90,110 @@ function HotelCard({ hotel, onQuickView }: { hotel: Hotel; onQuickView: (h: Hote
                     ))}
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-auto pt-4 border-t border-slate-50">
                     <Link
                         to={`/acomodacoes/${hotel._id || hotel.id}`}
-                        className="flex-1 bg-(--color-primary) hover:bg-(--color-primary-dark) text-white text-sm font-bold py-2.5 rounded-xl text-center transition-all flex items-center justify-center gap-1.5"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-full bg-(--color-primary) hover:bg-(--color-primary-dark) text-white text-sm font-bold py-2.5 rounded-xl text-center transition-all flex items-center justify-center gap-1.5"
                     >
                         Ver Detalhes <ChevronRight size={16} />
                     </Link>
-                    <button
-                        onClick={() => onQuickView(hotel)}
-                        className="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl transition-all cursor-pointer"
-                        title="Visualização rápida"
-                    >
-                        <ExternalLink size={16} />
-                    </button>
                 </div>
             </div>
+        </motion.div>
+    );
+}
+
+function QuickViewModal({ hotel, onClose }: { hotel: Hotel; onClose: () => void }) {
+    const allImages = [hotel.image, ...(hotel.gallery || [])].filter(Boolean) as string[];
+    const [activeImage, setActiveImage] = useState<string>(allImages[0] || 'https://placehold.co/400x300');
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={onClose}
+        >
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Imagem Principal */}
+                <div className="relative h-56 bg-slate-100">
+                    <img
+                        src={activeImage}
+                        alt={hotel.name}
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                    <button
+                        onClick={onClose}
+                        className="absolute top-4 right-4 w-10 h-10 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white rounded-full flex items-center justify-center transition-all cursor-pointer"
+                    >
+                        <X size={20} />
+                    </button>
+                    <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-white text-2xl font-bold drop-shadow-lg leading-tight">{hotel.name}</h3>
+                        <p className="text-white/90 text-sm flex items-center gap-1 mt-1 font-medium">
+                            <MapPin size={14} /> {hotel.distance}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Thumbnails da Galeria */}
+                {allImages.length > 1 && (
+                    <div className="flex gap-2 overflow-x-auto p-4 bg-slate-50 border-b border-slate-100 custom-scrollbar">
+                        {allImages.map((img, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setActiveImage(img)}
+                                className={`relative shrink-0 w-16 h-16 rounded-xl overflow-hidden cursor-pointer transition-all border-2 ${
+                                    activeImage === img ? 'border-(--color-primary) scale-105 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                                }`}
+                            >
+                                <img src={img} alt={`${hotel.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/* Info */}
+                <div className="p-6">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {hotel.features?.slice(0, 4).map((f, i) => (
+                            <span key={i} className="text-[11px] font-bold bg-(--color-primary)/10 text-(--color-primary) px-3 py-1.5 rounded-full uppercase tracking-wide">
+                                {translateFeature(f)}
+                            </span>
+                        ))}
+                    </div>
+
+                    {hotel.about?.desc?.[0] && (
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">{hotel.about.desc[0]}</p>
+                    )}
+
+                    <div className="flex gap-3 pt-2">
+                        <Link
+                            to={`/acomodacoes/${hotel._id || hotel.id}`}
+                            onClick={onClose}
+                            className="flex-1 bg-(--color-primary) hover:bg-(--color-primary-dark) text-white font-bold py-3.5 rounded-xl text-center transition-all shadow-md flex items-center justify-center gap-2"
+                        >
+                            Ver Página Completa <ChevronRight size={18} />
+                        </Link>
+                        <button
+                            onClick={onClose}
+                            className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition-all cursor-pointer"
+                        >
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }
@@ -158,6 +248,30 @@ export default function Acomodacoes() {
             return matchesCategory && matchesSearch;
         });
     }, [hotels, activeCategory, searchQuery]);
+
+    // Split e Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 50;
+
+    const { highlightedHotels, regularHotels } = useMemo(() => {
+        const highlighted: Hotel[] = [];
+        const regular: Hotel[] = [];
+        filteredHotels.forEach(h => {
+            if (h.highlight) highlighted.push(h);
+            else regular.push(h);
+        });
+        return { highlightedHotels: highlighted, regularHotels: regular };
+    }, [filteredHotels]);
+
+    const totalPages = Math.ceil(regularHotels.length / ITEMS_PER_PAGE);
+    const paginatedRegularHotels = useMemo(() => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        return regularHotels.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [regularHotels, currentPage]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, activeCategory]);
 
     // Config dinâmica com base no tipo
     const currentConfig = activeCategory && categoryConfig[activeCategory]
@@ -298,20 +412,77 @@ export default function Acomodacoes() {
                             <p className="text-slate-500">Tente ajustar os filtros ou a busca.</p>
                         </div>
                     ) : (
-                        <motion.div
-                            layout
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                        >
-                            <AnimatePresence>
-                                {filteredHotels.map(hotel => (
-                                    <HotelCard
-                                        key={hotel._id || hotel.id}
-                                        hotel={hotel}
-                                        onQuickView={setQuickViewHotel}
-                                    />
-                                ))}
-                            </AnimatePresence>
-                        </motion.div>
+                        <div className="space-y-16">
+                            {/* Destaques */}
+                            {highlightedHotels.length > 0 && (
+                                <div>
+                                    <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-3">
+                                        <Star className="text-yellow-500 fill-yellow-500" size={28} />
+                                        Destaques
+                                    </h2>
+                                    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        <AnimatePresence>
+                                            {highlightedHotels.map(hotel => (
+                                                <HotelCard key={hotel._id || hotel.id} hotel={hotel} onQuickView={setQuickViewHotel} />
+                                            ))}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                </div>
+                            )}
+
+                            {/* Alojamentos */}
+                            {regularHotels.length > 0 && (
+                                <div>
+                                    <h2 className="text-3xl font-black text-slate-800 mb-6 border-b border-slate-200 pb-3">
+                                        Alojamentos
+                                    </h2>
+                                    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        <AnimatePresence>
+                                            {paginatedRegularHotels.map(hotel => (
+                                                <HotelCard key={hotel._id || hotel.id} hotel={hotel} onQuickView={setQuickViewHotel} />
+                                            ))}
+                                        </AnimatePresence>
+                                    </motion.div>
+
+                                    {/* Paginação */}
+                                    {totalPages > 1 && (
+                                        <div className="flex justify-center items-center gap-4 mt-12 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-100 w-fit mx-auto">
+                                            <button 
+                                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                                disabled={currentPage === 1}
+                                                className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
+                                            >
+                                                &lt; Anterior
+                                            </button>
+                                            
+                                            <div className="flex gap-1">
+                                                {Array.from({ length: totalPages }).map((_, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => setCurrentPage(i + 1)}
+                                                        className={`w-10 h-10 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer ${
+                                                            currentPage === i + 1 
+                                                            ? 'bg-(--color-primary) text-white shadow-md' 
+                                                            : 'text-slate-500 hover:bg-slate-100'
+                                                        }`}
+                                                    >
+                                                        {i + 1}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <button 
+                                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                                disabled={currentPage === totalPages}
+                                                className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
+                                            >
+                                                Próximo &gt;
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
             </main>
@@ -319,75 +490,10 @@ export default function Acomodacoes() {
             {/* --- QuickView Modal --- */}
             <AnimatePresence>
                 {quickViewHotel && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-                        onClick={() => setQuickViewHotel(null)}
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                            className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Imagem */}
-                            <div className="relative h-56">
-                                <img
-                                    src={quickViewHotel.image || 'https://placehold.co/400x300'}
-                                    alt={quickViewHotel.name}
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-                                <button
-                                    onClick={() => setQuickViewHotel(null)}
-                                    className="absolute top-4 right-4 w-10 h-10 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white rounded-full flex items-center justify-center transition-all cursor-pointer"
-                                >
-                                    <X size={20} />
-                                </button>
-                                <div className="absolute bottom-4 left-4 right-4">
-                                    <h3 className="text-white text-2xl font-bold drop-shadow-lg">{quickViewHotel.name}</h3>
-                                    <p className="text-white/80 text-sm flex items-center gap-1 mt-1">
-                                        <MapPin size={14} /> {quickViewHotel.distance}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Info */}
-                            <div className="p-6">
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {quickViewHotel.features?.map((f, i) => (
-                                        <span key={i} className="text-xs font-medium bg-(--color-primary)/10 text-(--color-primary) px-3 py-1.5 rounded-full">
-                                            {translateFeature(f)}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {quickViewHotel.about?.desc?.[0] && (
-                                    <p className="text-slate-600 text-sm mb-6 line-clamp-3">{quickViewHotel.about.desc[0]}</p>
-                                )}
-
-                                <div className="flex gap-3">
-                                    <Link
-                                        to={`/acomodacoes/${quickViewHotel._id || quickViewHotel.id}`}
-                                        onClick={() => setQuickViewHotel(null)}
-                                        className="flex-1 bg-(--color-primary) hover:bg-(--color-primary-dark) text-white font-bold py-3 rounded-xl text-center transition-all"
-                                    >
-                                        Ver Página Completa
-                                    </Link>
-                                    <button
-                                        onClick={() => setQuickViewHotel(null)}
-                                        className="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition-all cursor-pointer"
-                                    >
-                                        Fechar
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                    <QuickViewModal
+                        hotel={quickViewHotel}
+                        onClose={() => setQuickViewHotel(null)}
+                    />
                 )}
             </AnimatePresence>
 

@@ -18,7 +18,7 @@ export default function Footer() {
             </Link>
             <span> & </span>
             <Link
-              to="https://github.com/thiagoc-m"
+              to="https://github.com/thiagomartins2611"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-link hover:text-link-hover transition-colors duration-300"

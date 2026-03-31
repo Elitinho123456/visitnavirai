@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { Hotel } from "../../../../types/interfacesTypes";
 import { ChevronLeft, ChevronRight, BeerOff, Clock, X, ZoomIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { API_BASE_URL } from "../../../../config/api";
 
 export default function HotelInfo() {
     const { id: hotelId } = useParams();
@@ -25,7 +26,7 @@ export default function HotelInfo() {
 
         const fetchHotelData = async () => {
             try {
-                const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/hotels/${hotelId}`);
+                const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
                 if (res.ok) {
                     const data = await res.json();
                     setHotelData(data);
@@ -105,7 +106,7 @@ export default function HotelInfo() {
 
             <main className="grow">
                 {/* --- Hero Section (Banner) --- */}
-                <section className="relative h-[60vh] min-h-[400px] md:h-[500px] lg:h-[600px] w-full">
+                <section className="relative h-[60vh] min-h-100 md:h-125 lg:h-150 w-full">
                     <img
                         src={hotelData.image || "https://placehold.co/1800x720"}
                         alt={hotelData.name}
@@ -182,7 +183,7 @@ export default function HotelInfo() {
 
                             {/* Imagem Principal do Carrossel */}
                             <div
-                                className="relative rounded-2xl overflow-hidden shadow-xl h-64 sm:h-80 md:h-[450px] mb-4 group cursor-pointer"
+                                className="relative rounded-2xl overflow-hidden shadow-xl h-64 sm:h-80 md:h-112.5 mb-4 group cursor-pointer"
                                 onClick={() => openLightbox(galleryIndex)}
                             >
                                 <img

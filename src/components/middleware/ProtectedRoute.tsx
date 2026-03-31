@@ -11,7 +11,7 @@ export default function ProtectedRoute() {
         const payload = token.split(".")[1];
         const decoded = JSON.parse(atob(payload));
 
-        if (decoded.role !== "admin") {
+        if (decoded.role == "user") {
             return <Navigate to="/" replace />;
         }
     } catch (error) {

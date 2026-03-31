@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Plus, Trash2, ArrowLeft, Upload, Star, ImagePlus, X, Clock, ShieldAlert } from "lucide-react";
 import MapPicker from "../../shared/MapPicker";
+import { API_BASE_URL } from "../../../config/api";
 
 function getCategoryLabel(category: string): string {
     const map: Record<string, string> = {
@@ -13,12 +14,13 @@ function getCategoryLabel(category: string): string {
     return map[category] || "Sobre o Estabelecimento";
 }
 
-const API_BASE = `http://localhost:${import.meta.env.VITE_API_PORT}`;
+const API_BASE = API_BASE_URL;
 
 export default function CadGeneric() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
+    const [highlightMonths, setHighlightMonths] = useState(1);
 
     // Imagens separadas
     const [bannerFile, setBannerFile] = useState<File | null>(null);
@@ -194,8 +196,15 @@ export default function CadGeneric() {
 
             const [bannerUrl, accommodationUrl, galleryUrls] = await Promise.all(uploadPromises);
 
+            const calculateExpiration = (months: number) => {
+                const d = new Date();
+                d.setMonth(d.getMonth() + months);
+                return d.toISOString();
+            };
+
             const payload = {
                 ...formData,
+                highlightExpiration: formData.highlight ? calculateExpiration(highlightMonths) : null,
                 image: bannerUrl,
                 about: { ...formData.about, title: getCategoryLabel(category) },
                 accommodation: { ...formData.accommodation, image: accommodationUrl || bannerUrl },
@@ -265,9 +274,22 @@ export default function CadGeneric() {
                                     Destaque
                                 </span>
                                 <button type="button" onClick={() => setFormData({ ...formData, highlight: !formData.highlight })}
-                                    className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer ${formData.highlight ? 'bg-(--color-primary)' : 'bg-slate-300'}`}>
+                                    className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer shrink-0 ${formData.highlight ? 'bg-(--color-primary)' : 'bg-slate-300'}`}>
                                     <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform ${formData.highlight ? 'translate-x-6' : 'translate-x-1'}`} />
                                 </button>
+                                {formData.highlight && (
+                                    <select 
+                                        value={highlightMonths} 
+                                        onChange={(e) => setHighlightMonths(Number(e.target.value))}
+                                        className="ml-2 px-3 py-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-700 outline-none w-32 cursor-pointer"
+                                    >
+                                        <option value={1}>1 Mês</option>
+                                        <option value={2}>2 Meses</option>
+                                        <option value={3}>3 Meses</option>
+                                        <option value={6}>6 Meses</option>
+                                        <option value={12}>1 Ano</option>
+                                    </select>
+                                )}
                             </div>
                         </div>
 
