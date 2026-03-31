@@ -15,6 +15,7 @@ export function categoryFolder(category: string): string {
         "Flat": "flats",
         "Área de Camping": "campings",
         "Eventos": "eventos",
+        "Perfil": "perfil",
     };
     return map[category] || "diversos";
 }

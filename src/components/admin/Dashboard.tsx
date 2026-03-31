@@ -1,13 +1,15 @@
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home, AlertOctagon } from "lucide-react";
-import { useState, useEffect } from "react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home, AlertOctagon, Camera } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL } from "../../config/api";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [user, setUser] = useState<{ name: string, email: string, role?: string, permissions?: any } | null>(null);
+    const [user, setUser] = useState<{ id: string, name: string, email: string, role?: string, permissions?: any, profileImage?: string } | null>(null);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const [loadingUser, setLoadingUser] = useState(true);
     const [greeting, setGreeting] = useState("Bem-vindo");
 
@@ -29,7 +31,7 @@ export default function Dashboard() {
                         headers: { "Authorization": `Bearer ${token}` }
                     });
                     const data = await res.json();
-                    setUser({ name: data.name, email: data.email, role: data.role, permissions: data.permissions });
+                    setUser({ id: decoded.id, name: data.name, email: data.email, role: data.role, permissions: data.permissions, profileImage: data.profileImage });
                 } catch (e) {
                     console.error("Erro ao ler token:", e);
                 } finally {
@@ -57,15 +59,60 @@ export default function Dashboard() {
     ];
 
     const navItems = rawNavItems.filter(item => {
-        if (item.categoryKey === "all") return true; 
+        if (item.categoryKey === "all") return true;
         if (user?.role === "admin") return true;
-        
+
         // Bloqueio Hierárquico: Usuários SÓ pode ser lida por admin literal
         if (item.categoryKey === "users") return false;
 
         if (!user?.role || user?.role === "user") return false;
         return user?.permissions && user.permissions[item.categoryKey]?.read === true;
     });
+
+    // Lógica para Upload da Foto de Perfil
+    const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file || !user) return;
+        
+        setUploadingAvatar(true);
+        try {
+            const token = localStorage.getItem("token");
+            
+            // 1. Enviar para a rota genérica de uploads
+            const fd = new FormData();
+            fd.append("category", "Perfil");
+            fd.append("name", user.name);
+            fd.append("file", file);
+            
+            const uploadRes = await fetch(`${API_BASE_URL}/api/teste/upload`, { 
+                method: "POST", 
+                body: fd 
+            });
+            
+            if (!uploadRes.ok) throw new Error("Erro no upload físico da imagem.");
+            const { url } = await uploadRes.json();
+            
+            // 2. Atualizar o cadastro do usuário
+            const updateRes = await fetch(`${API_BASE_URL}/api/users/${user.id}/profile-image`, {
+                method: "PUT",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ profileImage: url })
+            });
+
+            if (!updateRes.ok) throw new Error("Erro ao salvar url no cadastro.");
+            
+            setUser(prev => prev ? { ...prev, profileImage: url } : null);
+        } catch (error) {
+            console.error("Erro ao fazer upload da avatar:", error);
+            alert("Não foi possível atualizar sua foto de perfil.");
+        } finally {
+            setUploadingAvatar(false);
+            if (fileInputRef.current) fileInputRef.current.value = ""; // reseta o input
+        }
+    };
 
     // Fecha a sidebar no mobile ao clicar em um link
     const closeSidebarMobile = () => {
@@ -132,15 +179,38 @@ export default function Dashboard() {
                 </div>
 
                 <div className="p-4 border-t border-slate-100 bg-slate-50/50">
-                    <div className="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white border border-slate-200 shadow-sm">
-                        <div className="w-10 h-10 rounded-full bg-linear-to-tr from-(--color-secondary) to-(--color-primary) text-white flex items-center justify-center font-bold text-lg shadow-inner">
-                            {user?.name?.charAt(0).toUpperCase() || "A"}
+                    <label htmlFor="perfil" className="hidden">Perfil</label>
+                    <div 
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white border border-slate-200 shadow-sm cursor-pointer hover:border-(--color-primary)/50 hover:shadow-md transition-all group"
+                        title="Alterar foto de perfil"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-linear-to-tr from-(--color-secondary) to-(--color-primary) text-white flex items-center justify-center font-bold text-lg shadow-inner relative overflow-hidden shrink-0">
+                            {uploadingAvatar ? (
+                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            ) : user?.profileImage ? (
+                                <img src={`${API_BASE_URL}${user.profileImage}`} alt={user.name} className="w-full h-full object-cover" />
+                            ) : (
+                                user?.name?.charAt(0).toUpperCase() || "A"
+                            )}
+                            {/* Overlay de Hover */}
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Camera size={16} className="text-white" />
+                            </div>
                         </div>
                         <div className="overflow-hidden flex-1">
-                            <p className="text-sm font-bold text-slate-900 truncate">{user?.name || "Administrador"}</p>
+                            <p className="text-sm font-bold text-slate-900 truncate group-hover:text-(--color-primary) transition-colors">{user?.name || "Administrador"}</p>
                             <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                         </div>
                     </div>
+                    {/* Input invisível disparado pelo clique */}
+                    <input 
+                        type="file" 
+                        accept="image/*" 
+                        ref={fileInputRef} 
+                        onChange={handleAvatarUpload} 
+                        className="hidden" 
+                    />
                     <button
                         onClick={handleLogout}
                         className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-200 transition-colors font-bold text-sm border border-transparent hover:border-red-100 cursor-pointer"
@@ -201,7 +271,7 @@ export default function Dashboard() {
                             };
 
                             const currentCategory = getCategoryFromPath(location.pathname);
-                            
+
                             let hasAccess = false;
                             let denyReason = "Seu cargo atual não possui permissão de leitura para acessar este módulo.";
 
@@ -210,7 +280,7 @@ export default function Dashboard() {
                             } else if (currentCategory === "all") {
                                 hasAccess = true;
                             } else if (currentCategory === "users") {
-                                hasAccess = false; 
+                                hasAccess = false;
                                 denyReason = "As telas de gestão de Cargos e Contas são restritas ao Administrador chefe do portal.";
                             } else if (user?.permissions && user.permissions[currentCategory]) {
                                 const perms = user.permissions[currentCategory];
@@ -238,8 +308,8 @@ export default function Dashboard() {
                                         <p className="text-slate-500 max-w-md text-base leading-relaxed mb-8">
                                             <b>{denyReason}</b> Se precisar de acesso, converse com o dono do portal.
                                         </p>
-                                        <Link 
-                                            to="/admin" 
+                                        <Link
+                                            to="/admin"
                                             className="px-6 py-3 rounded-xl bg-(--color-primary) text-white font-bold hover:bg-(--color-secondary) shadow-md transition-all active:scale-95 flex items-center gap-2"
                                         >
                                             <LayoutDashboard size={18} />
@@ -262,9 +332,9 @@ export default function Dashboard() {
                     )}
 
                     {loadingUser && (
-                         <div className="flex justify-center items-center h-64">
-                             <div className="animate-spin w-10 h-10 border-4 border-(--color-primary) border-t-transparent rounded-full shadow-lg"></div>
-                         </div>
+                        <div className="flex justify-center items-center h-64">
+                            <div className="animate-spin w-10 h-10 border-4 border-(--color-primary) border-t-transparent rounded-full shadow-lg"></div>
+                        </div>
                     )}
                 </div>
             </main>

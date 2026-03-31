@@ -8,7 +8,8 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     date: { type: Date, default: Date.now },
     role: { type: String, default: 'user' },
-    Token: String
+    Token: String,
+    profileImage: { type: String, default: "" }
 });
 
 export const User = mongoose.model("User", UserSchema);

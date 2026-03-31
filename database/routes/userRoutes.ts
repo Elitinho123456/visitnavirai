@@ -55,4 +55,29 @@ router.put("/:id/role", verifyToken, isSuperAdmin, async (req: Request, res: Res
     }
 });
 
+// UPDATE USER PROFILE IMAGE (Self or Admin)
+router.put("/:id/profile-image", verifyToken, async (req: AuthRequest, res: Response) => {
+    try {
+        if (req.user.role !== "admin" && req.user._id.toString() !== req.params.id) {
+            return res.status(403).json({ message: "Acesso restrito." });
+        }
+        
+        const { profileImage } = req.body;
+        if (profileImage === undefined) {
+            return res.status(400).json({ message: "A imagem de perfil é obrigatória" });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.params.id, 
+            { profileImage }, 
+            { returnDocument: "after" }
+        ).select("-password");
+
+        if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao atualizar a foto de perfil do usuário" });
+    }
+});
+
 export default router;
