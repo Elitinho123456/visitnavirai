@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Edit3, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Trash2 } from 'lucide-react';
 import { API_BASE_URL } from '../../config/api';
 import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
@@ -86,7 +86,7 @@ export default function EventsWidget() {
     };
 
     return (
-        <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white p-6 rounded-2xl shadow-xl ${isAdmin ? "max-w-7xl" : "max-w-5xl" } mx-auto border border-gray-100`}>
+        <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white p-6 rounded-2xl shadow-xl ${isAdmin ? "max-w-5xl" : "max-w-5xl"} mx-auto border h-fit md:h-[450px] border-gray-100`}>
             {/* Esquerda: Calendário */}
             <div className="flex flex-col">
                 <div className="flex justify-between items-center mb-6">
@@ -95,8 +95,8 @@ export default function EventsWidget() {
                         {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                     </h3>
                     <div className="flex gap-2">
-                        <button onClick={prevMonth} className="p-2 bg-gray-100 hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
-                        <button onClick={nextMonth} className="p-2 bg-gray-100 hover:bg-(--color-primary) hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
+                        <button onClick={prevMonth} className="p-2 cursor-pointer bg-gray-100 hover:bg-(--color-primary) text-gray-400 hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
+                        <button onClick={nextMonth} className="p-2 cursor-pointer bg-gray-100 hover:bg-(--color-primary) text-gray-400 hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@ export default function EventsWidget() {
             </div>
 
             {/* Direita: Lista de Eventos (Scroll Corrigido) */}
-            <div className="flex flex-col border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8">
+            <div className="flex flex-col border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8 md:min-h-0 h-[400px] md:h-auto">
                 <h4 className="text-xl font-bold text-slate-800 mb-6">
                     {isAdmin ? "Gerenciar Eventos" : "Eventos do Mês"}
                 </h4>
@@ -129,27 +129,27 @@ export default function EventsWidget() {
                         <div className="animate-spin w-8 h-8 border-4 border-(--color-primary) border-t-transparent rounded-full"></div>
                     </div>
                 ) : (
-                    <div className="flex-1 overflow-y-auto max-h-[500px] pr-2 space-y-4 customized-scrollbar">
+                    <div className="flex-1 overflow-y-auto pr-2 space-y-4 customized-scrollbar">
                         {monthEvents.length > 0 ? (
                             <div className={isAdmin ? "grid grid-cols-1 gap-4" : "space-y-4"}>
                                 {monthEvents.map((event) => (
                                     isAdmin ? (
                                         // Visualização ADMIN rolável
                                         <div key={event._id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm flex flex-col sm:flex-row">
-                                            <img 
-                                                src={event.image || "https://placehold.co/150"} 
-                                                className="w-full sm:w-32 h-32 object-cover" 
-                                                alt="" 
+                                            <img
+                                                src={event.image || "https://placehold.co/150"}
+                                                className="w-full sm:w-32 h-32 object-cover"
+                                                alt=""
                                             />
                                             <div className="p-4 flex-1">
                                                 <h5 className="font-bold text-slate-800 truncate">{event.name}</h5>
                                                 <p className="text-xs text-gray-500 flex"> <Clock size={14} /> - {event.startTime} - {event.endTime}</p>
-                                                
+
                                                 <p className="text-xs text-gray-500 flex"> <CalendarIcon size={14} /> - {event.date?.split("-").reverse().join("-")}</p>
 
                                                 <div className="flex gap-2 mt-3">
                                                     <Link to={`editar/${event._id}`} className="flex-1 bg-(--color-primary) text-white text-xs py-2 rounded-lg text-center font-bold hover:cursor-pointer">Editar</Link>
-                                                    <button onClick={() => confirmDelete(event._id)} className="px-3 bg-red-50 text-red-500 rounded-lg hover:bg-red-100"><Trash2 size={16}/></button>
+                                                    <button onClick={() => confirmDelete(event._id)} className="px-3 bg-red-50 text-red-500 rounded-lg hover:bg-red-100"><Trash2 size={16} /></button>
                                                 </div>
                                             </div>
                                         </div>
