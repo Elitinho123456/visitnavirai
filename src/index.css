@@ -50,34 +50,4 @@ html.access-cursor,
 html.access-cursor * {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>'), auto !important;
 }
-
-/* --- Google Translate Fixes --- */
-#google_translate_element {
-  display: flex !important;
-  align-items: center !important;
-  pointer-events: auto !important;
-}
-.goog-te-gadget {
-  font-family: inherit !important;
-  color: transparent !important;
-  font-size: 0px !important;
-  display: flex !important;
-  align-items: center !important;
-  line-height: normal !important;
-}
-.goog-te-gadget .goog-te-combo {
-  font-family: inherit !important;
-  font-size: 14px !important;
-  color: var(--color-text-body) !important;
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  cursor: pointer !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-.goog-te-gadget > span,
-.goog-logo-link,
-.goog-te-gadget img {
-  display: none !important;
-}
+

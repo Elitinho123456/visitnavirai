@@ -1,5 +1,5 @@
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Bell, Home, AlertOctagon, Camera } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL } from "../../config/api";
 
@@ -54,8 +54,7 @@ export default function Dashboard() {
         { path: "/admin", icon: LayoutDashboard, label: "Visão Geral", categoryKey: "all" },
         { path: "/admin/usuarios", icon: Users, label: "Usuários", categoryKey: "users" },
         { path: "/admin/hoteis", icon: Hotel, label: "Onde Dormir", categoryKey: "where_to_sleep" },
-        { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" },
-        { path: "/", icon: Home, label: "Home", categoryKey: "all" },
+        { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" }
     ];
 
     const navItems = rawNavItems.filter(item => {
@@ -73,29 +72,29 @@ export default function Dashboard() {
     const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file || !user) return;
-        
+
         setUploadingAvatar(true);
         try {
             const token = localStorage.getItem("token");
-            
+
             // 1. Enviar para a rota genérica de uploads
             const fd = new FormData();
             fd.append("category", "Perfil");
             fd.append("name", user.name);
             fd.append("file", file);
-            
-            const uploadRes = await fetch(`${API_BASE_URL}/api/teste/upload`, { 
-                method: "POST", 
-                body: fd 
+
+            const uploadRes = await fetch(`${API_BASE_URL}/api/teste/upload`, {
+                method: "POST",
+                body: fd
             });
-            
+
             if (!uploadRes.ok) throw new Error("Erro no upload físico da imagem.");
             const { url } = await uploadRes.json();
-            
+
             // 2. Atualizar o cadastro do usuário
             const updateRes = await fetch(`${API_BASE_URL}/api/users/${user.id}/profile-image`, {
                 method: "PUT",
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
@@ -103,7 +102,7 @@ export default function Dashboard() {
             });
 
             if (!updateRes.ok) throw new Error("Erro ao salvar url no cadastro.");
-            
+
             setUser(prev => prev ? { ...prev, profileImage: url } : null);
         } catch (error) {
             console.error("Erro ao fazer upload da avatar:", error);
@@ -180,7 +179,7 @@ export default function Dashboard() {
 
                 <div className="p-4 border-t border-slate-100 bg-slate-50/50">
                     <label htmlFor="perfil" className="hidden">Perfil</label>
-                    <div 
+                    <div
                         onClick={() => fileInputRef.current?.click()}
                         className="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white border border-slate-200 shadow-sm cursor-pointer hover:border-(--color-primary)/50 hover:shadow-md transition-all group"
                         title="Alterar foto de perfil"
@@ -204,12 +203,12 @@ export default function Dashboard() {
                         </div>
                     </div>
                     {/* Input invisível disparado pelo clique */}
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        ref={fileInputRef} 
-                        onChange={handleAvatarUpload} 
-                        className="hidden" 
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleAvatarUpload}
+                        className="hidden"
                     />
                     <button
                         onClick={handleLogout}
@@ -249,10 +248,9 @@ export default function Dashboard() {
                             <p className="text-sm font-bold text-slate-800">{greeting}, {user?.name?.split(' ')[0] || "Admin"} 👋</p>
                             <p className="text-xs text-slate-500 font-medium">{new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
                         </div>
-                        <button className="relative p-2.5 bg-white border border-slate-200 rounded-full text-slate-500 hover:text-(--color-primary) hover:border-(--color-primary)/30 transition-all shadow-sm">
-                            <Bell size={20} />
-                            <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
-                        </button>
+                        <Link to="/" className="relative p-2.5 bg-white border border-slate-200 rounded-full text-slate-500 hover:text-(--color-primary) hover:border-(--color-primary)/30 transition-all shadow-sm">
+                            <Home size={20} />
+                        </Link>
                     </div>
                 </header>
 

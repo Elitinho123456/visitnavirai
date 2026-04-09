@@ -10,6 +10,87 @@
   --webkit-font-smoothing: antialiased;
   --moz-osx-font-smoothing: grayscale;
 
+  /* --- Forest Green Palette - Primary --- */
+  --color-forest-green-50: #f3faf3;
+  --color-forest-green-100: #e4f4e4;
+  --color-forest-green-200: #cae9c9;
+  --color-forest-green-300: #9fd69f;
+  --color-forest-green-400: #6dbb6d;
+  --color-forest-green-500: #499e49;
+  --color-forest-green-600: #3e913e;
+  --color-forest-green-700: #2e672e;
+  --color-forest-green-800: #295229;
+  --color-forest-green-900: #234424;
+  --color-forest-green-950: #0f2410;
+
+  /* --- Fern Green Palette - Sucessos --- */
+  --color-fern-50: #f0fdf3;
+  --color-fern-100: #ddfbe5;
+  --color-fern-200: #bdf5cd;
+  --color-fern-300: #89eca6;
+  --color-fern-400: #4eda77;
+  --color-fern-500: #25ba51;
+  --color-fern-600: #1a9f41;
+  --color-fern-700: #187d36;
+  --color-fern-800: #18632f;
+  --color-fern-900: #165129;
+  --color-fern-950: #062d13;
+
+  /* --- Mariner Blue Palette - Info --- */
+  --color-mariner-50: #eef9ff;
+  --color-mariner-100: #d8f0ff;
+  --color-mariner-200: #bae6ff;
+  --color-mariner-300: #8ad7ff;
+  --color-mariner-400: #53c1ff;
+  --color-mariner-500: #2ba4ff;
+  --color-mariner-600: #1489fc;
+  --color-mariner-700: #0d70e8;
+  --color-mariner-800: #125abb;
+  --color-mariner-900: #154e93;
+  --color-mariner-950: #123059;
+
+  /* --- Selective Yellow Palette - Avisos --- */
+  --color-selective-yellow-50: #fffdea;
+  --color-selective-yellow-100: #fffac5;
+  --color-selective-yellow-200: #fff485;
+  --color-selective-yellow-300: #ffe746;
+  --color-selective-yellow-400: #ffd81b;
+  --color-selective-yellow-500: #fcb900;
+  --color-selective-yellow-600: #e29100;
+  --color-selective-yellow-700: #bb6602;
+  --color-selective-yellow-800: #984e08;
+  --color-selective-yellow-900: #7c400b;
+  --color-selective-yellow-950: #482100;
+
+  /* --- Persian Red Palette - Erros --- */
+  --color-persian-red-50: #fdf3f3;
+  --color-persian-red-100: #fce5e4;
+  --color-persian-red-200: #fbcecd;
+  --color-persian-red-300: #f6adab;
+  --color-persian-red-400: #ef7e7a;
+  --color-persian-red-500: #e4544f;
+  --color-persian-red-600: #ce342f;
+  --color-persian-red-700: #af2a26;
+  --color-persian-red-800: #912623;
+  --color-persian-red-900: #792623;
+  --color-persian-red-950: #41100e;
+
+  /* --- Purple Mountain's Majesty Palette - --- */
+  --color-purple-mountains-majesty-50: #fbf8fc;
+  --color-purple-mountains-majesty-100: #f5eff8;
+  --color-purple-mountains-majesty-200: #ede2f2;
+  --color-purple-mountains-majesty-300: #dfcae8;
+  --color-purple-mountains-majesty-400: #caa8d8;
+  --color-purple-mountains-majesty-500: #ad7ac0;
+  --color-purple-mountains-majesty-600: #a06bb2;
+  --color-purple-mountains-majesty-700: #89569a;
+  --color-purple-mountains-majesty-800: #734a7f;
+  --color-purple-mountains-majesty-900: #5d3d66;
+  --color-purple-mountains-majesty-950: #402348;
+
+
+
+
   /* --- Provided Colors (Adjusted/Refined) --- */
   --color-primary: #3e913e;
   /* Green (from your --primary) - Represents the nature/foliage (Coffee, Cotton) */

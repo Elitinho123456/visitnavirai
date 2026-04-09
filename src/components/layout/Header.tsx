@@ -2,7 +2,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { navItems } from '../../config/const';
-import { Sun, Moon, User, LogOut, LayoutDashboard, Globe } from 'lucide-react';
+import { Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -240,10 +241,7 @@ export default function Header() {
 
                         {/* --- Google Translate Widget --- */}
                         <li className="flex items-center gap-2 lg:ml-2 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
-                            <div className="flex items-center gap-2 bg-(--color-background) border border-(--color-neutral-gray)/30 rounded-full px-3 py-1.5 min-h-[38px] overflow-hidden">
-                                <Globe size={16} className="text-(--color-primary) shrink-0" />
-                                <div id="google_translate_element" className="notranslate"></div>
-                            </div>
+                            <LanguageSwitcher />
                         </li>
 
                     </ul>

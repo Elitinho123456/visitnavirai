@@ -142,6 +142,10 @@ const router = createBrowserRouter([
         path: "/investir",
         element: <Investir />
       },
+      {
+        path: "*",
+        element: <Error />
+      }
     ]
   }
 ]);
