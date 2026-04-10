@@ -80,7 +80,7 @@ export default function Footer() {
                     {/* Social icons */}
                     <div className="flex gap-3 mt-5">
                         <a
-                            href="https://github.com/elitinho"
+                            href="https://github.com/elitinho123456/visitnavirai"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110"
@@ -165,7 +165,7 @@ export default function Footer() {
                     <p>© 2025 VISITNaviraí. Todos os direitos reservados.</p>
                     <p>
                         Desenvolvido por{' '}
-                        <a href="https://github.com/elitinho" target="_blank" rel="noopener noreferrer"
+                        <a href="https://github.com/elitinho123456" target="_blank" rel="noopener noreferrer"
                             className="font-semibold text-white/50 hover:text-white transition-colors">
                             Elitinho
                         </a>

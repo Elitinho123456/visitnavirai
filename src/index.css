@@ -6,7 +6,9 @@
 /* ================================================================
    GLOBAL BASE
    ================================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -22,10 +24,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-weight: 700;
-  color: var(--md-on-surface, #241a06);
   line-height: 1.2;
 }
 
@@ -33,49 +39,114 @@ h1, h2, h3, h4, h5, h6 {
    KEYFRAME ANIMATIONS
    ================================================================ */
 @keyframes subtle-zoom {
-  0%   { transform: scale(1.05); }
-  100% { transform: scale(1.12); }
+  0% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1.12);
+  }
 }
 
 @keyframes fade-in-up {
-  0%   { opacity: 0; transform: translateY(24px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-down {
-  0%   { opacity: 0; transform: translateY(-12px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* Animation utility classes */
-.animate-subtle-zoom   { animation: subtle-zoom 12s ease-in-out infinite alternate; }
-.animate-fade-in-up    { animation: fade-in-up 0.7s ease both; }
-.animate-fade-in       { animation: fade-in 0.5s ease both; }
-.animate-slide-down    { animation: slide-down 0.4s ease both; }
-.animate-float-gentle  { animation: float-gentle 4s ease-in-out infinite; }
+.animate-subtle-zoom {
+  animation: subtle-zoom 12s ease-in-out infinite alternate;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease both;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.4s ease both;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
 
 /* Animation delay utilities */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
 
 /* ================================================================
    SCROLLBAR — Customized
    ================================================================ */
-.customized-scrollbar::-webkit-scrollbar        { width: 4px; }
-.customized-scrollbar::-webkit-scrollbar-track  { background: transparent; }
-.customized-scrollbar::-webkit-scrollbar-thumb  { background-color: var(--md-outline-variant, rgba(90,77,62,0.15)); border-radius: 2px; }
+.customized-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.customized-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.customized-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--md-outline-variant, rgba(90, 77, 62, 0.15));
+  border-radius: 2px;
+}
 
 /* ================================================================
    GRADIENT UTILITIES
@@ -108,15 +179,18 @@ h1, h2, h3, h4, h5, h6 {
 html.access-contrast {
   filter: contrast(150%);
 }
+
 html.access-contrast body {
   background-color: #000 !important;
   color: #fff !important;
 }
+
 html.access-contrast * {
   background-color: #000 !important;
   color: #fff !important;
   border-color: #fff !important;
 }
+
 html.access-contrast img,
 html.access-contrast video {
   filter: grayscale(100%);
