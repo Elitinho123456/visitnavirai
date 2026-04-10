@@ -1,4 +1,108 @@
-/* --- Acessibilidade Global Overrides --- */
+/* ================================================================
+   GOOGLE FONTS — Plus Jakarta Sans (Display) + Inter (Body)
+   ================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ================================================================
+   GLOBAL BASE
+   ================================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--md-surface, #fff8f3);
+  color: var(--md-on-surface, #241a06);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--md-on-surface, #241a06);
+  line-height: 1.2;
+}
+
+/* ================================================================
+   KEYFRAME ANIMATIONS
+   ================================================================ */
+@keyframes subtle-zoom {
+  0%   { transform: scale(1.05); }
+  100% { transform: scale(1.12); }
+}
+
+@keyframes fade-in-up {
+  0%   { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slide-down {
+  0%   { opacity: 0; transform: translateY(-12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Animation utility classes */
+.animate-subtle-zoom   { animation: subtle-zoom 12s ease-in-out infinite alternate; }
+.animate-fade-in-up    { animation: fade-in-up 0.7s ease both; }
+.animate-fade-in       { animation: fade-in 0.5s ease both; }
+.animate-slide-down    { animation: slide-down 0.4s ease both; }
+.animate-float-gentle  { animation: float-gentle 4s ease-in-out infinite; }
+
+/* Animation delay utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* ================================================================
+   SCROLLBAR — Customized
+   ================================================================ */
+.customized-scrollbar::-webkit-scrollbar        { width: 4px; }
+.customized-scrollbar::-webkit-scrollbar-track  { background: transparent; }
+.customized-scrollbar::-webkit-scrollbar-thumb  { background-color: var(--md-outline-variant, rgba(90,77,62,0.15)); border-radius: 2px; }
+
+/* ================================================================
+   GRADIENT UTILITIES
+   ================================================================ */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--md-primary, #0d6b1c), var(--md-primary-container, #2f8533));
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #e29100, #febb06);
+}
+
+.glass-surface {
+  background: rgba(255, 248, 243, 0.80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-surface-dark {
+  background: rgba(26, 18, 8, 0.80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ================================================================
+   ACCESSIBILITY OVERRIDES
+   ================================================================ */
 
 /* 1. Alto Contraste */
 html.access-contrast {
@@ -13,22 +117,22 @@ html.access-contrast * {
   color: #fff !important;
   border-color: #fff !important;
 }
-html.access-contrast img, 
+html.access-contrast img,
 html.access-contrast video {
   filter: grayscale(100%);
 }
 
 /* 2. Texto Maior */
 html.access-large-text {
-  font-size: 125% !important; /* Aumenta a base em 25% */
+  font-size: 125% !important;
 }
 
 /* 3. Destacar Links */
 html.access-links a {
   text-decoration: underline !important;
   font-weight: bold !important;
-  background-color: var(--color-accent-gold) !important;
-  color: var(--color-neutral-dark) !important;
+  background-color: var(--md-secondary-container) !important;
+  color: var(--md-on-secondary-container) !important;
   padding: 0 4px;
 }
 
@@ -41,7 +145,7 @@ html.access-spacing * {
 
 /* 5. Ocultar Imagens */
 html.access-hide-images img,
-html.access-hide-images svg:not(.lucide) { /* Não oculta os ícones do menu */
+html.access-hide-images svg:not(.lucide) {
   opacity: 0 !important;
 }
 
@@ -50,4 +154,3 @@ html.access-cursor,
 html.access-cursor * {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>'), auto !important;
 }
-
