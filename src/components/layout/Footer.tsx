@@ -64,7 +64,7 @@ export default function Footer() {
                             className="text-2xl font-black text-white"
                             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                         >
-                            <span style={{ color: '#febb06' }}>VISIT</span>Naviraí
+                            <span className="text-(--color-forest-green-600)">VISIT</span>Naviraí
                         </span>
                     </Link>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(240,230,214,0.55)' }}>
@@ -162,7 +162,7 @@ export default function Footer() {
             >
                 <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs"
                     style={{ color: 'rgba(240,230,214,0.35)' }}>
-                    <p>© 2025 VISITNaviraí. Todos os direitos reservados.</p>
+                    <p>© 2026 VISITNaviraí. Todos os direitos reservados.</p>
                     <p>
                         Desenvolvido por{' '}
                         <a href="https://github.com/elitinho123456" target="_blank" rel="noopener noreferrer"

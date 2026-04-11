@@ -118,7 +118,7 @@ export default function CadGeneric() {
         fd.append("category", category);
         fd.append("name", name);
         fd.append("file", file);
-        const res = await fetch(`${API_BASE}/api/teste/upload`, { method: "POST", body: fd });
+        const res = await fetch(`${API_BASE}/api/imgs/upload`, { method: "POST", body: fd });
         if (!res.ok) { const err = await res.json(); throw new Error(err.message || "Erro no upload"); }
         return (await res.json()).url;
     }
@@ -128,7 +128,7 @@ export default function CadGeneric() {
         fd.append("category", category);
         fd.append("name", name);
         files.forEach(f => fd.append("files", f));
-        const res = await fetch(`${API_BASE}/api/teste/upload-multiple`, { method: "POST", body: fd });
+        const res = await fetch(`${API_BASE}/api/imgs/upload-multiple`, { method: "POST", body: fd });
         if (!res.ok) { const err = await res.json(); throw new Error(err.message || "Erro no upload múltiplo"); }
         return (await res.json()).urls;
     }

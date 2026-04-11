@@ -5,7 +5,7 @@ import { navItems } from '../../config/const';
 import { Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
-export default function Header() {
+export default function HeaderCopy() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);

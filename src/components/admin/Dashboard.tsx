@@ -83,7 +83,7 @@ export default function Dashboard() {
             fd.append("name", user.name);
             fd.append("file", file);
 
-            const uploadRes = await fetch(`${API_BASE_URL}/api/teste/upload`, {
+            const uploadRes = await fetch(`${API_BASE_URL}/api/imgs/upload`, {
                 method: "POST",
                 body: fd
             });

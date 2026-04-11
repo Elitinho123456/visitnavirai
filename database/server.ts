@@ -32,7 +32,7 @@ app.use("/api/hotels", hotelRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/dashboard/stats", dashboardRoutes);
-app.use("/api/teste", testeRoutes);
+app.use("/api/imgs", testeRoutes);
 app.use("/api/roles", roleRoutes);
 
 db();

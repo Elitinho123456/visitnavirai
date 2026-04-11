@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 // Components
-import Header from '../layout/Header.tsx';
+// import Header from '../layout/Header.tsx';
 import Footer from '../layout/Footer.tsx';
 import WeatherWidget from '../layout/WeatherComponent.tsx';
 import EventsWidget from '../layout/Events.tsx';
@@ -20,6 +20,9 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+//apagar depois de testar
+import HeaderCopy from '../layout/Header copy.tsx';
+
 export default function Home() {
     const quickLinks = [
         { icon: <Hotel />, title: "Hotéis", link: "/acomodacoes?tipo=Hotel", color: "bg-emerald-600", hoverColor: "group-hover:text-sky-500" },
@@ -30,7 +33,8 @@ export default function Home() {
 
     return (
         <div className="flex flex-col min-h-screen bg-(--color-background)">
-            <Header />
+            {/* <Header /> */}
+            <HeaderCopy />
 
             <main className="grow">
                 {/* --- Hero Section Imersivo (Full Width) --- */}
