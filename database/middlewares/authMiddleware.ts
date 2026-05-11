@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "../db/models/User";
+import { User } from "../models/User";
 
 // Extending Request to include user
 export interface AuthRequest extends Request {

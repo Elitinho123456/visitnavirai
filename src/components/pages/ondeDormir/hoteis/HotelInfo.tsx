@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { Hotel } from "../../../../types/interfacesTypes";
 import { ChevronLeft, ChevronRight, BeerOff, Clock, X, ZoomIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { API_BASE_URL } from "../../../../config/api";
+import { API_BASE_URL, apiFetch } from "@/config/api";
 
 export default function HotelInfo() {
     const { id: hotelId } = useParams();
@@ -26,7 +26,7 @@ export default function HotelInfo() {
 
         const fetchHotelData = async () => {
             try {
-                const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+                const res = await apiFetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
                 if (res.ok) {
                     const data = await res.json();
                     setHotelData(data);

@@ -1,3 +1,5 @@
+import { apiFetch } from '@/config/api';
+import { toast } from '@/utils/toast';
 import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -64,7 +66,7 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
 
         searchTimeoutRef.current = setTimeout(async () => {
             try {
-                const res = await fetch(
+                const res = await apiFetch(
                     `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}&limit=5&countrycodes=br`,
                     { headers: { "Accept-Language": "pt-BR" } }
                 );
@@ -88,7 +90,7 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
         if (!searchQuery || searchQuery.length < 3) return;
         setSearching(true);
         try {
-            const res = await fetch(
+            const res = await apiFetch(
                 `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1&countrycodes=br`,
                 { headers: { "Accept-Language": "pt-BR" } }
             );
@@ -99,10 +101,10 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
                 onLocationChange(lat, lng);
                 setSuggestions([]);
             } else {
-                alert("Endereço não encontrado. Tente ser mais específico.");
+                toast.info("Endereço não encontrado. Tente ser mais específico.");
             }
         } catch {
-            alert("Erro ao buscar endereço.");
+            toast.info("Erro ao buscar endereço.");
         } finally {
             setSearching(false);
         }

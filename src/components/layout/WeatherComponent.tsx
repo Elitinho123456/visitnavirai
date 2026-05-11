@@ -1,3 +1,4 @@
+import { apiFetch } from '@/config/api';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, Cloud, CloudRain, CloudFog, CloudLightning, Droplets, Thermometer } from 'lucide-react';
@@ -37,7 +38,7 @@ export default function WeatherWidget() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://api.open-meteo.com/v1/forecast?latitude=-23.0645&longitude=-54.1959&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo')
+        apiFetch('https://api.open-meteo.com/v1/forecast?latitude=-23.0645&longitude=-54.1959&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo')
             .then(response => response.json())
             .then(data => {
                 setWeather(data);

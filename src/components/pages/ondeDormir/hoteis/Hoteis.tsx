@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Star, ChevronRight, X, Building2, Home, Tent, Building } from 'lucide-react';
 import { translateFeature, hotelsData } from '../../../../config/const';
-import { API_BASE_URL } from '../../../../config/api';
+import { API_BASE_URL, apiFetch } from "@/config/api";
 import type { Hotel } from '../../../../types/interfacesTypes';
 import Header from '../../../layout/Header';
 import Footer from '../../../layout/Footer';
@@ -224,7 +224,7 @@ export default function Acomodacoes() {
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const res = await fetch(`${API_BASE}/api/hotels`);
+                const res = await apiFetch(`${API_BASE}/api/hotels`);
                 if (res.ok) {
                     const data = await res.json();
                     setHotels(data);

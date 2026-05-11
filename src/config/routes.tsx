@@ -2,41 +2,43 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // Importing the components
-import Error from "../components/pages/Error.tsx";
-import Home from "../components/pages/Home.tsx";
+import Error from "@/components/pages/Error.tsx";
+import Home from "@/components/pages/Home.tsx";
 
 // Navirai Pages
-import Historia from "../components/pages/navirai/Historia.tsx";
-import Investir from "../components/pages/navirai/Investir.tsx";
+import Historia from "@/components/pages/navirai/Historia.tsx";
+import Investir from "@/components/pages/navirai/Investir.tsx";
 // Onde Dormir Pages
-import Acomodacoes from "../components/pages/ondeDormir/hoteis/Hoteis.tsx";
-import HotelInfo from "../components/pages/ondeDormir/hoteis/HotelInfo.tsx";
+import Acomodacoes from "@/components/pages/ondeDormir/hoteis/Hoteis.tsx";
+import HotelInfo from "@/components/pages/ondeDormir/hoteis/HotelInfo.tsx";
 
+// Eventos Public
+import Eventos from "@/components/pages/eventos/Eventos.tsx";
 // Login Page
-import Login from "../components/pages/Login.tsx";
+import Login from "@/components/pages/Login.tsx";
 
-// Middlewares
-import ProtectedRoute from "../components/middleware/ProtectedRoute.tsx";
-import PublicRoute from "../components/middleware/PublicRoute.tsx";
+// Middlewares (Guards)
+import ProtectedRoute from "@/guards/ProtectedRoute.tsx";
+import PublicRoute from "@/guards/PublicRoute.tsx";
 
 // Admin Interface
-import Dashboard from "../components/admin/Dashboard.tsx";
+import Dashboard from "@/features/admin/Dashboard.tsx";
 
 // Hotel Controls
-import CadGeneric from "../components/admin/hotelsControls/CadGeneric.tsx";
-import EditGeneric from "../components/admin/hotelsControls/EditGeneric.tsx";
-import ListHotel from "../components/admin/hotelsControls/ListHotel.tsx";
+import CadGeneric from "@/features/admin/hotels/CadGeneric.tsx";
+import EditGeneric from "@/features/admin/hotels/EditGeneric.tsx";
+import ListHotel from "@/features/admin/hotels/ListHotel.tsx";
 
 // Event Controls
-import ListEvents from "../components/admin/eventControls/ListEvents.tsx";
-import CadEvento from "../components/admin/eventControls/CadEvento.tsx";
+import ListEvents from "@/features/admin/events/ListEvents.tsx";
+import CadEvento from "@/features/admin/events/CadEvento.tsx";
 
 // User Permissions
-import UserManagement from "../components/admin/usersControls/UserManagement.tsx";
-import UserPerms from "../components/admin/usersControls/UserPerms.tsx";
-import RoleManagement from "../components/admin/usersControls/RoleManagement.tsx";
+import UserManagement from "@/features/admin/users/UserManagement.tsx";
+import UserPerms from "@/features/admin/users/UserPerms.tsx";
+import RoleManagement from "@/features/admin/users/RoleManagement.tsx";
 
-import RootLayout from "../components/shared/RootLayout.tsx";
+import RootLayout from "@/components/shared/RootLayout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -137,6 +139,10 @@ const router = createBrowserRouter([
       {
         path: "/historia",
         element: <Historia />
+      },
+      {
+        path: "/event",
+        element: <Eventos />
       },
       {
         path: "/investir",

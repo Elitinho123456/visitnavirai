@@ -64,8 +64,7 @@ const navItems = [
         name: 'nav.calendar',
         path: '#',
         subItems: [
-            { name: 'Calendário Eventos de 2025', path: '#', label: 'Calendário de Eventos 2025' },
-            { name: 'Próximos Eventos', path: '#', label: 'Próximos Eventos' },
+            { name: 'Eventos', path: '/event', label: 'Eventos' },
             { name: 'Cadastro de Eventos', path: '#', label: 'Cadastro de Eventos' },
         ],
     },
@@ -81,22 +80,22 @@ const navImages = [
 ];
 
 const navEvents = [
-    { 
-        name: 'Festa Junina', 
-        date: '2024-06-24', 
-        description: 'Celebração tradicional com comidas típicas, quadrilhas e muita diversão.', 
+    {
+        name: 'Festa Junina',
+        date: '2024-06-24',
+        description: 'Celebração tradicional com comidas típicas, quadrilhas e muita diversão.',
         image: "https://placehold.co/600x400",
     },
-    { 
-        name: 'Festival de Música', 
-        date: '2024-07-15', 
-        description: 'Apresentações de bandas locais e nacionais em um evento imperdível para os amantes da música.', 
+    {
+        name: 'Festival de Música',
+        date: '2024-07-15',
+        description: 'Apresentações de bandas locais e nacionais em um evento imperdível para os amantes da música.',
         image: "https://placehold.co/600x400",
     },
-    { 
-        name: 'Feira de Artesanato', 
-        date: '2024-08-10', 
-        description: 'Exposição e venda de produtos artesanais feitos por talentosos artesãos da região.', 
+    {
+        name: 'Feira de Artesanato',
+        date: '2024-08-10',
+        description: 'Exposição e venda de produtos artesanais feitos por talentosos artesãos da região.',
         image: "https://placehold.co/600x400",
     },
 ];
