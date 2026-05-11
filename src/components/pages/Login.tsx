@@ -22,7 +22,7 @@ export default function Login() {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await apiFetch(`${API_BASE_URL}/auth/login`, {
+            const response = await apiFetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -61,7 +61,7 @@ export default function Login() {
         }
 
         try {
-            const response = await apiFetch(`${API_BASE_URL}/auth/register`, {
+            const response = await apiFetch(`${API_BASE_URL}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, confirmPassword, name }),
