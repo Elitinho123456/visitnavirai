@@ -49,9 +49,9 @@ const navItems = [
     },
     {
         name: 'nav.services',
-        path: '#',
+        path: '/servicos',
         subItems: [
-            { name: 'Agência de Viagens', path: '#', label: 'Agência de Viagens' },
+            { name: 'Agência de Viagens', path: '/servicos', label: 'Agência de Viagens' },
             { name: 'Espaços para Eventos', path: '#', label: 'Espaços para Eventos' },
             { name: 'Locadora de Veículos', path: '#', label: 'Locadora de Veículos' },
             { name: 'Organizadoras de Eventos', path: '#', label: 'Organizadoras de Eventos' },

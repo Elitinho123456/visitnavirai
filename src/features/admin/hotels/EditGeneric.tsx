@@ -53,7 +53,7 @@ export default function EditHotel() {
         const fetchHotelData = async () => {
             if (!id) return;
             try {
-                const res = await apiFetch(`${API_BASE}/api/hotels/${id}`);
+                const res = await apiFetch(`${API_BASE}/api/inns/${id}`);
                 if (res.ok) {
                     const data = await res.json();
                     setFormData(data);
@@ -215,7 +215,7 @@ export default function EditHotel() {
                 gallery: galleryUrls,
             };
 
-            const response = await apiFetch(`${API_BASE}/api/hotels/${id}`, {
+            const response = await apiFetch(`${API_BASE}/api/inns/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify(payload)

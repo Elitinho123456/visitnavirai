@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { Hotel } from "../../../../types/interfacesTypes";
+import type { Hotel } from "../../../types/interfacesTypes";
 import { ChevronLeft, ChevronRight, BeerOff, Clock, X, ZoomIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL, apiFetch } from "@/config/api";

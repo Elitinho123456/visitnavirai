@@ -1,44 +1,62 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Star, ChevronRight, X, Building2, Home, Tent, Building } from 'lucide-react';
-import { translateFeature, hotelsData } from '../../../../config/const';
+import { Search, MapPin, Star, ChevronRight, X, Building2, Building, Car, CarTaxiFront, Bus, Users, TrainFront} from 'lucide-react';
+import { translateFeature, hotelsData } from '../../../config/const';
 import { API_BASE_URL, apiFetch } from "@/config/api";
-import type { Hotel } from '../../../../types/interfacesTypes';
-import Header from '../../../layout/Header';
-import Footer from '../../../layout/Footer';
+import type { Hotel } from '../../../types/interfacesTypes';
+import Header from '../../layout/Header';
+import Footer from '../../layout/Footer';
 
 const API_BASE = API_BASE_URL;
 
 // Configuração por tipo de acomodação
 const categoryConfig: Record<string, { title: string; subtitle: string; icon: React.ReactNode; heroImage: string }> = {
-    'Hotel': {
-        title: 'Hotéis em Naviraí',
+    'Agência': {
+        title: 'Agência de Viagens em Naviraí',
         subtitle: 'Conforto e praticidade para sua estadia na Capital do Conesul.',
         icon: <Building2 size={20} />,
         heroImage: '/navirai_noite.png',
     },
-    'Pousada': {
-        title: 'Pousadas em Naviraí',
-        subtitle: 'Charme e aconchego para quem busca uma experiência única.',
-        icon: <Home size={20} />,
+    'Espaços para Eventos': {
+        title: 'Espaços para Eventos em Naviraí',
+        subtitle: 'Locais ideais para realizar suas celebrações e eventos especiais.',
+        icon: <Building size={20} />,
         heroImage: '/parque_cumandai.png',
     },
-    'Flat': {
-        title: 'Flats em Naviraí',
-        subtitle: 'Independência e praticidade com todo o conforto de um lar.',
-        icon: <Building size={20} />,
+    'Locadora de Veículos': {
+        title: 'Locadora de Veículos em Naviraí',
+        subtitle: 'Transporte confiável e acessível para explorar a região.',
+        icon: <Car size={20} />,
         heroImage: '/praca_central.png',
     },
-    'Área de Camping': {
-        title: 'Áreas de Camping em Naviraí',
-        subtitle: 'Conecte-se com a natureza e viva uma aventura inesquecível.',
-        icon: <Tent size={20} />,
+    'Organizadoras de Eventos': {
+        title: 'Organizadoras de Eventos em Naviraí',
+        subtitle: 'Profissionais dedicados a tornar seus eventos memoráveis.',
+        icon: <Users size={20} />,
         heroImage: '/rio_amambai.png',
     },
+    'Taxi': {
+        title: 'Serviço de Taxi em Naviraí',
+        subtitle: 'Deslocamento fácil e seguro pela cidade.',
+        icon: <CarTaxiFront size={20} />,
+        heroImage: '/fejunavi.png',
+    },
+    'Transportadoras Rodoviárias': {
+        title: 'Transportadoras Rodoviárias em Naviraí',
+        subtitle: 'Opções de transporte rodoviário para suas viagens.',
+        icon: <Bus size={20} />,
+        heroImage: '/navirai_noite.png',
+    },
+    'Transportadoras Turísticas': {
+        title: 'Transportadoras Turísticas em Naviraí',
+        subtitle: 'Explore as atrações locais com conforto e segurança.',
+        icon: <TrainFront size={20} />,
+        heroImage: '/parque_cumandai.png',
+     },
 };
 
-const allCategories = ['Hotel', 'Pousada', 'Flat', 'Área de Camping'];
+const allCategories = Object.keys(categoryConfig);
 
 function HotelCard({ hotel, onQuickView }: { hotel: Hotel; onQuickView: (h: Hotel) => void }) {
     return (
@@ -198,10 +216,10 @@ function QuickViewModal({ hotel, onClose }: { hotel: Hotel; onClose: () => void 
     );
 }
 
-export default function Acomodacoes() {
+export default function Servicos() {
     const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
-    const isDetailPage = /\/acomodacoes\/.+/.test(location.pathname);
+    const isDetailPage = /\/servicos\/.+/.test(location.pathname);
 
     const [hotels, setHotels] = useState<Hotel[]>([]);
     const [loading, setLoading] = useState(true);
@@ -277,8 +295,8 @@ export default function Acomodacoes() {
     const currentConfig = activeCategory && categoryConfig[activeCategory]
         ? categoryConfig[activeCategory]
         : {
-            title: 'Onde Dormir em Naviraí',
-            subtitle: 'Encontre a acomodação ideal para sua estadia na Capital do Conesul.',
+            title: 'Serviços esseciais em Naviraí',
+            subtitle: 'Encontre os melhores serviços para complementar sua visita à Capital do Conesul.',
             icon: <Building2 size={20} />,
             heroImage: '/navirai_noite.png',
         };
@@ -315,7 +333,7 @@ export default function Acomodacoes() {
                             transition={{ delay: 0.1 }}
                             className="text-(--color-accent-gold) font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4"
                         >
-                            Acomodações
+                            Serviços
                         </motion.span>
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}

@@ -212,7 +212,7 @@ export default function CadGeneric() {
                 gallery: galleryUrls || [],
             };
 
-            const response = await apiFetch(`${API_BASE}/api/hotels`, {
+            const response = await apiFetch(`${API_BASE}/api/inns`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify(payload)

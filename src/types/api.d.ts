@@ -16,6 +16,7 @@ export interface User {
 
 export interface DashboardStats {
   users: number;
-  hotels: number;
+  hotels?: number;
+  inns?: number;
   events: number;
 }

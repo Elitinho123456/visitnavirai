@@ -361,7 +361,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                 {(!userPerms || userPerms.where_to_sleep?.read) && (
                     <Link to="/admin/hoteis" className="transition-all duration-300 hover:scale-105">
                         <StatCard
-                            title="Total de Alojamentos" value={stats.hotels} icon={Hotel}
+                            title="Total de Alojamentos" value={stats.hotels ?? stats.inns ?? 0} icon={Hotel}
                             trend="Acomodações ativas" trendUp={true}
                             iconBg="bg-emerald-100" iconColor="text-emerald-600"
                         />

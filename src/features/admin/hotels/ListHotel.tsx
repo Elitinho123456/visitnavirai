@@ -28,7 +28,7 @@ export default function ListHotel() {
     const fetchHotels = async () => {
         setLoading(true);
         try {
-            const res = await apiFetch(`${API_BASE_URL}/api/hotels`);
+            const res = await apiFetch(`${API_BASE_URL}/api/inns`);
             if (res.ok) {
                 const data = await res.json();
                 setHotelsData(data);
@@ -62,7 +62,7 @@ export default function ListHotel() {
         if (!hotelToDelete) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await apiFetch(`${API_BASE_URL}/api/hotels/${hotelToDelete}`, {
+            const res = await apiFetch(`${API_BASE_URL}/api/inns/${hotelToDelete}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });

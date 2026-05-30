@@ -40,6 +40,10 @@ import RoleManagement from "@/features/admin/users/RoleManagement.tsx";
 
 import RootLayout from "@/components/shared/RootLayout.tsx";
 
+// Serviços
+import Servicos from "@/components/pages/servicos/Servicos";
+import ServicosInfo from "@/components/pages/servicos/SevicosInfo";
+
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -147,6 +151,17 @@ const router = createBrowserRouter([
       {
         path: "/investir",
         element: <Investir />
+      },
+      // Serviços
+      {
+        path: "/servicos",
+        element: <Servicos />,
+        children: [
+          {
+            path: ":id",
+            element: <ServicosInfo />
+          }
+        ]
       },
       {
         path: "*",
