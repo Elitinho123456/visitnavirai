@@ -44,3 +44,11 @@ export interface Hotel {
         desc?: string;
     };
 }
+
+export interface Service extends Hotel {
+    about?: {
+        title?: string;
+        subtitle?: string;
+        desc?: string[];
+    };
+}

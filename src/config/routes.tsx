@@ -29,6 +29,16 @@ import CadGeneric from "@/features/admin/hotels/CadGeneric.tsx";
 import EditGeneric from "@/features/admin/hotels/EditGeneric.tsx";
 import ListHotel from "@/features/admin/hotels/ListHotel.tsx";
 
+// Service Controls
+import ListServices from "@/features/admin/services/ListServices.tsx";
+import CadService from "@/features/admin/services/CadService.tsx";
+import EditService from "@/features/admin/services/EditService.tsx";
+
+// Attraction Controls
+import ListAttractions from "@/features/admin/attractions/ListAttractions.tsx";
+import CadAttraction from "@/features/admin/attractions/CadAttraction.tsx";
+import EditAttraction from "@/features/admin/attractions/EditAttraction.tsx";
+
 // Event Controls
 import ListEvents from "@/features/admin/events/ListEvents.tsx";
 import CadEvento from "@/features/admin/events/CadEvento.tsx";
@@ -43,6 +53,10 @@ import RootLayout from "@/components/shared/RootLayout.tsx";
 // Serviços
 import Servicos from "@/components/pages/servicos/Servicos";
 import ServicosInfo from "@/components/pages/servicos/SevicosInfo";
+
+// Atrações
+import Atracoes from "@/components/pages/atracoes/Atracoes";
+import AtracaoInfo from "@/components/pages/atracoes/AtracaoInfo";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +105,30 @@ const router = createBrowserRouter([
               {
                 path: "eventos/novo",
                 element: <CadEvento />
+              },
+              {
+                path: "servicos",
+                element: <ListServices />
+              },
+              {
+                path: "servicos/novo",
+                element: <CadService />
+              },
+              {
+                path: "servicos/editar/:id",
+                element: <EditService />
+              },
+              {
+                path: "atracoes",
+                element: <ListAttractions />
+              },
+              {
+                path: "atracoes/novo",
+                element: <CadAttraction />
+              },
+              {
+                path: "atracoes/editar/:id",
+                element: <EditAttraction />
               },
               {
                 path: "usuarios",
@@ -160,6 +198,17 @@ const router = createBrowserRouter([
           {
             path: ":id",
             element: <ServicosInfo />
+          }
+        ]
+      },
+      // Atrações
+      {
+        path: "/atracoes",
+        element: <Atracoes />,
+        children: [
+          {
+            path: ":id",
+            element: <AtracaoInfo />
           }
         ]
       },

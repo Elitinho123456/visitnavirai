@@ -1,14 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { Service } from "../../../types/interfacesTypes";
+import type { Hotel } from "../../../types/interfacesTypes"; // Attractions use the same interface structure as Hotels
 import { ChevronLeft, ChevronRight, BeerOff, Clock, X, ZoomIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 
-export default function ServicosInfo() {
-    const { id: serviceId } = useParams();
+export default function AtracaoInfo() {
+    const { id: attractionId } = useParams();
     const navigate = useNavigate();
-    const [hotelData, setHotelData] = useState<Service | null>(null);
+    const [attractionData, setAttractionData] = useState<Hotel | null>(null);
     const [loading, setLoading] = useState(true);
 
     // Gallery state
@@ -19,33 +19,33 @@ export default function ServicosInfo() {
     const [lightboxIndex, setLightboxIndex] = useState(0);
 
     useEffect(() => {
-        if (!serviceId) {
-            navigate("/servicos");
+        if (!attractionId) {
+            navigate("/atracoes");
             return;
         }
 
-        const fetchHotelData = async () => {
+        const fetchAttractionData = async () => {
             try {
-                const res = await apiFetch(`${API_BASE_URL}/api/services/${serviceId}`);
+                const res = await apiFetch(`${API_BASE_URL}/api/attractions/${attractionId}`);
                 if (res.ok) {
                     const data = await res.json();
-                    setHotelData(data);
+                    setAttractionData(data);
                 } else {
-                    console.error("Failed to load service data");
+                    console.error("Failed to load attraction data");
                 }
             } catch (error) {
-                console.error("Error fetching service", error);
+                console.error("Error fetching attraction", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchHotelData();
-    }, [serviceId, navigate]);
+        fetchAttractionData();
+    }, [attractionId, navigate]);
 
     // All gallery images
     const allGalleryImages: string[] = [];
-    if (hotelData?.gallery && hotelData.gallery.length > 0) allGalleryImages.push(...hotelData.gallery);
+    if (attractionData?.gallery && attractionData.gallery.length > 0) allGalleryImages.push(...attractionData.gallery);
 
     // Lightbox keyboard nav
     const handleLightboxKey = useCallback((e: KeyboardEvent) => {
@@ -83,16 +83,16 @@ export default function ServicosInfo() {
         );
     }
 
-    if (!hotelData) {
+    if (!attractionData) {
         return (
             <div className="flex flex-col min-h-screen bg-(--color-background) items-center justify-center">
-                <h2 className="text-2xl font-bold text-(--color-secondary)">Serviço não encontrado</h2>
-                <button onClick={() => navigate("/servicos")} className="mt-4 px-6 py-2 bg-(--color-primary) text-white rounded-lg cursor-pointer">Voltar</button>
+                <h2 className="text-2xl font-bold text-(--color-secondary)">Atração não encontrada</h2>
+                <button onClick={() => navigate("/atracoes")} className="mt-4 px-6 py-2 bg-(--color-primary) text-white rounded-lg cursor-pointer">Voltar</button>
             </div>
         );
     }
 
-    const { about, accommodation, policies, amenities, cta } = hotelData;
+    const { about, accommodation, policies, amenities, cta } = attractionData;
 
     // Separar horários e regras
     const schedules = policies?.filter((p: any) => p.type === 'horario' || (!p.type && p.label && /\d/.test(p.label))) || [];
@@ -108,25 +108,25 @@ export default function ServicosInfo() {
                 {/* --- Hero Section (Banner) --- */}
                 <section className="relative h-[60vh] min-h-100 md:h-125 lg:h-150 w-full">
                     <img
-                        src={hotelData.image || "https://placehold.co/1800x720"}
-                        alt={hotelData.name}
+                        src={attractionData.image || "https://placehold.co/1800x720"}
+                        alt={attractionData.name}
                         className="w-full h-full object-cover object-center"
                     />
 
                     <button
-                        onClick={() => navigate("/servicos")}
+                        onClick={() => navigate("/atracoes")}
                         className="absolute top-24 left-4 md:left-8 z-20 flex items-center gap-2 bg-black/40 hover:bg-black/70 text-white px-4 py-2 rounded-xl backdrop-blur-md transition-all cursor-pointer"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-                        Voltar para Serviços
+                        Voltar para O Que Visitar
                     </button>
 
                     <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4 sm:px-6">
-                        <h1 className="text-(--color-neutral-white) text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg">
-                            {hotelData.name}
+                        <h1 className="text-(--color-neutral-white) text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg animate-fade-in">
+                            {attractionData.name}
                         </h1>
                         <p className="text-(--color-neutral-light) text-base sm:text-lg md:text-xl max-w-xl md:max-w-2xl font-light leading-relaxed">
-                            {hotelData.distance}
+                            {attractionData.distance || "Naviraí - MS"}
                         </p>
                     </div>
                 </section>
@@ -138,25 +138,25 @@ export default function ServicosInfo() {
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-24 items-start">
                         <div className="md:col-span-4 h-full flex flex-col justify-center border-b-4 md:border-b-0 md:border-r-4 border-(--color-secondary) pb-6 mb-2 md:mb-0 md:pr-8">
                             <h2 className="text-(--color-primary) text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-                                {about?.title || "Sobre o Estabelecimento"}
+                                {about?.title || "Sobre a Atração"}
                             </h2>
                             <div className="w-20 md:w-30 h-1 bg-(--color-accent-gold) mt-4 mb-4 md:mb-6"></div>
                             <p className="text-(--color-neutral-gray) font-medium text-xs sm:text-sm uppercase tracking-widest">
-                                {about?.subtitle || "Conforto e Qualidade"}
+                                {about?.subtitle || "Turismo e Lazer"}
                             </p>
                         </div>
                         <div className="md:col-span-8 space-y-4 md:space-y-6 text-(--color-text-body) text-base sm:text-lg leading-relaxed text-justify wrap-break-word whitespace-pre-wrap">
-                            {about?.desc ? about.desc.map((p: string, i: number) => <p key={i} className="text-justify">{p}</p>) : <p>Informações detalhadas sobre este estabelecimento serão adicionadas em breve.</p>}
+                            {about?.desc ? about.desc.map((p: string, i: number) => <p key={i} className="text-justify">{p}</p>) : <p>Informações detalhadas sobre este ponto turístico serão adicionadas em breve.</p>}
                         </div>
                     </div>
 
-                    {/* Bloco 2: Acomodações */}
+                    {/* Bloco 2: Detalhes Adicionais / Estrutura */}
                     {accommodation && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 md:mb-24 items-center">
                             <div className="order-2 md:order-1 relative group rounded-2xl overflow-hidden shadow-xl h-64 sm:h-80 md:h-auto">
                                 <img
-                                    src={accommodation.image || hotelData.image || "https://placehold.co/600x400"}
-                                    alt={accommodation.title || "Acomodação"}
+                                    src={accommodation.image || attractionData.image || "https://placehold.co/600x400"}
+                                    alt={accommodation.title || "Detalhe"}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/80 to-transparent p-4 pt-10">
@@ -229,11 +229,11 @@ export default function ServicosInfo() {
                         </div>
                     )}
 
-                    {/* Bloco 4: Horários */}
+                    {/* Bloco 4: Horários / Acesso */}
                     {displaySchedules.length > 0 && (
                         <div className="bg-(--color-neutral-white) rounded-(--border-radius-lg) p-6 sm:p-8 md:p-12 shadow-lg border-t-4 border-(--color-accent-gold) mb-8">
                             <h3 className="text-center text-(--color-primary) text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
-                                <Clock size={32} /> Horários
+                                <Clock size={32} /> Informações & Acesso
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 relative">
                                 <div className="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-(--color-neutral-light) -z-10"></div>
@@ -250,11 +250,11 @@ export default function ServicosInfo() {
                         </div>
                     )}
 
-                    {/* Bloco 5: Regras */}
+                    {/* Bloco 5: Recomendações / Regras */}
                     {displayRules.length > 0 && (
                         <div className="bg-(--color-neutral-white) rounded-(--border-radius-lg) p-6 sm:p-8 md:p-12 shadow-lg border-t-4 border-amber-400 mb-16 md:mb-24">
                             <h3 className="text-center text-amber-700 text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
-                                <BeerOff size={32} /> Regras
+                                <BeerOff size={32} /> Recomendações de Visita
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 {displayRules.map((item: any, index: number) => (
@@ -271,7 +271,7 @@ export default function ServicosInfo() {
                     {!hasTypedPolicies && policies && policies.length > 0 && (
                         <div className="bg-(--color-neutral-white) rounded-(--border-radius-lg) p-6 sm:p-8 md:p-12 shadow-lg border-t-4 border-(--color-accent-gold) mb-16 md:mb-24">
                             <h3 className="text-center text-(--color-primary) text-2xl sm:text-3xl font-bold mb-8 md:mb-10">
-                                Informações Essenciais
+                                Dicas e Informações Essenciais
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 relative">
                                 <div className="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-(--color-neutral-light) -z-10"></div>
@@ -288,11 +288,11 @@ export default function ServicosInfo() {
                         </div>
                     )}
 
-                    {/* Bloco 6: Comodidades */}
+                    {/* Bloco 6: Atrativos / Comodidades */}
                     {amenities && amenities.cards && amenities.cards.length > 0 && (
                         <div className="mb-16 md:mb-24">
                             <h3 className="text-(--color-text-header) text-2xl sm:text-3xl font-bold mb-6 md:mb-8 border-l-4 border-(--color-secondary) pl-4">
-                                {amenities.title || "Comodidades"}
+                                {amenities.title || "Infraestrutura & Atrativos"}
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
                                 {amenities.cards.map((card: any, idx: number) => (

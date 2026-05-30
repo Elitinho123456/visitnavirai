@@ -1,7 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/utils/toast';
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera, Briefcase } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 import { useDashboardStats } from '@/hooks/useDashboardStats';
@@ -32,6 +32,8 @@ export default function Dashboard() {
         { path: "/admin", icon: LayoutDashboard, label: "Visão Geral", categoryKey: "all" },
         { path: "/admin/usuarios", icon: Users, label: "Usuários", categoryKey: "users" },
         { path: "/admin/hoteis", icon: Hotel, label: "Onde Dormir", categoryKey: "where_to_sleep" },
+        { path: "/admin/atracoes", icon: Camera, label: "O que Visitar", categoryKey: "what_to_visit" },
+        { path: "/admin/servicos", icon: Briefcase, label: "Serviços", categoryKey: "services" },
         { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" }
     ];
 
@@ -243,6 +245,8 @@ export default function Dashboard() {
                                 if (path.startsWith("/admin/usuarios")) return "users";
                                 if (path.startsWith("/admin/hoteis")) return "where_to_sleep";
                                 if (path.startsWith("/admin/eventos")) return "events";
+                                if (path.startsWith("/admin/servicos")) return "services";
+                                if (path.startsWith("/admin/atracoes")) return "what_to_visit";
                                 return "all";
                             };
 
@@ -348,7 +352,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
             </div>
 
             {/* Grid de Estatísticas (Com visual Moderno) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
                 {(!userPerms || userPerms.users?.read) && (
                     <Link to="/admin/usuarios" className="transition-all duration-300 hover:scale-105">
                         <StatCard
@@ -364,6 +368,24 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                             title="Total de Alojamentos" value={stats.hotels ?? stats.inns ?? 0} icon={Hotel}
                             trend="Acomodações ativas" trendUp={true}
                             iconBg="bg-emerald-100" iconColor="text-emerald-600"
+                        />
+                    </Link>
+                )}
+                {(!userPerms || userPerms.services?.read) && (
+                    <Link to="/admin/servicos" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Serviços Cadastrados" value={stats.services ?? 0} icon={Briefcase}
+                            trend="Serviços ativos" trendUp={true}
+                            iconBg="bg-teal-100" iconColor="text-teal-600"
+                        />
+                    </Link>
+                )}
+                {(!userPerms || userPerms.what_to_visit?.read) && (
+                    <Link to="/admin/atracoes" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Pontos Turísticos" value={stats.attractions ?? 0} icon={Camera}
+                            trend="Atrações cadastradas" trendUp={true}
+                            iconBg="bg-rose-100" iconColor="text-rose-600"
                         />
                     </Link>
                 )}

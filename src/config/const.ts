@@ -1,4 +1,4 @@
-import { type Hotel } from "../types/interfacesTypes";
+import { type Hotel, type Service } from "../types/interfacesTypes";
 
 const navItems = [
     {
@@ -23,15 +23,15 @@ const navItems = [
     },
     {
         name: 'nav.what_to_visit',
-        path: '#',
+        path: '/atracoes',
         subItems: [
-            { name: 'Artesanatos', path: '#', label: 'Artesanatos' },
-            { name: 'Compras', path: '#', label: 'Compras' },
-            { name: 'Monumentos', path: '#', label: 'Monumentos' },
-            { name: 'Museus', path: '#', label: 'Museus' },
-            { name: 'Praça e Parques', path: '#', label: 'Praças e Parques' },
-            { name: 'Rancho', path: '#', label: 'Rancho' },
-            { name: 'Pesqueiro', path: '#', label: 'Pesqueiro' },
+            { name: 'Artesanatos', path: '/atracoes?tipo=Artesanatos', label: 'Artesanatos' },
+            { name: 'Compras', path: '/atracoes?tipo=Compras', label: 'Compras' },
+            { name: 'Monumentos', path: '/atracoes?tipo=Monumentos', label: 'Monumentos' },
+            { name: 'Museus', path: '/atracoes?tipo=Museus', label: 'Museus' },
+            { name: 'Praça e Parques', path: '/atracoes?tipo=Praça e Parques', label: 'Praças e Parques' },
+            { name: 'Rancho', path: '/atracoes?tipo=Rancho', label: 'Rancho' },
+            { name: 'Pesqueiro', path: '/atracoes?tipo=Pesqueiro', label: 'Pesqueiro' },
         ],
     },
     {
@@ -51,13 +51,13 @@ const navItems = [
         name: 'nav.services',
         path: '/servicos',
         subItems: [
-            { name: 'Agência de Viagens', path: '/servicos', label: 'Agência de Viagens' },
-            { name: 'Espaços para Eventos', path: '#', label: 'Espaços para Eventos' },
-            { name: 'Locadora de Veículos', path: '#', label: 'Locadora de Veículos' },
-            { name: 'Organizadoras de Eventos', path: '#', label: 'Organizadoras de Eventos' },
-            { name: 'Taxi', path: '#', label: 'Taxi' },
-            { name: 'Transportadoras Rodoviárias', path: '#', label: 'Transportadoras Rodoviárias' },
-            { name: 'Transportadoras Turísticas', path: '#', label: 'Transportadoras Turísticas' },
+            { name: 'Agência de Viagens', path: '/servicos?tipo=Agência', label: 'Agência de Viagens' },
+            { name: 'Espaços para Eventos', path: '/servicos?tipo=Espaços para Eventos', label: 'Espaços para Eventos' },
+            { name: 'Locadora de Veículos', path: '/servicos?tipo=Locadora de Veículos', label: 'Locadora de Veículos' },
+            { name: 'Organizadoras de Eventos', path: '/servicos?tipo=Organizadoras de Eventos', label: 'Organizadoras de Eventos' },
+            { name: 'Taxi', path: '/servicos?tipo=Taxi', label: 'Taxi' },
+            { name: 'Transportadoras Rodoviárias', path: '/servicos?tipo=Transportadoras Rodoviárias', label: 'Transportadoras Rodoviárias' },
+            { name: 'Transportadoras Turísticas', path: '/servicos?tipo=Transportadoras Turísticas', label: 'Transportadoras Turísticas' },
         ],
     },
     {
@@ -191,4 +191,33 @@ const hotelsData: Hotel[] = [
     }
 ];
 
-export { navItems, navImages, navEvents, hotelsData, translateFeature };
+const servicesData: Service[] = [
+    {
+        id: 1,
+        name: "Agência Naviraí Turismo",
+        image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Agencia+Navirai",
+        distance: "Centro de Naviraí",
+        features: ["Traslado", "Pacotes", "Atendimento personalizado"],
+        highlight: true,
+        latitude: -23.0657,
+        longitude: -54.1921,
+        socials: {
+            website: "https://example.com",
+            instagram: "https://instagram.com/naviraiturismo",
+        }
+    },
+    {
+        id: 2,
+        name: "Espaços Evento Total",
+        image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Eventos",
+        distance: "Naviraí - MS",
+        features: ["Salão", "Buffet", "Estrutura completa"],
+        latitude: -23.0683,
+        longitude: -54.1958,
+        socials: {
+            facebook: "https://facebook.com/eventototal",
+        }
+    }
+];
+
+export { navItems, navImages, navEvents, hotelsData, servicesData, translateFeature };

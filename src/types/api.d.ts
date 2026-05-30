@@ -19,4 +19,6 @@ export interface DashboardStats {
   hotels?: number;
   inns?: number;
   events: number;
+  services?: number;
+  attractions?: number;
 }
