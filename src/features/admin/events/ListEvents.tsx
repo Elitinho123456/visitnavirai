@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 import type { AppEvent } from './CadEvento'; // Reusing interface
+import { formatDateDisplay, formatDateInputValue } from "@/utils/date-format";
 
 export default function ListEvents() {
     const [eventsData, setEventsData] = useState<AppEvent[]>([]);
@@ -105,7 +106,7 @@ export default function ListEvents() {
         setEditingEventId(event._id);
         setFormData({
             name: event.name,
-            date: event.date,
+            date: formatDateInputValue(event.date),
             startTime: event.startTime,
             endTime: event.endTime,
             image: event.image || "",
@@ -127,7 +128,7 @@ export default function ListEvents() {
                 imageUrl = await uploadSingleFile(imageFile, "Eventos", formData.name || "Evento_Edicao");
             }
 
-            const payload = { ...formData, image: imageUrl };
+            const payload = { ...formData, date: formatDateDisplay(formData.date), image: imageUrl };
 
             const response = await apiFetch(`${API_BASE_URL}/api/events/${editingEventId}`, {
                 method: "PUT",
@@ -229,7 +230,7 @@ export default function ListEvents() {
                                     <div>
                                         <h3 className="font-bold text-slate-800 text-lg line-clamp-1">{event.name}</h3>
                                         <div className="flex flex-col gap-2 text-slate-500 text-xs mt-3">
-                                            <span className="flex items-center gap-1.5"><CalendarIcon size={14} className="text-(--color-primary)" /> {event.date?.split("-").reverse().join("/")}</span>
+                                            <span className="flex items-center gap-1.5"><CalendarIcon size={14} className="text-(--color-primary)" /> {formatDateDisplay(event.date)}</span>
                                             <span className="flex items-center gap-1.5"><Clock size={14} className="text-(--color-primary)" /> {event.startTime} - {event.endTime}</span>
                                         </div>
                                     </div>
@@ -253,7 +254,7 @@ export default function ListEvents() {
             </div>
 
             {/* --- DRAWER DE EDIÇÃO --- */}
-            <div className={`fixed inset-y-0 right-0 w-full md:w-[450px] h-full bg-white shadow-2xl border-l border-slate-100 transform transition-transform duration-300 z-50 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed inset-y-0 right-0 w-full md:w-112.5 h-full bg-white shadow-2xl border-l border-slate-100 transform transition-transform duration-300 z-50 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50 shrink-0">
                     <div>
                         <h3 className="text-xl font-bold text-slate-800">Editar Evento</h3>

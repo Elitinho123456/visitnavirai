@@ -3,11 +3,12 @@ import { Calendar as CalendarIcon, Clock, Search, ChevronRight, X } from 'lucide
 import { API_BASE_URL, apiFetch } from "@/config/api";
 import Header from '../../layout/Header';
 import Footer from '../../layout/Footer';
+import { formatDateDisplay, parseDateParts } from "@/utils/date-format";
 
 interface AppEvent {
     _id: string;
     name: string;
-    date: string; // YYYY-MM-DD
+    date: string;
     startTime: string;
     endTime: string;
     description: string;
@@ -50,7 +51,9 @@ export default function Eventos() {
     // Anos baseados nos eventos + ano atual
     const availableYears = Array.from(new Set([
         currentDate.getFullYear(),
-        ...events.map(e => parseInt(e.date.split("-")[0]))
+        ...events
+            .map(e => parseDateParts(e.date)?.year)
+            .filter((year): year is number => typeof year === 'number')
     ])).sort((a, b) => b - a);
 
     // Linha do Tempo (Dias do mês selecionado)
@@ -63,14 +66,18 @@ export default function Eventos() {
     };
 
     const hasEventsOnDay = (day: number) => {
-        const dateStr = `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        return events.some(e => e.date === dateStr);
+        return events.some(e => {
+            const parts = parseDateParts(e.date);
+            return parts?.year === selectedYear && parts?.month === selectedMonth && parts?.day === day;
+        });
     };
 
     // Filtro Final
     const filteredEvents = events.filter(e => {
         if (!e.date) return false;
-        const [y, m, d] = e.date.split("-").map(Number);
+        const parts = parseDateParts(e.date);
+        if (!parts) return false;
+        const { year: y, month: m, day: d } = parts;
 
         if (y !== selectedYear) return false;
         if (m !== selectedMonth) return false;
@@ -218,8 +225,8 @@ export default function Eventos() {
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl flex flex-col items-center shadow-lg">
-                                            <span className="text-[10px] font-bold text-slate-500 uppercase leading-none mb-0.5">{months[parseInt(event.date.split("-")[1]) - 1]}</span>
-                                            <span className="text-xl font-black text-(--color-primary) leading-none">{event.date.split("-")[2]}</span>
+                                            <span className="text-[10px] font-bold text-slate-500 uppercase leading-none mb-0.5">{months[(parseDateParts(event.date)?.month ?? 1) - 1]}</span>
+                                            <span className="text-xl font-black text-(--color-primary) leading-none">{parseDateParts(event.date)?.day}</span>
                                         </div>
                                     </div>
                                     <div className="p-6 flex-1 flex flex-col">
@@ -281,7 +288,7 @@ export default function Eventos() {
                                 <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight drop-shadow-lg mb-2">{selectedEvent.name}</h2>
                                 <div className="flex flex-wrap gap-3">
                                     <span className="flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-white font-semibold text-sm">
-                                        <CalendarIcon size={16} /> {selectedEvent.date.split("-").reverse().join("/")}
+                                        <CalendarIcon size={16} /> {formatDateDisplay(selectedEvent.date)}
                                     </span>
                                     <span className="flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-white font-semibold text-sm">
                                         <Clock size={16} /> {selectedEvent.startTime} - {selectedEvent.endTime}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, X } from 'lucide-react';
 import { API_BASE_URL, apiFetch } from "@/config/api";
+import { formatDateDisplay, isSameCalendarDay, isSameCalendarMonth } from "@/utils/date-format";
 
 interface AppEvent {
     _id: string;
@@ -47,22 +48,17 @@ export default function EventsWidget() {
     const calendarDays = Array(firstDayOfMonth).fill(null).concat(Array.from({ length: daysInMonth }, (_, i) => i + 1));
 
     const monthEvents = events.filter(event => {
-        if (!event.date) return false;
-        const [year, month] = event.date.split('-').map(Number);
-        return year === currentDate.getFullYear() && month - 1 === currentDate.getMonth();
+        return isSameCalendarMonth(event.date, currentDate.getFullYear(), currentDate.getMonth());
     });
 
     const hasEventOnDay = (day: number | null) => {
         if (!day) return false;
-        return monthEvents.some(event => {
-            const [, , eventDay] = event.date.split('-').map(Number);
-            return eventDay === day;
-        });
+        return monthEvents.some(event => isSameCalendarDay(event.date, currentDate.getFullYear(), currentDate.getMonth(), day));
     };
 
     return (
         <>
-            <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white p-6 rounded-2xl shadow-xl max-w-5xl mx-auto border h-fit md:h-[450px] border-gray-100`}>
+            <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white p-6 rounded-2xl shadow-xl max-w-5xl mx-auto border h-fit md:h-112.5 border-gray-100`}>
                 {/* Esquerda: Calendário */}
                 <div className="flex flex-col">
                     <div className="flex justify-between items-center mb-6">
@@ -95,7 +91,7 @@ export default function EventsWidget() {
                 </div>
 
                 {/* Direita: Lista de Eventos Rápida */}
-                <div className="flex flex-col border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8 md:min-h-0 h-[400px] md:h-auto">
+                <div className="flex flex-col border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8 md:min-h-0 h-100 md:h-auto">
                     <h4 className="text-xl font-bold text-slate-800 mb-6">
                         Eventos do Mês
                     </h4>
@@ -124,7 +120,7 @@ export default function EventsWidget() {
                                             <div className="min-w-0 flex-1 flex flex-col justify-center">
                                                 <h5 className="font-bold text-slate-800 truncate">{event.name}</h5>
                                                 <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                                                    <span className="flex items-center gap-1"><CalendarIcon size={12}/> {event.date.split('-')[2]}/{event.date.split('-')[1]}</span>
+                                                    <span className="flex items-center gap-1"><CalendarIcon size={12}/> {formatDateDisplay(event.date)}</span>
                                                     <span className="flex items-center gap-1"><Clock size={12}/> {event.startTime}</span>
                                                 </div>
                                             </div>
@@ -182,7 +178,7 @@ export default function EventsWidget() {
                             <div className="flex flex-wrap gap-4">
                                 <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-xl font-semibold text-sm">
                                     <CalendarIcon size={18} />
-                                    {selectedEvent.date.split("-").reverse().join("/")}
+                                    {formatDateDisplay(selectedEvent.date)}
                                 </div>
                                 <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl font-semibold text-sm">
                                     <Clock size={18} />

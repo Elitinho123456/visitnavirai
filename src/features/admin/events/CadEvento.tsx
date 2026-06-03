@@ -7,6 +7,7 @@ import {
     AlertCircle, Edit
 } from "lucide-react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
+import { formatDateDisplay, isSameCalendarDay } from "@/utils/date-format";
 
 export interface AppEvent {
     _id: string;
@@ -69,11 +70,7 @@ export default function CadEvento() {
 
     const getEventsOnDay = (day: number | null) => {
         if (!day) return [];
-        return eventsData.filter(event => {
-            if (!event.date) return false;
-            const [year, month, eventDay] = event.date.split('-').map(Number);
-            return year === currentDate.getFullYear() && (month - 1) === currentDate.getMonth() && eventDay === day;
-        });
+        return eventsData.filter(event => isSameCalendarDay(event.date, currentDate.getFullYear(), currentDate.getMonth(), day));
     };
 
     const handleDayClick = (day: number) => {
@@ -113,17 +110,13 @@ export default function CadEvento() {
         try {
             const token = localStorage.getItem("token");
 
-            // Corrige o fuso horário para enviar a data certa (YYYY-MM-DD) localmente
-            const tzOffset = selectedDate!.getTimezoneOffset() * 60000;
-            const localISOTime = new Date(selectedDate!.getTime() - tzOffset).toISOString().slice(0, 10);
-
             let imageUrl = "";
 
             if (imageFile) {
                 imageUrl = await uploadSingleFile(imageFile, "Eventos", formData.name || "Evento_Sem_Nome");
             }
 
-            const payload = { ...formData, date: localISOTime, image: imageUrl };
+            const payload = { ...formData, date: formatDateDisplay(selectedDate), image: imageUrl };
 
             const response = await apiFetch(`${API_BASE_URL}/api/events`, {
                 method: "POST",
@@ -220,12 +213,12 @@ export default function CadEvento() {
             </section>
 
             {/* --- DRAWER DE CADASTRO --- */}
-            <div className={`fixed inset-y-0 right-0 w-full md:w-[450px] h-full bg-white shadow-2xl border-l border-slate-100 transform transition-transform duration-300 z-50 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed inset-y-0 right-0 w-full md:w-112.5 h-full bg-white shadow-2xl border-l border-slate-100 transform transition-transform duration-300 z-50 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50 shrink-0">
                     <div>
                         <h3 className="text-xl font-bold text-slate-800">Novo Evento</h3>
                         <p className="text-sm text-(--color-primary) font-medium">
-                            {selectedDate && new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000).toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
+                            {selectedDate && formatDateDisplay(selectedDate)}
                         </p>
                     </div>
                     <button onClick={() => setIsDrawerOpen(false)} className="p-2 text-slate-400 hover:text-red-500 rounded-full cursor-pointer">
