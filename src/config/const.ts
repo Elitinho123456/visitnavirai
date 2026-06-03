@@ -47,6 +47,19 @@ const navItems = [
             { name: 'Restaurantes', path: '#', label: 'Restaurantes' },
         ],
     },
+
+     {
+        name: 'nav.sports',
+        path: '#',
+        subItems: [
+            { name: 'Futebol', path: '#', label: 'Futebol' },
+            { name: 'Basket', path: '#', label: 'Basket' },
+            { name: 'Volei', path: '#', label: 'Volei' },
+            { name: 'Basebol', path: '#', label: 'Basebol' },
+            
+        ],
+    },
+
     {
         name: 'nav.services',
         path: '/servicos',

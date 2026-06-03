@@ -85,6 +85,7 @@ export default function Header() {
         'nav.where_to_sleep': 'Onde Dormir',
         'nav.what_to_visit': 'O Que Visitar',
         'nav.where_to_eat': 'Onde Comer',
+        'nav.sports': 'Esportes',
         'nav.services': 'Serviços',
         'nav.calendar': 'Calendário',
     };
