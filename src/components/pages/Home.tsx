@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { register } from 'swiper/element/bundle';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { navImages } from '../../config/const';
@@ -21,6 +22,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 export default function Home() {
+    // Estado para acompanhar o slide ativo
+    const [activeIndex, setActiveIndex] = useState(0);
+
     const quickLinks = [
         { icon: <Hotel />, title: "Hotéis", link: "/acomodacoes?tipo=Hotel", color: "bg-emerald-600", hoverColor: "group-hover:text-sky-500" },
         { icon: <History />, title: "História", link: "/historia", color: "bg-emerald-600", hoverColor: "group-hover:text-emerald-500" },
@@ -44,6 +48,8 @@ export default function Home() {
                         loop={true}
                         autoplay={{ delay: 6000, disableOnInteraction: false }}
                         speed={1500}
+                        // Atualiza o estado com o índice real do slide
+                        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                     >
                         {navImages.map((image, index) => (
                             <SwiperSlide key={index}>
@@ -55,22 +61,26 @@ export default function Home() {
                                         loading={index === 0 ? "eager" : "lazy"}
                                     />
                                     <div className="absolute inset-0 bg-black/40 bg-linear-to-b from-black/60 via-black/10 to-black/80" />
-
-                                    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 mt-16 z-10">
-                                        <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-2xl md:text-3xl mb-1 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                                            Bem-vindo a Naviraí
-                                        </span>
-                                        <h2 className="text-white text-5xl md:text-8xl font-black max-w-4xl leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] mb-6 animate-fade-in-up delay-100">
-                                            {image.label}
-                                        </h2>
-                                        <p className="text-white text-lg md:text-2xl max-w-2xl font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-8 animate-fade-in-up delay-200 hidden md:block">
-                                            Descubra o coração do Conesul e suas belezas naturais.
-                                        </p>
-                                    </div>
                                 </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
+
+                    {/* --- Textos Fixos do Hero (Fora do loop) --- */}
+                    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 mt-16 z-10 pointer-events-none">
+                        {/* A propriedade key faz as animações dispararem a cada mudança de slide */}
+                        <div key={activeIndex} className="flex flex-col items-center">
+                            <span className="text-(--color-accent-gold) font-extrabold tracking-[0.3em] uppercase text-2xl md:text-3xl mb-1 animate-fade-in-up drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                                Bem-vindo a Naviraí
+                            </span>
+                            <h2 className="text-white text-5xl md:text-8xl font-black max-w-4xl leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] mb-6 animate-fade-in-up delay-100">
+                                {navImages[activeIndex]?.label}
+                            </h2>
+                            <p className="text-white text-lg md:text-2xl max-w-2xl font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-8 animate-fade-in-up delay-200 hidden md:block">
+                                Descubra o coração do Conesul e suas belezas naturais.
+                            </p>
+                        </div>
+                    </div>
 
                     {/* --- Menu Flutuante de Acesso Rápido --- */}
                     <div className="absolute -bottom-16 left-0 w-full z-20 px-4">

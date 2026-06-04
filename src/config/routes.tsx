@@ -58,6 +58,15 @@ import ServicosInfo from "@/components/pages/servicos/SevicosInfo";
 import Atracoes from "@/components/pages/atracoes/Atracoes";
 import AtracaoInfo from "@/components/pages/atracoes/AtracaoInfo";
 
+//Esportes
+import Esportes from "@/components/pages/esportes/esportes";
+import EsporteInfo from "@/components/pages/esportes/EsporteInfo";
+
+// Onde Comer
+import OndeComer from "@/components/pages/ondeComer/ondeComer";
+import OndeComerInfo from "@/components/pages/ondeComer/ondeComerInfo";
+
+
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -212,6 +221,32 @@ const router = createBrowserRouter([
           }
         ]
       },
+
+      // Esportes
+      {
+        path: "/esportes",
+        element: <Esportes />,
+        children: [
+          {
+            path: ":id",
+            element: <EsporteInfo />
+          }
+        ]
+      },
+
+      //Onde Comer
+      {
+        path: "/OndeComer",
+        element: <OndeComer />,
+        children: [
+          {
+            path: ":id",
+            element: <OndeComerInfo />
+          }
+        ]
+      },
+
+
       {
         path: "*",
         element: <Error />

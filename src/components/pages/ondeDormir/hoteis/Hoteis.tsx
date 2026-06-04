@@ -295,7 +295,7 @@ export default function Acomodacoes() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+        <div className="flex flex-col min-h-screen bg-(--color-background)">
             <Header />
 
             <main className="grow">

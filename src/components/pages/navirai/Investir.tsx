@@ -13,7 +13,7 @@ export default function Investir() {
             <Header />
 
             <main className="grow">
-                <section className="relative h-[400px] md:h-[900px] w-full">
+                <section className="relative h-100 md:h-225 w-full">
                     <img src="/parque_cumandai.png" alt="Vista panorâmica de Naviraí" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-center px-4">
                         <h1 className="text-(--color-neutral-white) text-4xl md:text-6xl font-bold tracking-wide mb-4">

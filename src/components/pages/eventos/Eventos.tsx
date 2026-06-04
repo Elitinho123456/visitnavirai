@@ -88,7 +88,7 @@ export default function Eventos() {
     });
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-(--color-background)">
             {/* Header Arrojado */}
             <Header />
             <div className="bg-(--color-primary) text-white py-16 px-6 relative overflow-hidden">
@@ -113,7 +113,7 @@ export default function Eventos() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 mt-8 space-y-10">
+            <div className="max-w-7xl mx-auto px-6 mt-8 space-y-10 mb-16px">
                 {/* Filtros Glassmorphism */}
                 <div className="bg-white/70 backdrop-blur-xl border border-white p-6 rounded-3xl shadow-sm space-y-8">
 
@@ -211,7 +211,7 @@ export default function Eventos() {
                     {loading ? (
                         <div className="flex justify-center py-20"><div className="w-12 h-12 border-4 border-(--color-primary) border-t-transparent rounded-full animate-spin"></div></div>
                     ) : filteredEvents.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                             {filteredEvents.map(event => (
                                 <div
                                     key={event._id}

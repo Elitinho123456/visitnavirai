@@ -1,4 +1,4 @@
-import { type Hotel, type Service } from "../types/interfacesTypes";
+import { type Hotel, type Service, type Venue, type Restaurant } from "../types/interfacesTypes";
 
 const navItems = [
     {
@@ -36,7 +36,7 @@ const navItems = [
     },
     {
         name: 'nav.where_to_eat',
-        path: '#',
+        path: '/OndeComer',
         subItems: [
             { name: 'Bares', path: '#', label: 'Bares' },
             { name: 'Cafeterias', path: '#', label: 'Cafeterias' },
@@ -50,7 +50,7 @@ const navItems = [
 
      {
         name: 'nav.sports',
-        path: '#',
+        path: '/esportes',
         subItems: [
             { name: 'Futebol', path: '#', label: 'Futebol' },
             { name: 'Basket', path: '#', label: 'Basket' },
@@ -75,7 +75,7 @@ const navItems = [
     },
     {
         name: 'nav.calendar',
-        path: '#',
+        path: '/event',
         subItems: [
             { name: 'Eventos', path: '/event', label: 'Eventos' },
             { name: 'Cadastro de Eventos', path: '#', label: 'Cadastro de Eventos' },
@@ -233,4 +233,183 @@ const servicesData: Service[] = [
     }
 ];
 
-export { navItems, navImages, navEvents, hotelsData, servicesData, translateFeature };
+const venuesData: Venue[] = [
+    {
+        id: 1,
+        name: "Arena Naviraí Society",
+        category: "Futebol",
+        image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Arena+Navirai",
+        distance: "1.2 km do centro",
+        features: ["Grama Sintética", "Iluminação LED", "Vestiários", "Barzinho"],
+        highlight: true,
+        latitude: -23.0645, // Coordenadas fictícias para exemplo
+        longitude: -54.1912,
+        socials: {
+            instagram: "https://instagram.com/arenaviraisociety",
+            whatsapp: "5567999999999"
+        },
+        about: {
+            title: "A melhor arena da cidade",
+            desc: ["Campos com gramado sintético de última geração, perfeitos para aquele baba com os amigos."]
+        },
+        courts: {
+            title: "Nossos Campos",
+            type: "Futebol Society 7x7",
+            desc: ["2 campos de society disponíveis para locação por hora."]
+        },
+        rules: [
+            { label: "Calçados", title: "Uso de Chuteiras", desc: "Proibido o uso de trava de alumínio." },
+            { label: "Horários", title: "Tolerância", desc: "Tolerância máxima de 10 minutos para início da partida." }
+        ],
+        infrastructure: {
+            title: "O que oferecemos",
+            cards: [
+                { icon: "beer", title: "Bar", desc: "Bebidas geladas e porções" },
+                { icon: "shower", title: "Vestiários", desc: "Duchas quentes e armários" },
+                { icon: "car", title: "Estacionamento", desc: "Amplo estacionamento gratuito" }
+            ]
+        }
+    },
+    {
+        id: 2,
+        name: "Ginásio Poliesportivo",
+        category: "Basket", // Pode ser filtrado pela categoria na sua tela
+        image: "https://placehold.co/400x300/e2e8f0/3e913e?text=Ginasio+Poli",
+        distance: "Centro",
+        features: ["Piso de Madeira", "Arquibancada", "Placar Eletrônico"],
+        latitude: -23.0650,
+        longitude: -54.1950,
+        socials: {
+            whatsapp: "5567988888888"
+        },
+        courts: {
+            title: "Quadra Principal",
+            type: "Quadra Poliesportiva Indoor",
+            desc: ["Quadra com marcações oficiais para Basquete, Vôlei e Futsal."]
+        },
+        rules: [
+            { label: "Reserva", title: "Antecedência", desc: "Reservas devem ser feitas com 24h de antecedência." }
+        ]
+    }
+];
+
+
+
+const restaurantsData: Restaurant[] = [
+    {
+        id: 1,
+        name: "Pizzaria Bella Naviraí",
+        category: "Pizzarias",
+        address: "Av. Weimar Torres, Centro",
+        image: "https://placehold.co/400x300/e2e8f0/f59e0b?text=Pizzaria+Bella",
+        distance: "Centro",
+        features: ["Forno a Lenha", "Espaço Kids", "Delivery"],
+        highlight: true,
+        latitude: -23.0645,
+        longitude: -54.1912,
+        socials: {
+            instagram: "https://instagram.com/pizzariabellanavirai",
+            whatsapp: "5567999999999"
+        },
+        about: {
+            title: "Tradição em cada fatia",
+            desc: ["A melhor pizza da região, feita no autêntico forno a lenha com ingredientes selecionados e muito carinho para você e sua família."]
+        },
+        specialties: {
+            title: "Destaques do Cardápio",
+            type: "Pizzas e Massas Artesanais",
+            desc: ["Experimente nossa famosa Pizza à Moda da Casa e o suculento Calzone de Frango com Catupiry."]
+        },
+        usefulInfo: [
+            { label: "Horário", title: "Funcionamento", desc: "Terça a Domingo das 18h às 23h30" },
+            { label: "Delivery", title: "Entregas", desc: "Entregamos em toda a cidade sem taxa na região central." }
+        ],
+        infrastructure: {
+            title: "Comodidades",
+            cards: [
+                { icon: "wifi", title: "Wi-Fi", desc: "Internet rápida gratuita para clientes" },
+                { icon: "kids", title: "Espaço Kids", desc: "Área com brinquedos e monitor" }
+            ]
+        }
+    },
+    {
+        id: 2,
+        name: "Café Central",
+        category: "Cafeterias",
+        address: "Praça Euclides Fabris, Centro",
+        image: "https://placehold.co/400x300/e2e8f0/f59e0b?text=Cafe+Central",
+        distance: "0.1 km do centro",
+        features: ["Cafés Especiais", "Wi-Fi Grátis", "Pet Friendly"],
+        latitude: -23.0655,
+        longitude: -54.1930,
+        socials: {
+            instagram: "https://instagram.com/cafecentralnavirai"
+        },
+        about: {
+            title: "O seu refúgio no coração de Naviraí",
+            desc: ["Um ambiente aconchegante perfeito para reuniões de trabalho, encontros com amigos ou apenas para relaxar lendo um bom livro."]
+        },
+        specialties: {
+            title: "Delícias do Café",
+            type: "Cafés e Doces Finos",
+            desc: ["Cafés extraídos na perfeição e nossa famosa Torta de Limão com merengue suíço."]
+        },
+        usefulInfo: [
+            { label: "Horário", title: "Aberto o dia todo", desc: "Segunda a Sábado das 07h às 19h" },
+            { label: "Pet", title: "Pet Friendly", desc: "Seu amigo de quatro patas é bem-vindo na nossa área externa." }
+        ]
+    },
+    {
+        id: 3,
+        name: "Churrascaria Fogo de Ouro",
+        category: "Restaurantes",
+        address: "Rodovia BR-163, Km 120",
+        image: "https://placehold.co/400x300/e2e8f0/f59e0b?text=Fogo+de+Ouro",
+        distance: "3 km do centro",
+        features: ["Rodízio de Carnes", "Buffet Livre", "Ar Condicionado"],
+        highlight: true,
+        latitude: -23.0800,
+        longitude: -54.1700,
+        socials: {
+            facebook: "https://facebook.com/fogodeouronavirai",
+            whatsapp: "5567988888888"
+        },
+        about: {
+            title: "O autêntico churrasco sul-mato-grossense",
+            desc: ["Carnes nobres, atendimento de excelência e um buffet completo de saladas e pratos quentes. A parada obrigatória em Naviraí."]
+        },
+        specialties: {
+            title: "Carnes Nobres",
+            type: "Churrasco Tradicional",
+            desc: ["Nossa especialidade é a Picanha no Alho e a Costela Assada lentamente por 12 horas."]
+        }
+    },
+    {
+        id: 4,
+        name: "Mestre do Burguer",
+        category: "Hamburguerias",
+        address: "Av. Dourados, 1500",
+        image: "https://placehold.co/400x300/e2e8f0/f59e0b?text=Mestre+do+Burguer",
+        distance: "1.5 km do centro",
+        features: ["Blend Artesanal", "Cerveja Gelada", "Música Ambiente"],
+        latitude: -23.0590,
+        longitude: -54.1850,
+        socials: {
+            instagram: "https://instagram.com/mestreburguernavirai"
+        },
+        about: {
+            title: "Hambúrguer de verdade",
+            desc: ["Pão brioche selado na manteiga, blend 100% bovino fresco e molhos autorais. O melhor Smash Burger da cidade!"]
+        },
+        specialties: {
+            title: "Os Mais Pedidos",
+            type: "Smash e Artesanais",
+            desc: ["Não deixe de provar o 'Mestre Bacon' e nossa deliciosa porção de batatas rústicas com páprica."]
+        }
+    }
+];
+
+
+
+
+export { navItems, navImages, navEvents, hotelsData, servicesData, venuesData, restaurantsData,  translateFeature };

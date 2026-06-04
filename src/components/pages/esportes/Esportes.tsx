@@ -1,64 +1,46 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Star, ChevronRight, X, Building2, Building, Car, CarTaxiFront, Bus, Users, TrainFront } from 'lucide-react';
-import { translateFeature, servicesData } from '../../../config/const';
+import { Search, MapPin, Star, ChevronRight, X, Trophy, Circle, Activity, Target } from 'lucide-react';
+import { translateFeature, venuesData } from '../../../config/const'; // Adapte 'venuesData' no seu const.ts
 import { API_BASE_URL, apiFetch } from "@/config/api";
-import type { Service } from '../../../types/interfacesTypes';
+import type { Venue } from '../../../types/interfacesTypes'; // Adapte o tipo 'Hotel' para 'Venue' ou 'Sport' no seu arquivo de tipos
 import Header from '../../layout/Header';
 import Footer from '../../layout/Footer';
 
 const API_BASE = API_BASE_URL;
 
-// Configuração por tipo de acomodação
+// Configuração por tipo de esporte
 const categoryConfig: Record<string, { title: string; subtitle: string; icon: React.ReactNode; heroImage: string }> = {
-    'Agência': {
-        title: 'Agência de Viagens em Naviraí',
-        subtitle: 'Conforto e praticidade para sua estadia na Capital do Conesul.',
-        icon: <Building2 size={20} />,
+    'Futebol': {
+        title: 'Futebol em Naviraí',
+        subtitle: 'Campos e quadras society para bater aquela bola com a galera.',
+        icon: <Trophy size={20} />,
         heroImage: '/navirai_noite.png',
     },
-    'Espaços para Eventos': {
-        title: 'Espaços para Eventos em Naviraí',
-        subtitle: 'Locais ideais para realizar suas celebrações e eventos especiais.',
-        icon: <Building size={20} />,
+    'Basket': {
+        title: 'Basquete em Naviraí',
+        subtitle: 'Quadras preparadas para você treinar seus arremessos e enterradas.',
+        icon: <Circle size={20} />,
         heroImage: '/parque_cumandai.png',
     },
-    'Locadora de Veículos': {
-        title: 'Locadora de Veículos em Naviraí',
-        subtitle: 'Transporte confiável e acessível para explorar a região.',
-        icon: <Car size={20} />,
+    'Vôlei': {
+        title: 'Vôlei em Naviraí',
+        subtitle: 'Redes armadas na areia ou na quadra esperando pelo seu saque.',
+        icon: <Activity size={20} />,
         heroImage: '/praca_central.png',
     },
-    'Organizadoras de Eventos': {
-        title: 'Organizadoras de Eventos em Naviraí',
-        subtitle: 'Profissionais dedicados a tornar seus eventos memoráveis.',
-        icon: <Users size={20} />,
+    'Beisebol': {
+        title: 'Beisebol em Naviraí',
+        subtitle: 'Campos estruturados para você rebater e correr pelas bases.',
+        icon: <Target size={20} />,
         heroImage: '/rio_amambai.png',
-    },
-    'Taxi': {
-        title: 'Serviço de Taxi em Naviraí',
-        subtitle: 'Deslocamento fácil e seguro pela cidade.',
-        icon: <CarTaxiFront size={20} />,
-        heroImage: '/fejunavi.png',
-    },
-    'Transportadoras Rodoviárias': {
-        title: 'Transportadoras Rodoviárias em Naviraí',
-        subtitle: 'Opções de transporte rodoviário para suas viagens.',
-        icon: <Bus size={20} />,
-        heroImage: '/navirai_noite.png',
-    },
-    'Transportadoras Turísticas': {
-        title: 'Transportadoras Turísticas em Naviraí',
-        subtitle: 'Explore as atrações locais com conforto e segurança.',
-        icon: <TrainFront size={20} />,
-        heroImage: '/parque_cumandai.png',
     },
 };
 
-const allCategories = Object.keys(categoryConfig);
+const allCategories = ['Futebol', 'Basket', 'Vôlei', 'Beisebol'];
 
-function HotelCard({ hotel, onQuickView }: { hotel: Service; onQuickView: (h: Service) => void }) {
+function VenueCard({ venue, onQuickView }: { venue: Venue; onQuickView: (v: Venue) => void }) {
     return (
         <motion.div
             layout
@@ -66,34 +48,34 @@ function HotelCard({ hotel, onQuickView }: { hotel: Service; onQuickView: (h: Se
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            onClick={() => onQuickView(hotel)}
+            onClick={() => onQuickView(venue)}
             className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col"
         >
             {/* Imagem */}
             <div className="relative h-52 overflow-hidden">
                 <img
-                    src={hotel.image || 'https://placehold.co/400x300/e2e8f0/94a3b8?text=Sem+Foto'}
-                    alt={hotel.name}
+                    src={venue.image || 'https://placehold.co/400x300/e2e8f0/94a3b8?text=Sem+Foto'}
+                    alt={venue.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
-                {hotel.highlight && (
+                {venue.highlight && (
                     <div className="absolute top-3 right-3 bg-amber-400 text-amber-900 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
                         <Star size={12} className="fill-amber-900" /> Destaque
                     </div>
                 )}
 
-                {(hotel as any).category && (
+                {(venue as any).category && (
                     <div className="absolute top-3 left-3 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                        {(hotel as any).category}
+                        {(venue as any).category}
                     </div>
                 )}
 
                 <div className="absolute bottom-3 left-3 right-3">
-                    <h3 className="text-white font-bold text-lg drop-shadow-lg truncate">{hotel.name}</h3>
+                    <h3 className="text-white font-bold text-lg drop-shadow-lg truncate">{venue.name}</h3>
                     <p className="text-white/80 text-xs flex items-center gap-1 mt-1">
-                        <MapPin size={12} /> {hotel.distance}
+                        <MapPin size={12} /> {venue.distance}
                     </p>
                 </div>
             </div>
@@ -101,7 +83,7 @@ function HotelCard({ hotel, onQuickView }: { hotel: Service; onQuickView: (h: Se
             {/* Conteúdo */}
             <div className="p-5">
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                    {hotel.features?.slice(0, 3).map((feature, i) => (
+                    {venue.features?.slice(0, 3).map((feature, i) => (
                         <span key={i} className="text-[11px] font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
                             {translateFeature(feature)}
                         </span>
@@ -110,7 +92,7 @@ function HotelCard({ hotel, onQuickView }: { hotel: Service; onQuickView: (h: Se
 
                 <div className="flex gap-2 mt-auto pt-4 border-t border-slate-50">
                     <Link
-                        to={`/servicos/${hotel._id || hotel.id}`}
+                        to={`/esportes/${venue._id || venue.id}`}
                         onClick={(e) => e.stopPropagation()}
                         className="w-full bg-(--color-primary) hover:bg-(--color-primary-dark) text-white text-sm font-bold py-2.5 rounded-xl text-center transition-all flex items-center justify-center gap-1.5"
                     >
@@ -122,8 +104,8 @@ function HotelCard({ hotel, onQuickView }: { hotel: Service; onQuickView: (h: Se
     );
 }
 
-function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => void }) {
-    const allImages = [hotel.image, ...(hotel.gallery || [])].filter(Boolean) as string[];
+function QuickViewModal({ venue, onClose }: { venue: Venue; onClose: () => void }) {
+    const allImages = [venue.image, ...(venue.gallery || [])].filter(Boolean) as string[];
     const [activeImage, setActiveImage] = useState<string>(allImages[0] || 'https://placehold.co/400x300');
 
     return (
@@ -146,7 +128,7 @@ function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => voi
                 <div className="relative h-56 bg-slate-100">
                     <img
                         src={activeImage}
-                        alt={hotel.name}
+                        alt={venue.name}
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
@@ -157,9 +139,9 @@ function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => voi
                         <X size={20} />
                     </button>
                     <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-white text-2xl font-bold drop-shadow-lg leading-tight">{hotel.name}</h3>
+                        <h3 className="text-white text-2xl font-bold drop-shadow-lg leading-tight">{venue.name}</h3>
                         <p className="text-white/90 text-sm flex items-center gap-1 mt-1 font-medium">
-                            <MapPin size={14} /> {hotel.distance}
+                            <MapPin size={14} /> {venue.distance}
                         </p>
                     </div>
                 </div>
@@ -171,10 +153,11 @@ function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => voi
                             <button
                                 key={idx}
                                 onClick={() => setActiveImage(img)}
-                                className={`relative shrink-0 w-16 h-16 rounded-xl overflow-hidden cursor-pointer transition-all border-2 ${activeImage === img ? 'border-(--color-primary) scale-105 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
-                                    }`}
+                                className={`relative shrink-0 w-16 h-16 rounded-xl overflow-hidden cursor-pointer transition-all border-2 ${
+                                    activeImage === img ? 'border-(--color-primary) scale-105 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                                }`}
                             >
-                                <img src={img} alt={`${hotel.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                                <img src={img} alt={`${venue.name} ${idx + 1}`} className="w-full h-full object-cover" />
                             </button>
                         ))}
                     </div>
@@ -183,20 +166,20 @@ function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => voi
                 {/* Info */}
                 <div className="p-6">
                     <div className="flex flex-wrap gap-2 mb-4">
-                        {hotel.features?.slice(0, 4).map((f, i) => (
+                        {venue.features?.slice(0, 4).map((f, i) => (
                             <span key={i} className="text-[11px] font-bold bg-(--color-primary)/10 text-(--color-primary) px-3 py-1.5 rounded-full uppercase tracking-wide">
                                 {translateFeature(f)}
                             </span>
                         ))}
                     </div>
 
-                    {hotel.about?.desc?.[0] && (
-                        <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">{hotel.about.desc[0]}</p>
+                    {venue.about?.desc?.[0] && (
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">{venue.about.desc[0]}</p>
                     )}
 
                     <div className="flex gap-3 pt-2">
                         <Link
-                            to={`/servicos/${hotel._id || hotel.id}`}
+                            to={`/esportes/${venue._id || venue.id}`}
                             onClick={onClose}
                             className="flex-1 bg-(--color-primary) hover:bg-(--color-primary-dark) text-white font-bold py-3.5 rounded-xl text-center transition-all shadow-md flex items-center justify-center gap-2"
                         >
@@ -215,17 +198,17 @@ function QuickViewModal({ hotel, onClose }: { hotel: Service; onClose: () => voi
     );
 }
 
-export default function Servicos() {
+export default function Esportes() {
     const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
-    const isDetailPage = /\/servicos\/.+/.test(location.pathname);
+    const isDetailPage = /\/esportes\/.+/.test(location.pathname);
 
-    const [hotels, setHotels] = useState<Service[]>([]);
+    const [venues, setVenues] = useState<Venue[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
-    const [quickViewHotel, setQuickViewHotel] = useState<Service | null>(null);
+    const [quickViewVenue, setQuickViewVenue] = useState<Venue | null>(null);
 
-    // Tipo de acomodação vindo da URL
+    // Tipo de esporte vindo da URL
     const activeCategory = searchParams.get('tipo') || '';
 
     const setCategory = (cat: string) => {
@@ -237,54 +220,55 @@ export default function Servicos() {
         setSearchParams(searchParams);
     };
 
-    // Fetch hotels
+    // Fetch locais esportivos
     useEffect(() => {
-        const fetchHotels = async () => {
+        const fetchVenues = async () => {
             try {
-                const res = await apiFetch(`${API_BASE}/api/services`);
+                // Adapte o endpoint da sua API conforme necessário
+                const res = await apiFetch(`${API_BASE}/api/sports`);
                 if (res.ok) {
                     const data = await res.json();
-                    setHotels(data);
+                    setVenues(data);
                 } else {
-                    setHotels(servicesData);
+                    setVenues(venuesData);
                 }
             } catch {
-                setHotels(servicesData);
+                setVenues(venuesData);
             } finally {
                 setLoading(false);
             }
         };
-        fetchHotels();
+        fetchVenues();
     }, []);
 
-    // Filtrar hotéis
-    const filteredHotels = useMemo(() => {
-        return hotels.filter(h => {
-            const matchesCategory = !activeCategory || (h as any).category === activeCategory;
-            const matchesSearch = !searchQuery || h.name.toLowerCase().includes(searchQuery.toLowerCase());
+    // Filtrar locais
+    const filteredVenues = useMemo(() => {
+        return venues.filter(v => {
+            const matchesCategory = !activeCategory || (v as any).category === activeCategory;
+            const matchesSearch = !searchQuery || v.name.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [hotels, activeCategory, searchQuery]);
+    }, [venues, activeCategory, searchQuery]);
 
     // Split e Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const ITEMS_PER_PAGE = 50;
 
-    const { highlightedHotels, regularHotels } = useMemo(() => {
-        const highlighted: Service[] = [];
-        const regular: Service[] = [];
-        filteredHotels.forEach(h => {
-            if (h.highlight) highlighted.push(h);
-            else regular.push(h);
+    const { highlightedVenues, regularVenues } = useMemo(() => {
+        const highlighted: Venue[] = [];
+        const regular: Venue[] = [];
+        filteredVenues.forEach(v => {
+            if (v.highlight) highlighted.push(v);
+            else regular.push(v);
         });
-        return { highlightedHotels: highlighted, regularHotels: regular };
-    }, [filteredHotels]);
+        return { highlightedVenues: highlighted, regularVenues: regular };
+    }, [filteredVenues]);
 
-    const totalPages = Math.ceil(regularHotels.length / ITEMS_PER_PAGE);
-    const paginatedRegularHotels = useMemo(() => {
+    const totalPages = Math.ceil(regularVenues.length / ITEMS_PER_PAGE);
+    const paginatedRegularVenues = useMemo(() => {
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        return regularHotels.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-    }, [regularHotels, currentPage]);
+        return regularVenues.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [regularVenues, currentPage]);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -294,9 +278,9 @@ export default function Servicos() {
     const currentConfig = activeCategory && categoryConfig[activeCategory]
         ? categoryConfig[activeCategory]
         : {
-            title: 'Serviços essenciais em Naviraí',
-            subtitle: 'Encontre os melhores serviços para complementar sua visita à Capital do Conesul.',
-            icon: <Building2 size={20} />,
+            title: 'Onde Jogar em Naviraí',
+            subtitle: 'Encontre a quadra ou campo ideal para a sua partida.',
+            icon: <Trophy size={20} />,
             heroImage: '/navirai_noite.png',
         };
 
@@ -312,7 +296,7 @@ export default function Servicos() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-(--color-background)">
+        <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
             <Header />
 
             <main className="grow">
@@ -332,7 +316,7 @@ export default function Servicos() {
                             transition={{ delay: 0.1 }}
                             className="text-(--color-accent-gold) font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4"
                         >
-                            Serviços
+                            Esportes e Lazer
                         </motion.span>
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -394,7 +378,7 @@ export default function Servicos() {
                             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input
                                 type="text"
-                                placeholder="Buscar serviço..."
+                                placeholder="Buscar local esportivo..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-(--color-primary)/30 focus:border-(--color-primary) outline-none transition-all shadow-sm text-sm"
@@ -412,7 +396,7 @@ export default function Servicos() {
 
                     {/* Contagem de resultados */}
                     <p className="text-slate-500 text-sm mb-6">
-                        {loading ? 'Carregando...' : `${filteredHotels.length} serviço(s) encontrado(s)`}
+                        {loading ? 'Carregando...' : `${filteredVenues.length} local(is) encontrado(s)`}
                     </p>
 
                     {/* --- Grid de Cards --- */}
@@ -420,43 +404,43 @@ export default function Servicos() {
                         <div className="flex justify-center py-20">
                             <div className="w-12 h-12 border-4 border-(--color-primary) border-t-transparent rounded-full animate-spin"></div>
                         </div>
-                    ) : filteredHotels.length === 0 ? (
+                    ) : filteredVenues.length === 0 ? (
                         <div className="text-center py-20">
                             <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Building2 size={32} className="text-slate-400" />
+                                <Trophy size={32} className="text-slate-400" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-700 mb-2">Nenhum serviço encontrado</h3>
+                            <h3 className="text-xl font-bold text-slate-700 mb-2">Nenhum local encontrado</h3>
                             <p className="text-slate-500">Tente ajustar os filtros ou a busca.</p>
                         </div>
                     ) : (
                         <div className="space-y-16">
                             {/* Destaques */}
-                            {highlightedHotels.length > 0 && (
+                            {highlightedVenues.length > 0 && (
                                 <div>
                                     <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-3">
                                         <Star className="text-yellow-500 fill-yellow-500" size={28} />
-                                        Destaques
+                                        Quadras e Campos em Destaque
                                     </h2>
                                     <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                         <AnimatePresence>
-                                            {highlightedHotels.map(hotel => (
-                                                <HotelCard key={hotel._id || hotel.id} hotel={hotel} onQuickView={setQuickViewHotel} />
+                                            {highlightedVenues.map(venue => (
+                                                <VenueCard key={venue._id || venue.id} venue={venue} onQuickView={setQuickViewVenue} />
                                             ))}
                                         </AnimatePresence>
                                     </motion.div>
                                 </div>
                             )}
 
-                            {/* Serviços */}
-                            {regularHotels.length > 0 && (
+                            {/* Locais */}
+                            {regularVenues.length > 0 && (
                                 <div>
                                     <h2 className="text-3xl font-black text-slate-800 mb-6 border-b border-slate-200 pb-3">
-                                        Serviços
+                                        Todos os Locais
                                     </h2>
                                     <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                         <AnimatePresence>
-                                            {paginatedRegularHotels.map(hotel => (
-                                                <HotelCard key={hotel._id || hotel.id} hotel={hotel} onQuickView={setQuickViewHotel} />
+                                            {paginatedRegularVenues.map(venue => (
+                                                <VenueCard key={venue._id || venue.id} venue={venue} onQuickView={setQuickViewVenue} />
                                             ))}
                                         </AnimatePresence>
                                     </motion.div>
@@ -464,30 +448,31 @@ export default function Servicos() {
                                     {/* Paginação */}
                                     {totalPages > 1 && (
                                         <div className="flex justify-center items-center gap-4 mt-12 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-100 w-fit mx-auto">
-                                            <button
+                                            <button 
                                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                                 disabled={currentPage === 1}
                                                 className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
                                             >
                                                 &lt; Anterior
                                             </button>
-
+                                            
                                             <div className="flex gap-1">
                                                 {Array.from({ length: totalPages }).map((_, i) => (
                                                     <button
                                                         key={i}
                                                         onClick={() => setCurrentPage(i + 1)}
-                                                        className={`w-10 h-10 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer ${currentPage === i + 1
-                                                                ? 'bg-(--color-primary) text-white shadow-md'
-                                                                : 'text-slate-500 hover:bg-slate-100'
-                                                            }`}
+                                                        className={`w-10 h-10 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer ${
+                                                            currentPage === i + 1 
+                                                            ? 'bg-(--color-primary) text-white shadow-md' 
+                                                            : 'text-slate-500 hover:bg-slate-100'
+                                                        }`}
                                                     >
                                                         {i + 1}
                                                     </button>
                                                 ))}
                                             </div>
 
-                                            <button
+                                            <button 
                                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                                 disabled={currentPage === totalPages}
                                                 className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
@@ -505,10 +490,10 @@ export default function Servicos() {
 
             {/* --- QuickView Modal --- */}
             <AnimatePresence>
-                {quickViewHotel && (
+                {quickViewVenue && (
                     <QuickViewModal
-                        hotel={quickViewHotel}
-                        onClose={() => setQuickViewHotel(null)}
+                        venue={quickViewVenue}
+                        onClose={() => setQuickViewVenue(null)}
                     />
                 )}
             </AnimatePresence>

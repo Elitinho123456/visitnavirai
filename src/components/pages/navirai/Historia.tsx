@@ -10,7 +10,7 @@ export default function Historia() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+        <div className="flex flex-col min-h-screen bg-(--color-background)">
             <Header />
 
             <main className="grow">
@@ -64,7 +64,7 @@ export default function Historia() {
 
                     {/* Bloco 2: Os Pioneiros */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 lg:order-1 relative h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
+                        <div className="order-2 lg:order-1 relative h-125 rounded-2xl overflow-hidden shadow-2xl group">
                             <img 
                                 src="/colonizacao_1952.png" 
                                 alt="Colonização Antiga"
