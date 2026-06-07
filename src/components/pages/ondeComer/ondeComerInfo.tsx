@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// Adapte a importação da tipagem conforme o seu arquivo de interfaces
 import type { Restaurant } from "../../../types/interfacesTypes"; 
 import { ChevronLeft, ChevronRight, Info, X, ZoomIn, Utensils } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,7 +26,7 @@ export default function OndeComerInfo() {
 
         const fetchRestaurantData = async () => {
             try {
-                // Ajuste a rota da API para o endpoint correto de gastronomia/restaurantes
+       
                 const res = await apiFetch(`${API_BASE_URL}/api/restaurants/${restaurantId}`);
                 if (res.ok) {
                     const data = await res.json();

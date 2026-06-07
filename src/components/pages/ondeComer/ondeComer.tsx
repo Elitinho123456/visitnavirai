@@ -245,13 +245,13 @@ export default function Gastronomia() {
     useEffect(() => {
         const fetchRestaurants = async () => {
             try {
-                // Adapte o endpoint da API para os locais gastronômicos
-                const res = await apiFetch(`${API_BASE}/api/gastronomy`);
+                
+                const res = await apiFetch(`${API_BASE}/api/restaurants`);
                 if (res.ok) {
                     const data = await res.json();
                     setRestaurants(data);
                 } else {
-                    setRestaurants(restaurantsData as Restaurant[]); // Fallback para dados mockados ajustado para 'restaurantsData'
+                    setRestaurants(restaurantsData as Restaurant[]); 
                 }
             } catch {
                 setRestaurants(restaurantsData as Restaurant[]);
@@ -295,7 +295,7 @@ export default function Gastronomia() {
         setCurrentPage(1);
     }, [searchQuery, activeCategory]);
 
-    // Configuração dinâmica da Hero Section
+   
     const currentConfig = activeCategory && categoryConfig[activeCategory]
         ? categoryConfig[activeCategory]
         : {
@@ -305,7 +305,7 @@ export default function Gastronomia() {
             heroImage: '/navirai_noite.png', 
         };
 
-    // Se está na página de detalhe, renderizar só o Outlet
+
     if (isDetailPage) {
         return (
             <div className="flex flex-col min-h-screen bg-(--color-background)">
