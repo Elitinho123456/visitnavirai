@@ -20,7 +20,7 @@ export default function OndeComerInfo() {
 
     useEffect(() => {
         if (!restaurantId) {
-            navigate("/onde-comer");
+            navigate("/restaurantes");
             return;
         }
 
@@ -90,7 +90,7 @@ export default function OndeComerInfo() {
         return (
             <div className="flex flex-col min-h-screen bg-(--color-background) items-center justify-center">
                 <h2 className="text-2xl font-bold text-(--color-secondary)">Local não encontrado</h2>
-                <button onClick={() => navigate("/onde-comer")} className="mt-4 px-6 py-2 bg-(--color-primary) text-white rounded-lg cursor-pointer">
+                <button onClick={() => navigate("/restaurantes")} className="mt-4 px-6 py-2 bg-(--color-primary) text-white rounded-lg cursor-pointer">
                     Voltar
                 </button>
             </div>
@@ -113,7 +113,7 @@ export default function OndeComerInfo() {
                     />
 
                     <button
-                        onClick={() => navigate("/onde-comer")}
+                        onClick={() => navigate("/restaurantes")}
                         className="absolute top-24 left-4 md:left-8 z-20 flex items-center gap-2 bg-black/40 hover:bg-black/70 text-white px-4 py-2 rounded-xl backdrop-blur-md transition-all cursor-pointer"
                     >
                         <ChevronLeft className="w-5 h-5" />

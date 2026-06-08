@@ -1,7 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/utils/toast';
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera, Briefcase } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera, Briefcase,  UtensilsCrossed } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 import { useDashboardStats } from '@/hooks/useDashboardStats';
@@ -32,6 +32,7 @@ export default function Dashboard() {
         { path: "/admin", icon: LayoutDashboard, label: "Visão Geral", categoryKey: "all" },
         { path: "/admin/usuarios", icon: Users, label: "Usuários", categoryKey: "users" },
         { path: "/admin/hoteis", icon: Hotel, label: "Onde Dormir", categoryKey: "where_to_sleep" },
+        { path: "/admin/restaurants", icon:  UtensilsCrossed, label: "Onde Comer", categoryKey: "where_to_eat" },
         { path: "/admin/atracoes", icon: Camera, label: "O que Visitar", categoryKey: "what_to_visit" },
         { path: "/admin/servicos", icon: Briefcase, label: "Serviços", categoryKey: "services" },
         { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" }
@@ -244,6 +245,7 @@ export default function Dashboard() {
                             const getCategoryFromPath = (path: string) => {
                                 if (path.startsWith("/admin/usuarios")) return "users";
                                 if (path.startsWith("/admin/hoteis")) return "where_to_sleep";
+                                if (path.startsWith("/admin/restaurants")) return "where_to_eat";
                                 if (path.startsWith("/admin/eventos")) return "events";
                                 if (path.startsWith("/admin/servicos")) return "services";
                                 if (path.startsWith("/admin/atracoes")) return "what_to_visit";
@@ -395,6 +397,16 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                             title="Eventos Ativos" value={stats.events} icon={Calendar}
                             trend="No portfólio" trendUp={null}
                             iconBg="bg-amber-100" iconColor="text-amber-600"
+                        />
+                    </Link>
+                )}
+
+                {(!userPerms || userPerms.restaurants?.read) && (
+                    <Link to="/admin/restaurants" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Restaurantes cadastrados" value={stats.restaurants} icon={UtensilsCrossed}
+                            trend="Restaurantes ativos" trendUp={null}
+                            iconBg="bg-red-100" iconColor="text-red-600"
                         />
                     </Link>
                 )}

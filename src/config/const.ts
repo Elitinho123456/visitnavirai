@@ -36,7 +36,7 @@ const navItems = [
     },
     {
         name: 'nav.where_to_eat',
-        path: '/OndeComer',
+        path: '/restaurantes',
         subItems: [
             { name: 'Bares', path: '#', label: 'Bares' },
             { name: 'Cafeterias', path: '#', label: 'Cafeterias' },

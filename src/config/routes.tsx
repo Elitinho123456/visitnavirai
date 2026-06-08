@@ -34,6 +34,11 @@ import ListServices from "@/features/admin/services/ListServices.tsx";
 import CadService from "@/features/admin/services/CadService.tsx";
 import EditService from "@/features/admin/services/EditService.tsx";
 
+// Restaurant Controls
+import ListRestaurant from "@/features/admin/restaurants/ListRestaurant.tsx";
+import CadRestaurant from "@/features/admin/restaurants/CadRestaurant.tsx";
+import EditRestaurant from "@/features/admin/restaurants/EditRestaurant.tsx";
+
 // Attraction Controls
 import ListAttractions from "@/features/admin/attractions/ListAttractions.tsx";
 import CadAttraction from "@/features/admin/attractions/CadAttraction.tsx";
@@ -59,7 +64,7 @@ import Atracoes from "@/components/pages/atracoes/Atracoes";
 import AtracaoInfo from "@/components/pages/atracoes/AtracaoInfo";
 
 //Esportes
-import Esportes from "@/components/pages/esportes/esportes";
+import Esportes from "@/components/pages/esportes/Esportes";
 import EsporteInfo from "@/components/pages/esportes/EsporteInfo";
 
 // Onde Comer
@@ -126,6 +131,18 @@ const router = createBrowserRouter([
               {
                 path: "servicos/editar/:id",
                 element: <EditService />
+              },
+              {
+                path: "restaurants",
+                element: <ListRestaurant />
+              },
+              {
+                path: "restaurants/novo",
+                element: <CadRestaurant />
+              },
+              {
+                path: "restaurants/editar/:id",
+                element: <EditRestaurant />
               },
               {
                 path: "atracoes",
@@ -236,7 +253,7 @@ const router = createBrowserRouter([
 
       //Onde Comer
       {
-        path: "/OndeComer",
+        path: "/restaurantes",
         element: <OndeComer />,
         children: [
           {

@@ -113,7 +113,7 @@ function RestaurantCard({ restaurant, onQuickView }: { restaurant: Restaurant; o
 
                 <div className="flex gap-2 mt-auto pt-4 border-t border-slate-50">
                     <Link
-                        to={`/gastronomia/${restaurant._id || restaurant.id}`}
+                        to={`/restaurantes/${restaurant._id || restaurant.id}`}
                         onClick={(e) => e.stopPropagation()}
                         className="w-full bg-(--color-primary) hover:bg-(--color-primary-dark) text-white text-sm font-bold py-2.5 rounded-xl text-center transition-all flex items-center justify-center gap-1.5"
                     >
@@ -200,7 +200,7 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
 
                     <div className="flex gap-3 pt-2">
                         <Link
-                            to={`/gastronomia/${restaurant._id || restaurant.id}`}
+                            to={`/restaurantes/${restaurant._id || restaurant.id}`}
                             onClick={onClose}
                             className="flex-1 bg-(--color-primary) hover:bg-(--color-primary-dark) text-white font-bold py-3.5 rounded-xl text-center transition-all shadow-md flex items-center justify-center gap-2"
                         >
@@ -219,10 +219,10 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
     );
 }
 
-export default function Gastronomia() {
+export default function restaurantes() {
     const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
-    const isDetailPage = /\/gastronomia\/.+/.test(location.pathname);
+    const isDetailPage = /\/restaurantes\/.+/.test(location.pathname);
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [loading, setLoading] = useState(true);
