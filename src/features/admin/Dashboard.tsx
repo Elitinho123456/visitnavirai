@@ -1,7 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/utils/toast';
 import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera, Briefcase,  UtensilsCrossed } from "lucide-react";
+import { LayoutDashboard, Users, Hotel, Calendar, LogOut, Menu, X, TrendingUp, TrendingDown, Home, AlertOctagon, Camera, Briefcase, UtensilsCrossed, Trophy } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 import { useDashboardStats } from '@/hooks/useDashboardStats';
@@ -35,6 +35,7 @@ export default function Dashboard() {
         { path: "/admin/restaurants", icon:  UtensilsCrossed, label: "Onde Comer", categoryKey: "where_to_eat" },
         { path: "/admin/atracoes", icon: Camera, label: "O que Visitar", categoryKey: "what_to_visit" },
         { path: "/admin/servicos", icon: Briefcase, label: "Serviços", categoryKey: "services" },
+        { path: "/admin/esportes", icon: Trophy, label: "Esportes", categoryKey: "sports" },
         { path: "/admin/eventos", icon: Calendar, label: "Eventos Locais", categoryKey: "events" }
     ];
 
@@ -249,6 +250,7 @@ export default function Dashboard() {
                                 if (path.startsWith("/admin/eventos")) return "events";
                                 if (path.startsWith("/admin/servicos")) return "services";
                                 if (path.startsWith("/admin/atracoes")) return "what_to_visit";
+                                if (path.startsWith("/admin/esportes")) return "sports";
                                 return "all";
                             };
 
@@ -397,6 +399,16 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                             title="Eventos Ativos" value={stats.events} icon={Calendar}
                             trend="No portfólio" trendUp={null}
                             iconBg="bg-amber-100" iconColor="text-amber-600"
+                        />
+                    </Link>
+                )}
+
+                {(!userPerms || userPerms.sports?.read) && (
+                    <Link to="/admin/esportes" className="transition-all duration-300 hover:scale-105">
+                        <StatCard
+                            title="Locais Esportivos" value={stats.sports ?? 0} icon={Trophy}
+                            trend="Quadras e complexos" trendUp={true}
+                            iconBg="bg-indigo-100" iconColor="text-indigo-600"
                         />
                     </Link>
                 )}

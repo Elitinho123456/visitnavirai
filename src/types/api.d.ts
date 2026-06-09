@@ -22,4 +22,5 @@ export interface DashboardStats {
   services?: number;
   attractions?: number;
   restaurants?: number;
+  sports?: number;
 }

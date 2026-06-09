@@ -27,7 +27,7 @@ export default function SportInfo() {
         const fetchVenueData = async () => {
             try {
                 // Ajuste a rota da API conforme o seu backend para esportes/arenas
-                const res = await apiFetch(`${API_BASE_URL}/api/venues/${venueId}`);
+                const res = await apiFetch(`${API_BASE_URL}/api/sports/${venueId}`);
                 if (res.ok) {
                     const data = await res.json();
                     setVenueData(data);

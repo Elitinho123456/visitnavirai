@@ -11,6 +11,7 @@ const CATEGORIES = [
     { key: "where_to_eat", name: "Onde Comer" },
     { key: "services", name: "Serviços" },
     { key: "events", name: "Eventos" },
+    { key: "sports", name: "Esportes" },
     { key: "users", name: "Usuários" }
 ];
 

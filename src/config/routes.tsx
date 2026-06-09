@@ -66,6 +66,9 @@ import AtracaoInfo from "@/components/pages/atracoes/AtracaoInfo";
 //Esportes
 import Esportes from "@/components/pages/esportes/Esportes";
 import EsporteInfo from "@/components/pages/esportes/EsporteInfo";
+import ListSports from "@/features/admin/sports/ListSports.tsx";
+import CadSport from "@/features/admin/sports/CadSport.tsx";
+import EditSport from "@/features/admin/sports/EditSport.tsx";
 
 // Onde Comer
 import OndeComer from "@/components/pages/ondeComer/ondeComer";
@@ -155,6 +158,18 @@ const router = createBrowserRouter([
               {
                 path: "atracoes/editar/:id",
                 element: <EditAttraction />
+              },
+              {
+                path: "esportes",
+                element: <ListSports />
+              },
+              {
+                path: "esportes/novo",
+                element: <CadSport />
+              },
+              {
+                path: "esportes/editar/:id",
+                element: <EditSport />
               },
               {
                 path: "usuarios",
