@@ -16,10 +16,10 @@ export default function Investir() {
                 <section className="relative h-100 md:h-225 w-full">
                     <img src="/parque_cumandai.png" alt="Vista panorâmica de Naviraí" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-center px-4">
-                        <h1 className="text-(--color-neutral-white) text-4xl md:text-6xl font-bold tracking-wide mb-4">
+                        <h1 className="text-white text-4xl md:text-6xl font-bold tracking-wide mb-4 drop-shadow-md">
                             Invista em Naviraí
                         </h1>
-                        <p className="text-(--color-neutral-light) text-lg md:text-xl max-w-2xl font-light">
+                        <p className="text-white/90 text-lg md:text-xl max-w-2xl font-light drop-shadow">
                             Um hub de oportunidades no coração do Brasil.
                         </p>
                     </div>

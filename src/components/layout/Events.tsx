@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, X } from 'lucide-react';
 import { API_BASE_URL, apiFetch } from "@/config/api";
-import { formatDateDisplay, isSameCalendarDay, isSameCalendarMonth } from "@/utils/date-format";
+import { formatDateDisplay, formatDateExtensoCompleto, isSameCalendarDay, isSameCalendarMonth, MONTH_NAMES_FULL } from "@/utils/date-format";
 
 interface AppEvent {
     _id: string;
@@ -44,7 +44,7 @@ export default function EventsWidget() {
 
     const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const monthNames = MONTH_NAMES_FULL;
     const calendarDays = Array(firstDayOfMonth).fill(null).concat(Array.from({ length: daysInMonth }, (_, i) => i + 1));
 
     const monthEvents = events.filter(event => {
@@ -58,21 +58,21 @@ export default function EventsWidget() {
 
     return (
         <>
-            <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white p-6 rounded-2xl shadow-xl max-w-5xl mx-auto border h-fit md:h-112.5 border-gray-100`}>
+            <div className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 bg-white dark:bg-[#241a06] p-6 rounded-2xl shadow-xl max-w-5xl mx-auto border h-fit md:h-112.5 border-[#ede0d8] dark:border-[#3a2e1a]`}>
                 {/* Esquerda: Calendário */}
                 <div className="flex flex-col">
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-slate-800 font-bold text-2xl flex items-center gap-2">
+                        <h3 className="text-[#241a06] dark:text-[#f0e6d6] font-bold text-2xl flex items-center gap-2">
                             <CalendarIcon className="text-(--color-primary)" />
                             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                         </h3>
                         <div className="flex gap-2">
-                            <button onClick={prevMonth} className="p-2 cursor-pointer bg-gray-100 hover:bg-(--color-primary) text-gray-400 hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
-                            <button onClick={nextMonth} className="p-2 cursor-pointer bg-gray-100 hover:bg-(--color-primary) text-gray-400 hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
+                            <button onClick={prevMonth} className="p-2 cursor-pointer bg-[#f5ede5] dark:bg-[#2e2310] hover:bg-(--color-primary) text-[#5a4d3e] dark:text-[#c5b49e] hover:text-white rounded-full transition-colors"><ChevronLeft size={20} /></button>
+                            <button onClick={nextMonth} className="p-2 cursor-pointer bg-[#f5ede5] dark:bg-[#2e2310] hover:bg-(--color-primary) text-[#5a4d3e] dark:text-[#c5b49e] hover:text-white rounded-full transition-colors"><ChevronRight size={20} /></button>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-7 gap-2 mb-2 text-center text-sm font-bold text-gray-400">
+                    <div className="grid grid-cols-7 gap-2 mb-2 text-center text-sm font-bold text-[#8a7968] dark:text-[#c5b49e]">
                         <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
                     </div>
 
@@ -81,18 +81,18 @@ export default function EventsWidget() {
                             <div key={idx} className={`
                                     flex items-center justify-center rounded-lg h-12 text-sm font-medium relative transition-all
                                     ${day ? 'hover:cursor-pointer' : ''} 
-                                    ${hasEventOnDay(day) ? 'bg-(--color-primary) text-white shadow-md hover:scale-105 hover:bg-(--color-forest-green-400)' : 'text-slate-600'}
+                                    ${hasEventOnDay(day) ? 'bg-(--color-primary) text-white shadow-md hover:scale-105 hover:bg-(--color-forest-green-400)' : 'text-[#5a4d3e] dark:text-[#c5b49e]'}
                                 `}>
                                 {day}
-                                {hasEventOnDay(day) && <span className="absolute bottom-2 w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>}
+                                {hasEventOnDay(day) && <span className="absolute bottom-2 w-1.5 h-1.5 bg-amber-400 rounded-full"></span>}
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Direita: Lista de Eventos Rápida */}
-                <div className="flex flex-col border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8 md:min-h-0 h-100 md:h-auto">
-                    <h4 className="text-xl font-bold text-slate-800 mb-6">
+                <div className="flex flex-col border-t md:border-t-0 md:border-l border-[#ede0d8] dark:border-[#3a2e1a] pt-6 md:pt-0 md:pl-8 md:min-h-0 h-100 md:h-auto">
+                    <h4 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-6">
                         Eventos do Mês
                     </h4>
 
@@ -108,9 +108,9 @@ export default function EventsWidget() {
                                         <div 
                                             key={event._id} 
                                             onClick={() => setSelectedEvent(event)}
-                                            className="bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-(--color-primary)/40 hover:shadow-md hover:scale-[1.02] cursor-pointer transition-all flex gap-4 overflow-hidden"
+                                            className="bg-white dark:bg-[#2e2310] p-3 rounded-xl border border-[#ede0d8] dark:border-[#3a2e1a] shadow-sm hover:border-(--color-primary)/40 hover:shadow-md hover:scale-[1.02] cursor-pointer transition-all flex gap-4 overflow-hidden"
                                         >
-                                            <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-slate-100">
+                                            <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-[#f5ede5] dark:bg-[#1a1208]">
                                                 <img 
                                                     src={event.image || "https://placehold.co/150"} 
                                                     alt={event.name}
@@ -118,8 +118,8 @@ export default function EventsWidget() {
                                                 />
                                             </div>
                                             <div className="min-w-0 flex-1 flex flex-col justify-center">
-                                                <h5 className="font-bold text-slate-800 truncate">{event.name}</h5>
-                                                <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
+                                                <h5 className="font-bold text-[#241a06] dark:text-[#f0e6d6] truncate">{event.name}</h5>
+                                                <div className="flex items-center gap-2 text-xs text-[#8a7968] dark:text-[#c5b49e] mt-1">
                                                     <span className="flex items-center gap-1"><CalendarIcon size={12}/> {formatDateDisplay(event.date)}</span>
                                                     <span className="flex items-center gap-1"><Clock size={12}/> {event.startTime}</span>
                                                 </div>
@@ -128,7 +128,7 @@ export default function EventsWidget() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-center py-10 text-gray-400">
+                                <div className="text-center py-10 text-[#8a7968] dark:text-[#c5b49e]">
                                     <CalendarIcon size={40} className="mx-auto mb-2 opacity-20" />
                                     <p>Sem eventos para este mês.</p>
                                 </div>
@@ -142,11 +142,11 @@ export default function EventsWidget() {
             {selectedEvent && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" onClick={() => setSelectedEvent(null)}>
                     {/* Backdrop */}
-                    <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300"></div>
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"></div>
                     
                     {/* Modal Content */}
                     <div 
-                        className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative z-10 animate-in zoom-in-95 duration-300"
+                        className="bg-white dark:bg-[#241a06] rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative z-10 animate-in zoom-in-95 duration-300 border border-[#ede0d8] dark:border-[#3a2e1a]"
                         onClick={(e) => e.stopPropagation()} // Impede que clique dentro do modal o feche
                     >
                         {/* Botão Fechar */}
@@ -158,7 +158,7 @@ export default function EventsWidget() {
                         </button>
 
                         {/* Imagem de Capa */}
-                        <div className="w-full h-56 sm:h-64 relative bg-slate-100">
+                        <div className="w-full h-56 sm:h-64 relative bg-[#f5ede5] dark:bg-[#1a1208]">
                             <img 
                                 src={selectedEvent.image || "https://placehold.co/800x400"} 
                                 alt={selectedEvent.name}
@@ -176,11 +176,11 @@ export default function EventsWidget() {
                         <div className="p-6 sm:p-8 space-y-6">
                             {/* Informações Rápidas */}
                             <div className="flex flex-wrap gap-4">
-                                <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-xl font-semibold text-sm">
+                                <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-xl font-semibold text-sm">
                                     <CalendarIcon size={18} />
-                                    {formatDateDisplay(selectedEvent.date)}
+                                    {formatDateExtensoCompleto(selectedEvent.date)}
                                 </div>
-                                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl font-semibold text-sm">
+                                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-xl font-semibold text-sm">
                                     <Clock size={18} />
                                     {selectedEvent.startTime} - {selectedEvent.endTime}
                                 </div>
@@ -188,18 +188,18 @@ export default function EventsWidget() {
 
                             {/* Descrição */}
                             <div>
-                                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Sobre o evento</h4>
-                                <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">
+                                <h4 className="text-sm font-bold text-[#8a7968] dark:text-[#c5b49e] uppercase tracking-wider mb-2">Sobre o evento</h4>
+                                <p className="text-[#5a4d3e] dark:text-[#c5b49e] leading-relaxed whitespace-pre-wrap">
                                     {selectedEvent.description}
                                 </p>
                             </div>
                         </div>
                         
                         {/* Rodapé do Modal */}
-                        <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
+                        <div className="p-6 bg-[#f5ede5] dark:bg-[#1a1208] border-t border-[#ede0d8] dark:border-[#3a2e1a] flex justify-end">
                             <button 
                                 onClick={() => setSelectedEvent(null)}
-                                className="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition-colors cursor-pointer"
+                                className="px-6 py-3 rounded-xl bg-[#ede0d8] dark:bg-[#2e2310] text-[#241a06] dark:text-[#f0e6d6] hover:bg-[#e0d0c4] dark:hover:bg-[#3a2e1a] font-bold transition-colors cursor-pointer"
                             >
                                 Fechar
                             </button>

@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Plus, Trash2, ArrowLeft, Upload, Star, ImagePlus, X, Clock, ShieldAlert } from "lucide-react";
 import MapPicker from "@/components/shared/MapPicker";
+import SocialsInput from "@/components/shared/SocialsInput";
 import { API_BASE_URL, apiFetch } from "@/config/api";
 
 function getCategoryLabel(category: string): string {
@@ -32,6 +33,7 @@ export default function CadRestaurant() {
 
     const [formData, setFormData] = useState<any>({
         name: "", image: "", category: "Restaurantes", highlight: false, distance: "Naviraí - MS", latitude: 0, longitude: 0,
+        socials: { whatsapp: "", instagram: "", facebook: "", website: "" },
         features: [""],
         about: { title: "Sobre o Restaurante", subtitle: "Qualidade e Confiança", desc: [""] },
         accommodation: { title: "Especialidades / Ambiente", image: "", imageCaption: "Foto do Local", desc: [""] },
@@ -226,34 +228,34 @@ export default function CadRestaurant() {
     };
 
     const getInputClasses = (key: string) => {
-        const base = "w-full p-3 bg-white border rounded-xl outline-none focus:ring-2 focus:ring-(--color-primary) transition-all";
+        const base = "w-full p-3 bg-white dark:bg-[#1a1208] border text-[#241a06] dark:text-[#f0e6d6] border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl outline-none focus:ring-2 focus:ring-(--color-primary) transition-all";
         return validationErrors[key]
-            ? `${base} border-red-400 ring-2 ring-red-200 bg-red-50/50`
-            : `${base} border-slate-100`;
+            ? `${base} border-red-400 ring-2 ring-red-200 dark:ring-red-900/40 bg-red-50/50 dark:bg-red-950/20`
+            : `${base} border-[#ede0d8] dark:border-[#3a2e1a]`;
     };
 
     return (
     <div className="max-w-5xl mx-auto space-y-6">
         {/* Botão Voltar */}
-        <button onClick={() => navigate("/admin/restaurants")} className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors font-medium cursor-pointer">
+        <button onClick={() => navigate("/admin/restaurants")} className="flex items-center gap-2 text-[#8a7968] dark:text-[#c5b49e] hover:text-[#241a06] dark:hover:text-white transition-colors font-medium cursor-pointer">
             <ArrowLeft size={20} /> Voltar para a lista
         </button>
 
         {/* Card Principal */}
-        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-100">
+        <div className="bg-white dark:bg-[#241a06] rounded-3xl p-6 md:p-10 shadow-sm border border-[#ede0d8] dark:border-[#3a2e1a]">
             
-            {/* ═══ CABEÇALHO (Corrigido aqui) ═══ */}
+            {/* ═══ CABEÇALHO ═══ */}
             <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-12 bg-(--color-primary)/10 text-(--color-primary) rounded-2xl flex items-center justify-center">
                     <Upload size={24} />
                 </div>
                 <div>
-                    <h2 className="text-3xl font-black text-slate-800">
+                    <h2 className="text-3xl font-black text-[#241a06] dark:text-[#f0e6d6]">
                         Novo Restaurante
                     </h2>
-                    <p className="text-slate-500">Cadastre um local gastronômico para exibição na seção Onde Comer.</p>
-                </div> {/* <--- Fechamento do bloco de texto */}
-            </div> {/* <--- Fechamento do bloco flex do cabeçalho */}
+                    <p className="text-[#8a7968] dark:text-[#c5b49e]">Cadastre um local gastronômico para exibição na seção Onde Comer.</p>
+                </div>
+            </div>
 
             {/* Corpo do Formulário */}
             <form onSubmit={handleSubmit} className="space-y-10">
@@ -261,24 +263,24 @@ export default function CadRestaurant() {
                 {/* ═══ BLOCO 1: Infos Básicas ═══ */}
                 <section>
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-black">1</span>
+                        <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm font-black">1</span>
                             Informações Básicas
                         </h3>
                         <div className="flex items-center gap-3">
-                            <span className="font-bold text-sm text-slate-600 flex items-center gap-1.5">
-                                <Star size={16} className={formData.highlight ? "text-yellow-400 fill-yellow-400" : "text-slate-300"} />
+                            <span className="font-bold text-sm text-[#5a4d3e] dark:text-[#f0e6d6] flex items-center gap-1.5">
+                                <Star size={16} className={formData.highlight ? "text-yellow-400 fill-yellow-400" : "text-[#8a7968] dark:text-[#8a7968]"} />
                                 Destaque
                             </span>
                             <button type="button" onClick={() => setFormData({ ...formData, highlight: !formData.highlight })}
-                                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer shrink-0 ${formData.highlight ? 'bg-(--color-primary)' : 'bg-slate-300'}`}>
+                                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors cursor-pointer shrink-0 ${formData.highlight ? 'bg-(--color-primary)' : 'bg-[#ede0d8] dark:bg-[#3a2e1a]'}`}>
                                 <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform ${formData.highlight ? 'translate-x-6' : 'translate-x-1'}`} />
                             </button>
                             {formData.highlight && (
                                 <select 
                                     value={highlightMonths} 
                                     onChange={(e) => setHighlightMonths(Number(e.target.value))}
-                                    className="ml-2 px-3 py-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-700 outline-none w-32 cursor-pointer"
+                                    className="ml-2 px-3 py-1 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-lg text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] outline-none w-32 cursor-pointer"
                                 >
                                     <option value={1}>1 Mês</option>
                                     <option value={2}>2 Meses</option>
@@ -292,13 +294,13 @@ export default function CadRestaurant() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="block text-sm font-bold text-slate-700 ml-1">Nome do Restaurante / Estabelecimento</label>
-                            <input type="text" required className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs"
+                            <label className="block text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] ml-1">Nome do Restaurante / Estabelecimento</label>
+                            <input type="text" required className="w-full px-5 py-4 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/50 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs"
                                 value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                         </div>
                         <div className="space-y-2">
-                            <label className="block text-sm font-bold text-slate-700 ml-1">Categoria</label>
-                            <select className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs appearance-none font-medium cursor-pointer"
+                            <label className="block text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] ml-1">Categoria</label>
+                            <select className="w-full px-5 py-4 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs appearance-none font-medium cursor-pointer"
                                 value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
                                 <option value="Restaurantes">Restaurantes</option>
                                 <option value="Bares">Bares</option>
@@ -314,27 +316,39 @@ export default function CadRestaurant() {
 
                 {/* ═══ BLOCO 1.5: Localização ═══ */}
                 <section>
-                    <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black">●</span>
+                    <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-6 flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 flex items-center justify-center text-sm font-black">●</span>
                         Localização no Mapa
                     </h3>
                     <MapPicker latitude={formData.latitude} longitude={formData.longitude}
                         onLocationChange={(lat, lng) => setFormData({ ...formData, latitude: lat, longitude: lng })} />
                 </section>
 
+                {/* ═══ BLOCO REDES SOCIAIS E CONTATO ═══ */}
+                <section>
+                    <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-6 flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-black">●</span>
+                        Redes Sociais e Contato
+                    </h3>
+                    <SocialsInput
+                        socials={formData.socials}
+                        onChange={(socials) => setFormData({ ...formData, socials })}
+                    />
+                </section>
+
                 {/* ═══ BLOCO 2: Imagens com Drag & Drop ═══ */}
                 <section>
-                    <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center text-sm font-black">2</span>
+                    <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-6 flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-lg bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-sm font-black">2</span>
                         Imagens
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Banner - Drag & Drop */}
                         <div className="space-y-2">
-                            <label className="block text-sm font-bold text-slate-700 ml-1">Imagem Principal (Banner)</label>
+                            <label className="block text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] ml-1">Imagem Principal (Banner)</label>
                             {bannerFile && (
-                                <div className="w-full h-32 rounded-2xl overflow-hidden border border-slate-200 mb-2 relative group">
+                                <div className="w-full h-32 rounded-2xl overflow-hidden border border-[#ede0d8] dark:border-[#3a2e1a] mb-2 relative group">
                                     <img src={URL.createObjectURL(bannerFile)} alt="Preview banner" className="w-full h-full object-cover" />
                                     <button type="button" onClick={() => setBannerFile(null)}
                                         className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
@@ -350,15 +364,15 @@ export default function CadRestaurant() {
                                 className={`w-full flex flex-col items-center gap-2 px-5 py-6 border-2 border-dashed rounded-2xl transition-all cursor-pointer ${
                                     dragStates.banner
                                         ? 'border-(--color-primary) bg-(--color-primary)/10 scale-[1.02]'
-                                        : 'border-slate-300 bg-slate-50 hover:border-(--color-primary)'
+                                        : 'border-[#ede0d8] dark:border-[#3a2e1a] bg-[#faf5f0] dark:bg-[#1a1208]/40 hover:border-(--color-primary)'
                                 }`}
                             >
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                                    dragStates.banner ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-slate-200 text-slate-500'
+                                    dragStates.banner ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-[#ede0d8] dark:bg-[#2e2310] text-[#8a7968] dark:text-[#c5b49e]'
                                 }`}>
                                     <Upload size={18} />
                                 </div>
-                                <span className="text-slate-500 text-sm font-medium text-center">
+                                <span className="text-[#8a7968] dark:text-[#c5b49e] text-sm font-medium text-center">
                                     {dragStates.banner ? '📸 Solte a imagem aqui!' : (bannerFile ? bannerFile.name : 'Clique ou arraste a imagem de capa')}
                                 </span>
                                 <input ref={bannerInputRef} type="file" required={!bannerFile} accept="image/*" className="hidden"
@@ -368,9 +382,9 @@ export default function CadRestaurant() {
 
                         {/* Foto da Estrutura */}
                         <div className="space-y-2">
-                            <label className="block text-sm font-bold text-slate-700 ml-1">Imagem da Estrutura / Veículo</label>
+                            <label className="block text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] ml-1">Imagem da Estrutura / Veículo</label>
                             {accommodationFile && (
-                                <div className="w-full h-32 rounded-2xl overflow-hidden border border-slate-200 mb-2 relative group">
+                                <div className="w-full h-32 rounded-2xl overflow-hidden border border-[#ede0d8] dark:border-[#3a2e1a] mb-2 relative group">
                                     <img src={URL.createObjectURL(accommodationFile)} alt="Preview estrutura" className="w-full h-full object-cover" />
                                     <button type="button" onClick={() => setAccommodationFile(null)}
                                         className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
@@ -386,15 +400,15 @@ export default function CadRestaurant() {
                                 className={`w-full flex flex-col items-center gap-2 px-5 py-6 border-2 border-dashed rounded-2xl transition-all cursor-pointer ${
                                     dragStates.accommodation
                                         ? 'border-(--color-primary) bg-(--color-primary)/10 scale-[1.02]'
-                                        : 'border-slate-300 bg-slate-50 hover:border-(--color-primary)'
+                                        : 'border-[#ede0d8] dark:border-[#3a2e1a] bg-[#faf5f0] dark:bg-[#1a1208]/40 hover:border-(--color-primary)'
                                 }`}
                             >
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                                    dragStates.accommodation ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-slate-200 text-slate-500'
+                                    dragStates.accommodation ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-[#ede0d8] dark:bg-[#2e2310] text-[#8a7968] dark:text-[#c5b49e]'
                                 }`}>
                                     <Upload size={18} />
                                 </div>
-                                <span className="text-slate-500 text-sm font-medium text-center">
+                                <span className="text-[#8a7968] dark:text-[#c5b49e] text-sm font-medium text-center">
                                     {dragStates.accommodation ? '📸 Solte a imagem aqui!' : (accommodationFile ? accommodationFile.name : 'Clique ou arraste a foto complementar')}
                                 </span>
                                 <input ref={accommodationInputRef} type="file" accept="image/*" className="hidden"
@@ -404,7 +418,7 @@ export default function CadRestaurant() {
 
                         {/* Galeria */}
                         <div className="space-y-2 col-span-1 md:col-span-2">
-                            <label className="block text-sm font-bold text-slate-700 ml-1">Imagens Extras (Galeria)</label>
+                            <label className="block text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] ml-1">Imagens Extras (Galeria)</label>
                             <div
                                 onDragOver={(e) => handleDragOver(e, 'gallery')}
                                 onDragLeave={(e) => handleDragLeave(e, 'gallery')}
@@ -413,15 +427,15 @@ export default function CadRestaurant() {
                                 className={`w-full flex flex-col items-center gap-2 px-5 py-6 border-2 border-dashed rounded-2xl transition-all cursor-pointer ${
                                     dragStates.gallery
                                         ? 'border-(--color-primary) bg-(--color-primary)/10 scale-[1.02]'
-                                        : 'border-slate-300 bg-slate-50 hover:border-(--color-primary)'
+                                        : 'border-[#ede0d8] dark:border-[#3a2e1a] bg-[#faf5f0] dark:bg-[#1a1208]/40 hover:border-(--color-primary)'
                                 }`}
                             >
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                                    dragStates.gallery ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-slate-200 text-slate-500'
+                                    dragStates.gallery ? 'bg-(--color-primary)/20 text-(--color-primary)' : 'bg-[#ede0d8] dark:bg-[#2e2310] text-[#8a7968] dark:text-[#c5b49e]'
                                 }`}>
                                     <ImagePlus size={18} />
                                 </div>
-                                <span className="text-slate-500 text-sm font-medium text-center">
+                                <span className="text-[#8a7968] dark:text-[#c5b49e] text-sm font-medium text-center">
                                     {dragStates.gallery
                                         ? '📸 Solte as imagens aqui!'
                                         : (galleryFiles.length > 0 ? `${galleryFiles.length} arquivo(s) — clique ou arraste para adicionar mais` : 'Clique ou arraste múltiplas imagens')}
@@ -433,7 +447,7 @@ export default function CadRestaurant() {
                             {galleryFiles.length > 0 && (
                                 <div className="flex flex-wrap gap-3 mt-3">
                                     {galleryFiles.map((file, idx) => (
-                                        <div key={idx} className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-slate-200 group">
+                                        <div key={idx} className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#ede0d8] dark:border-[#3a2e1a] group">
                                             <img src={URL.createObjectURL(file)} alt={`gallery-${idx}`} className="w-full h-full object-cover" />
                                             <button type="button" onClick={() => handleRemoveGalleryFile(idx)}
                                                 className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
@@ -450,21 +464,21 @@ export default function CadRestaurant() {
                 {/* ═══ BLOCO 3: Textos ═══ */}
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-4">
-                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-black">3</span>
+                        <h3 className="text-lg font-bold text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-black">3</span>
                             Sobre o Restaurante
                         </h3>
-                        <textarea required rows={6} className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs resize-none"
+                        <textarea required rows={6} className="w-full px-5 py-4 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/50 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs resize-none"
                             placeholder="Descrição detalhada sobre o conceito, culinária e experiência do restaurante..."
                             value={formData.about?.desc[0] || ""}
                             onChange={(e) => setFormData({ ...formData, about: { ...formData.about, desc: [e.target.value] } })} />
                     </div>
                     <div className="space-y-4">
-                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-black">4</span>
+                        <h3 className="text-lg font-bold text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm font-black">4</span>
                             Detalhes do Ambiente e Especialidades
                         </h3>
-                        <textarea required rows={6} className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs resize-none"
+                        <textarea required rows={6} className="w-full px-5 py-4 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/50 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs resize-none"
                             placeholder="Informações sobre ambiente, especialidades, cardápio e diferenciais do restaurante..."
                             value={formData.accommodation?.desc[0] || ""}
                             onChange={(e) => setFormData({ ...formData, accommodation: { ...formData.accommodation, desc: [e.target.value] } })} />
@@ -474,8 +488,8 @@ export default function CadRestaurant() {
                 {/* ═══ BLOCO 4: Horários & Regras ═══ */}
                 <section>
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-                        <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-sm font-black">5</span>
+                        <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-black">5</span>
                             Horários e Regras
                         </h3>
                         <div className="flex gap-2 flex-wrap">
@@ -485,7 +499,7 @@ export default function CadRestaurant() {
                                     <button key={preset.title} type="button" disabled={alreadyAdded}
                                         onClick={() => handleAddSchedule(preset)}
                                         className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl transition-all border cursor-pointer ${alreadyAdded
-                                            ? 'bg-slate-100 text-slate-300 border-slate-100 cursor-not-allowed'
+                                            ? 'bg-[#ede0d8] dark:bg-[#2e2310] text-[#8a7968] dark:text-[#8a7968] border-[#ede0d8] dark:border-[#3a2e1a] cursor-not-allowed'
                                             : 'text-(--color-primary) bg-(--color-primary)/10 border-(--color-primary)/20 hover:bg-(--color-primary)/20'
                                         }`}>
                                         <Clock size={14} /> {preset.title}
@@ -493,14 +507,14 @@ export default function CadRestaurant() {
                                 );
                             })}
                             <button type="button" onClick={handleAddRule}
-                                className="flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-2 rounded-xl hover:bg-amber-100 transition-all border border-amber-200 cursor-pointer">
+                                className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-3 py-2 rounded-xl hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-all border border-amber-200 dark:border-amber-800 cursor-pointer">
                                 <ShieldAlert size={14} /> + Regra
                             </button>
                         </div>
                     </div>
 
                     {formData.policies.length === 0 && (
-                        <div className="p-8 border-2 border-dashed border-slate-100 rounded-3xl text-center text-slate-400">
+                        <div className="p-8 border-2 border-dashed border-[#ede0d8] dark:border-[#3a2e1a] rounded-3xl text-center text-[#8a7968] dark:text-[#c5b49e]">
                             Clique nos botões acima para adicionar horários ou regras.
                         </div>
                     )}
@@ -509,12 +523,12 @@ export default function CadRestaurant() {
                         {formData.policies.map((pol: any, idx: number) => {
                             const isSchedule = pol.type === 'horario';
                             return (
-                                <div key={idx} className={`border p-6 rounded-2xl relative group transition-all hover:shadow-md ${isSchedule ? 'bg-blue-50/50 border-blue-200 hover:bg-white' : 'bg-amber-50/50 border-amber-200 hover:bg-white'}`}>
+                                <div key={idx} className={`border p-6 rounded-2xl relative group transition-all hover:shadow-md ${isSchedule ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/40 hover:bg-white dark:hover:bg-[#2e2310]/50' : 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/40 hover:bg-white dark:hover:bg-[#2e2310]/50'}`}>
                                     <div className="flex items-center justify-between mb-3">
-                                        <span className={`text-[10px] font-black uppercase flex items-center justify-center gap-1 tracking-wider px-2 py-0.5 rounded-full ${isSchedule ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>
+                                        <span className={`text-[10px] font-black uppercase flex items-center justify-center gap-1 tracking-wider px-2 py-0.5 rounded-full ${isSchedule ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300' : 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300'}`}>
                                             {isSchedule ? <>Horário</> : <>Regra</>}
                                         </span>
-                                        <button type="button" onClick={() => handleRemovePolicy(idx)} className="text-slate-400 bg-red-100 hover:bg-red-200 rounded-full p-2 hover:text-red-600 transition-colors cursor-pointer absolute top-4 right-4">
+                                        <button type="button" onClick={() => handleRemovePolicy(idx)} className="text-[#8a7968] bg-red-200 dark:bg-red-950/60 dark:text-red-400 rounded-full p-2 hover:text-red-500 hover:bg-red-300 dark:hover:bg-red-900/60 transition-colors cursor-pointer absolute top-4 right-4">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
@@ -530,7 +544,7 @@ export default function CadRestaurant() {
                                                 }} />
                                         )}
                                         <input type="text" placeholder={isSchedule ? 'Título (ex: Atendimento)' : 'Título da Regra (ex: Reservas)'}
-                                            className={`${getInputClasses(`policy_${idx}_title`)} font-bold text-slate-800`}
+                                            className={`${getInputClasses(`policy_${idx}_title`)} font-bold text-[#241a06] dark:text-[#f0e6d6]`}
                                             value={pol.title}
                                             onChange={(e) => {
                                                 const np = [...formData.policies]; np[idx].title = e.target.value;
@@ -538,7 +552,7 @@ export default function CadRestaurant() {
                                                 if (e.target.value.trim()) setValidationErrors(prev => { const n = {...prev}; delete n[`policy_${idx}_title`]; return n; });
                                             }} />
                                         <textarea placeholder={isSchedule ? 'Descrição' : 'Detalhes da regra'}
-                                            className={`${getInputClasses(`policy_${idx}_desc`)} text-sm text-slate-500 resize-none`}
+                                            className={`${getInputClasses(`policy_${idx}_desc`)} text-sm text-[#8a7968] dark:text-[#c5b49e] resize-none`}
                                             value={pol.desc}
                                             onChange={(e) => {
                                                 const np = [...formData.policies]; np[idx].desc = e.target.value;
@@ -555,8 +569,8 @@ export default function CadRestaurant() {
                 {/* ═══ BLOCO 5: Comodidades ═══ */}
                 <section>
                     <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center text-sm font-black">6</span>
+                        <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 flex items-center justify-center text-sm font-black">6</span>
                             Diferenciais e Facilidades (Cards)
                         </h3>
                         <button type="button" onClick={handleAddAmenity} className="flex items-center gap-2 text-sm font-bold text-(--color-primary) bg-(--color-primary)/10 px-4 py-2 rounded-xl hover:bg-(--color-primary)/20 transition-all border border-(--color-primary)/20 cursor-pointer">
@@ -566,12 +580,12 @@ export default function CadRestaurant() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {formData.amenities.cards.map((card: any, idx: number) => (
-                            <div key={idx} className="bg-slate-50 border border-slate-200 p-6 rounded-2xl flex gap-6 items-start relative group hover:bg-white hover:shadow-md transition-all">
+                            <div key={idx} className="bg-[#faf5f0] dark:bg-[#1a1208]/60 border border-[#ede0d8] dark:border-[#3a2e1a] p-6 rounded-2xl flex gap-6 items-start relative group hover:bg-white dark:hover:bg-[#241a06] hover:shadow-md transition-all">
                                 <div className="flex-1 space-y-3">
-                                    <input type="text" placeholder="Título (ex: Ar-Condicionado)" className="w-full p-3 bg-white border border-slate-100 rounded-xl font-bold text-slate-800 outline-none focus:ring-2 focus:ring-(--color-primary)" value={card.title} onChange={(e) => { const nc = [...formData.amenities.cards]; nc[idx].title = e.target.value; setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }) }} />
-                                    <textarea placeholder="Breve descrição" className="w-full p-3 bg-white border border-slate-100 rounded-xl text-sm text-slate-500 resize-none outline-none focus:ring-2 focus:ring-(--color-primary)" value={card.desc} onChange={(e) => { const nc = [...formData.amenities.cards]; nc[idx].desc = e.target.value; setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }) }} />
+                                    <input type="text" placeholder="Título (ex: Ar-Condicionado)" className="w-full p-3 bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl font-bold text-[#241a06] dark:text-[#f0e6d6] outline-none focus:ring-2 focus:ring-(--color-primary)" value={card.title} onChange={(e) => { const nc = [...formData.amenities.cards]; nc[idx].title = e.target.value; setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }) }} />
+                                    <textarea placeholder="Breve descrição" className="w-full p-3 bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl text-sm text-[#8a7968] dark:text-[#c5b49e] resize-none outline-none focus:ring-2 focus:ring-(--color-primary)" value={card.desc} onChange={(e) => { const nc = [...formData.amenities.cards]; nc[idx].desc = e.target.value; setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }) }} />
                                 </div>
-                                <button type="button" onClick={() => { const nc = [...formData.amenities.cards]; nc.splice(idx, 1); setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }); }} className="text-slate-400 bg-red-100 hover:bg-red-200 rounded-full p-2 hover:text-red-600 transition-all cursor-pointer">
+                                <button type="button" onClick={() => { const nc = [...formData.amenities.cards]; nc.splice(idx, 1); setFormData({ ...formData, amenities: { ...formData.amenities, cards: nc } }); }} className="text-[#8a7968] bg-red-200 dark:bg-red-950/60 dark:text-red-400 rounded-full p-2 hover:text-red-500 hover:bg-red-300 dark:hover:bg-red-900/60 transition-all cursor-pointer">
                                     <Trash2 size={22} />
                                 </button>
                             </div>

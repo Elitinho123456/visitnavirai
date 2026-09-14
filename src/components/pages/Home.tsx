@@ -84,7 +84,7 @@ export default function Home() {
 
                     {/* --- Menu Flutuante de Acesso Rápido --- */}
                     <div className="absolute -bottom-16 left-0 w-full z-20 px-4">
-                        <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                        <div className="max-w-6xl mx-auto bg-white dark:bg-[#241a06] rounded-xl shadow-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border border-[#ede0d8] dark:border-[#3a2e1a]">
                             {quickLinks.map((item, idx) => (
                                 <Link
                                     key={idx}
@@ -94,7 +94,7 @@ export default function Home() {
                                     <div className={`w-12 h-12 md:w-14 md:h-14 rounded-(--border-radius-lg) ${item.color} text-white flex items-center justify-center mb-3 shadow-lg group-hover:shadow-xl transition-shadow [&>svg]:w-6 [&>svg]:h-6 md:[&>svg]:w-7 md:[&>svg]:h-7`}>
                                         {item.icon}
                                     </div>
-                                    <span className={`text-gray-700 font-bold text-sm md:text-base ${item.hoverColor} transition-colors`}>
+                                    <span className={`text-[#241a06] dark:text-[#f0e6d6] font-bold text-sm md:text-base ${item.hoverColor} transition-colors`}>
                                         {item.title}
                                     </span>
                                 </Link>
@@ -117,7 +117,7 @@ export default function Home() {
                                     <h2 className="text-(--color-primary) text-lg font-bold uppercase tracking-wider mb-2">
                                         Capital do Conesul
                                     </h2>
-                                    <h3 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                                    <h3 className="text-4xl md:text-5xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-4">
                                         Explore Naviraí
                                     </h3>
                                     <div className="w-24 h-1 bg-(--color-accent-gold) mx-auto mt-6 rounded-full lg:mx-0"></div>
@@ -129,7 +129,7 @@ export default function Home() {
                                             Descubra as belezas e atrações de Naviraí, uma cidade rica em cultura, natureza e hospitalidade. Desde parques exuberantes até eventos vibrantes, há algo para todos aproveitarem.
                                         </p>
                                         <p>
-                                            Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional agroindustrial e de serviços, conhecida como a <span className="font-bold text-(--color-primary)">Capital do Conesul</span>.
+                                             Naviraí localiza-se na região sudeste do estado, sendo considerada um importante polo regional agroindustrial e de serviços, conhecida como a <span className="font-bold text-(--color-primary)">Capital do Conesul</span>.
                                         </p>
                                         <p>
                                             Fundada em 1952, a cidade possui uma infraestrutura moderna e é o ponto de partida ideal para explorar o potencial turístico da região.
@@ -150,7 +150,7 @@ export default function Home() {
                                         <motion.div
                                             whileHover={{ scale: 1.02 }}
                                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                            className="relative overflow-hidden bg-white/60 dark:bg-(--color-neutral-white)/80 backdrop-blur-md rounded-4xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/40 dark:border-white/10 flex flex-col justify-between group"
+                                            className="relative overflow-hidden bg-white/70 dark:bg-[#241a06]/90 backdrop-blur-md rounded-4xl p-8 shadow-lg border border-[#ede0d8] dark:border-[#3a2e1a] flex flex-col justify-between group"
                                         >
                                             <div className="absolute -top-10 -right-10 w-32 h-32 bg-(--color-primary)/20 rounded-full blur-3xl group-hover:bg-(--color-primary)/30 transition-colors pointer-events-none" />
                                             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-(--color-secondary)/10 rounded-full blur-3xl group-hover:bg-(--color-secondary)/20 transition-colors pointer-events-none" />
@@ -159,8 +159,8 @@ export default function Home() {
                                                 <div className="inline-flex items-center justify-center p-3 bg-(--color-primary)/10 text-(--color-primary) rounded-2xl mb-4 group-hover:scale-110 transition-transform">
                                                     <TrendingUp strokeWidth={2.5} size={28} />
                                                 </div>
-                                                <h4 className="font-black text-2xl text-gray-800 mb-2">Investir em Naviraí</h4>
-                                                <p className="text-gray-600 mb-6 line-clamp-3">
+                                                <h4 className="font-black text-2xl text-[#241a06] dark:text-[#f0e6d6] mb-2">Investir em Naviraí</h4>
+                                                <p className="text-[#5a4d3e] dark:text-[#c5b49e] mb-6 line-clamp-3">
                                                     Sua porta de entrada para oportunidades únicas no Conesul. Descubra vantagens competitivas, logística de ponta e uma cidade pronta para o futuro.
                                                 </p>
                                             </div>

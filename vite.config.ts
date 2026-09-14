@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react({
-        // @ts-ignore
+        // @ts-expect-error - babel options on react plugin
         babel: {
           plugins: [
             ["babel-plugin-react-compiler", {}],

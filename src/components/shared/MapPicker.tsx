@@ -1,4 +1,3 @@
-import { apiFetch } from '@/config/api';
 import { toast } from '@/utils/toast';
 import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
@@ -66,7 +65,7 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
 
         searchTimeoutRef.current = setTimeout(async () => {
             try {
-                const res = await apiFetch(
+                const res = await fetch(
                     `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}&limit=5&countrycodes=br`,
                     { headers: { "Accept-Language": "pt-BR" } }
                 );
@@ -90,7 +89,7 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
         if (!searchQuery || searchQuery.length < 3) return;
         setSearching(true);
         try {
-            const res = await apiFetch(
+            const res = await fetch(
                 `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1&countrycodes=br`,
                 { headers: { "Accept-Language": "pt-BR" } }
             );
@@ -116,11 +115,11 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
             <div className="relative">
                 <div className="flex gap-2">
                     <div className="relative flex-1">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7968]" size={18} />
                         <input
                             type="text"
                             placeholder="Buscar endereço... (ex: Rua das Flores, Naviraí)"
-                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm"
+                            className="w-full pl-11 pr-4 py-3.5 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/50 rounded-2xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm"
                             value={searchQuery}
                             onChange={(e) => handleSearchChange(e.target.value)}
                             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleSearchSubmit(); } }}
@@ -139,13 +138,13 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
 
                 {/* Sugestões autocomplete */}
                 {suggestions.length > 0 && (
-                    <div className="absolute z-9999 w-full mt-1 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden">
+                    <div className="absolute z-9999 w-full mt-1 bg-white dark:bg-[#241a06] rounded-xl shadow-2xl border border-[#ede0d8] dark:border-[#3a2e1a] overflow-hidden">
                         {suggestions.map((s, idx) => (
                             <button
                                 key={idx}
                                 type="button"
                                 onClick={() => handleSelectSuggestion(s)}
-                                className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-0 text-sm text-slate-700 flex items-start gap-3 transition-colors cursor-pointer"
+                                className="w-full text-left px-4 py-3 hover:bg-[#faf5f0] dark:hover:bg-[#2e2310] border-b border-[#ede0d8] dark:border-[#3a2e1a] last:border-0 text-sm text-[#241a06] dark:text-[#f0e6d6] flex items-start gap-3 transition-colors cursor-pointer"
                             >
                                 <MapPin size={16} className="text-(--color-primary) mt-0.5 shrink-0" />
                                 <span className="line-clamp-2">{s.display_name}</span>
@@ -156,7 +155,7 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
             </div>
 
             {/* Mapa Interativo */}
-            <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-sm" style={{ height: "350px" }}>
+            <div className="rounded-2xl overflow-hidden border-2 border-[#ede0d8] dark:border-[#3a2e1a] shadow-sm" style={{ height: "350px" }}>
                 <MapContainer
                     center={[defaultLat, defaultLng]}
                     zoom={15}
@@ -177,30 +176,30 @@ export default function MapPicker({ latitude, longitude, onLocationChange }: Map
             {/* Coordenadas em texto (visualização + edição manual) */}
             <div className="flex gap-4">
                 <div className="flex-1 space-y-1">
-                    <label className="block text-xs font-bold text-slate-500 ml-1 uppercase tracking-wider">Latitude</label>
+                    <label className="block text-xs font-bold text-[#8a7968] dark:text-[#c5b49e] ml-1 uppercase tracking-wider">Latitude</label>
                     <input
                         type="number"
                         step="any"
                         required
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm font-mono"
+                        className="w-full px-4 py-3 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm font-mono"
                         value={latitude}
                         onChange={(e) => onLocationChange(parseFloat(e.target.value) || 0, longitude)}
                     />
                 </div>
                 <div className="flex-1 space-y-1">
-                    <label className="block text-xs font-bold text-slate-500 ml-1 uppercase tracking-wider">Longitude</label>
+                    <label className="block text-xs font-bold text-[#8a7968] dark:text-[#c5b49e] ml-1 uppercase tracking-wider">Longitude</label>
                     <input
                         type="number"
                         step="any"
                         required
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm font-mono"
+                        className="w-full px-4 py-3 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all shadow-xs text-sm font-mono"
                         value={longitude}
                         onChange={(e) => onLocationChange(latitude, parseFloat(e.target.value) || 0)}
                     />
                 </div>
             </div>
 
-            <p className="text-xs text-slate-400 text-center">
+            <p className="text-xs text-[#8a7968] dark:text-[#c5b49e] text-center">
                 📍 Clique no mapa para posicionar o marcador, ou busque um endereço acima.
             </p>
         </div>

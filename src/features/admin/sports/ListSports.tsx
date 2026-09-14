@@ -99,16 +99,16 @@ export default function ListSports() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 overflow-hidden relative">
+            <div className="bg-white dark:bg-[#241a06] rounded-3xl p-8 shadow-sm border border-[#ede0d8] dark:border-[#3a2e1a] overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-(--color-primary) opacity-[0.03] rounded-full -mr-20 -mt-20"></div>
                 <div className="relative z-10">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div>
-                            <h2 className="text-3xl font-black text-slate-800 flex items-center gap-3">
+                            <h2 className="text-3xl font-black text-[#241a06] dark:text-[#f0e6d6] flex items-center gap-3">
                                 <Trophy className="text-(--color-primary)" size={32} />
                                 Cadastro de Esportes e Lazer
                             </h2>
-                            <p className="text-slate-500 mt-2 max-w-xl">
+                            <p className="text-[#8a7968] dark:text-[#c5b49e] mt-2 max-w-xl">
                                 Gerencie as quadras, campos de futebol, beisebol e locais esportivos de Naviraí.
                             </p>
                         </div>
@@ -126,11 +126,11 @@ export default function ListSports() {
                     {/* Search + Category Filters */}
                     <div className="mt-8 flex flex-col md:flex-row gap-4">
                         <div className="relative flex-1">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7968]" size={20} />
                             <input
                                 type="text"
                                 placeholder="Buscar por nome do local..."
-                                className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all"
+                                className="w-full pl-12 pr-4 py-3 bg-[#faf5f0] dark:bg-[#1a1208] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] rounded-xl focus:ring-2 focus:ring-(--color-primary) outline-none transition-all"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -146,11 +146,11 @@ export default function ListSports() {
                                         className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
                                             isActive
                                                 ? 'bg-(--color-primary) text-white shadow-md'
-                                                : 'bg-white text-slate-500 border border-slate-100 hover:border-slate-300'
+                                                : 'bg-white dark:bg-[#241a06] text-[#8a7968] dark:text-[#c5b49e] border border-[#ede0d8] dark:border-[#3a2e1a] hover:border-[#ede0d8]'
                                         }`}
                                     >
                                         {cat.label}
-                                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-black ${isActive ? 'bg-white/20' : 'bg-slate-100'}`}>
+                                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-black ${isActive ? 'bg-white/20' : 'bg-[#ede0d8] dark:bg-[#2e2310]'}`}>
                                             {count}
                                         </span>
                                     </button>
@@ -169,7 +169,7 @@ export default function ListSports() {
             ) : filteredSports.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {filteredSports.map((sport) => (
-                        <div key={sport._id} className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all group flex flex-col sm:flex-row">
+                        <div key={sport._id} className="bg-white dark:bg-[#241a06] rounded-3xl overflow-hidden border border-[#ede0d8] dark:border-[#3a2e1a] shadow-sm hover:shadow-xl transition-all group flex flex-col sm:flex-row">
                             <div className="sm:w-48 h-48 sm:h-auto overflow-hidden relative">
                                 <img
                                     src={sport.image || "https://placehold.co/600x400"}
@@ -194,12 +194,12 @@ export default function ListSports() {
                             </div>
                             <div className="p-6 flex-1 flex flex-col justify-between">
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-800 line-clamp-1">{sport.name}</h3>
-                                    <div className="flex items-center gap-2 text-slate-400 text-sm mt-1">
+                                    <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] line-clamp-1">{sport.name}</h3>
+                                    <div className="flex items-center gap-2 text-[#8a7968] dark:text-[#c5b49e] text-sm mt-1">
                                         <MapPin size={14} />
                                         <span>{sport.distance || "Naviraí"}</span>
                                     </div>
-                                    <p className="text-slate-500 text-sm mt-3 line-clamp-2 leading-relaxed break-all">
+                                    <p className="text-[#8a7968] dark:text-[#c5b49e] text-sm mt-3 line-clamp-2 leading-relaxed break-all">
                                         {sport.about?.desc?.[0] || "Sem descrição disponível."}
                                     </p>
                                 </div>
@@ -217,7 +217,7 @@ export default function ListSports() {
                                     {canDelete && (
                                         <button
                                             onClick={() => confirmDelete(sport._id!)}
-                                            className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-colors border border-red-100 cursor-pointer"
+                                            className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60 transition-colors border border-red-100 dark:border-red-900/50 cursor-pointer"
                                         >
                                             <Trash2 size={20} />
                                         </button>
@@ -228,33 +228,33 @@ export default function ListSports() {
                     ))}
                 </div>
             ) : (
-                <div className="bg-white rounded-3xl p-12 text-center border border-slate-100 shadow-sm">
-                    <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
+                <div className="bg-white dark:bg-[#241a06] rounded-3xl p-12 text-center border border-[#ede0d8] dark:border-[#3a2e1a] shadow-sm">
+                    <div className="w-20 h-20 bg-[#faf5f0] dark:bg-[#1a1208] rounded-full flex items-center justify-center mx-auto mb-4 text-[#8a7968] dark:text-[#8a7968]">
                         <Trophy size={40} />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-800">Nenhum local esportivo encontrado</h3>
-                    <p className="text-slate-500 mt-2">Tente ajustar sua busca ou cadastre um novo local esportivo.</p>
+                    <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6]">Nenhum local esportivo encontrado</h3>
+                    <p className="text-[#8a7968] dark:text-[#c5b49e] mt-2">Tente ajustar sua busca ou cadastre um novo local esportivo.</p>
                 </div>
             )}
 
             {/* Delete Confirmation Modal */}
             {showDeleteModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowDeleteModal(false)}></div>
-                    <div className="bg-white rounded-3xl p-8 max-w-sm w-full relative z-10 shadow-2xl">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowDeleteModal(false)}></div>
+                    <div className="bg-white dark:bg-[#241a06] border border-transparent dark:border-[#3a2e1a] rounded-3xl p-8 max-w-sm w-full relative z-10 shadow-2xl">
                         <button
                             onClick={() => setShowDeleteModal(false)}
-                            className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                            className="absolute top-4 right-4 text-[#8a7968] hover:text-[#5a4d3e] transition-colors cursor-pointer"
                         >
                             <X size={24} />
                         </button>
 
-                        <div className="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <div className="w-16 h-16 bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                             <AlertTriangle size={36} />
                         </div>
 
-                        <h3 className="text-2xl font-black text-slate-800 text-center">Tem certeza?</h3>
-                        <p className="text-slate-500 text-center mt-3">
+                        <h3 className="text-2xl font-black text-[#241a06] dark:text-[#f0e6d6] text-center">Tem certeza?</h3>
+                        <p className="text-[#8a7968] dark:text-[#c5b49e] text-center mt-3">
                             Esta ação é irreversível. O cadastro do local esportivo será excluído permanentemente do sistema.
                         </p>
 
@@ -267,7 +267,7 @@ export default function ListSports() {
                             </button>
                             <button
                                 onClick={() => setShowDeleteModal(false)}
-                                className="w-full bg-slate-100 text-slate-700 py-4 rounded-2xl font-bold text-lg hover:bg-slate-200 transition-colors cursor-pointer"
+                                className="w-full bg-[#ede0d8] dark:bg-[#2e2310] text-[#241a06] dark:text-[#f0e6d6] py-4 rounded-2xl font-bold text-lg hover:bg-[#ede0d8] dark:hover:bg-[#3a2e1a] transition-colors cursor-pointer"
                             >
                                 Cancelar
                             </button>

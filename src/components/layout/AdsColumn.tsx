@@ -10,16 +10,13 @@ interface AdCardProps {
 
 // Componente simples de Card de Anúncio
 const AdCard: React.FC<AdCardProps> = ({ title, description, link, color }) => (
-    // CORREÇÃO: Removido text-(--color-secondary) e substituído por text-secondary (assumindo config do Tailwind)
-    // O 'color' aqui refere-se à cor da borda, não ao texto.
-    <div className={`bg-white rounded-xl p-4 shadow-lg border-t-4 ${color} mb-6 transform hover:scale-[1.02] transition-transform duration-300`}>
-        <h4 className="font-bold text-md text-secondary"> 
+    <div className={`bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl p-4 shadow-md border-t-4 ${color} mb-5 transform hover:scale-[1.02] transition-all duration-300`}>
+        <h4 className="font-bold text-sm md:text-base text-[#241a06] dark:text-[#f0e6d6]"> 
             {title}
         </h4>
-        <p className="text-sm text-gray-600 my-2">{description}</p>
+        <p className="text-xs md:text-sm text-[#5a4d3e] dark:text-[#c5b49e] my-2 leading-relaxed">{description}</p>
         
-        {/* CORREÇÃO: Removido text-(--color-primary) e substituído por text-primary (assumindo config do Tailwind) */}
-        <Link to={link} className="text-xs font-semibold text-primary hover:underline">
+        <Link to={link} className="inline-flex items-center text-xs font-bold text-(--color-primary) hover:underline transition-colors">
             Ver Oferta →
         </Link>
     </div>
@@ -44,25 +41,22 @@ const AdsColumn: React.FC<{ position: 'left' | 'right' }> = ({ position }) => {
         { 
             title: "Eventos Culturais", 
             description: "A agenda completa de shows e exposições deste mês.", 
-            link: "/eventos", 
+            link: "/event", 
             color: "border-orange-500" 
         },
     ];
 
     return (
-        // Nota: A classe `lg:pl-4` / `lg:pr-4` está correta para controle de padding.
         <div className={`sticky top-20 pt-4 pb-8 ${position === 'right' ? 'lg:pl-4' : 'lg:pr-4'}`}> 
-            
-            {/* CORREÇÃO: Removido text-(--color-secondary) e substituído por text-secondary */}
-            <h3 className="font-bold text-lg mb-4 text-secondary"> 
+            <h3 className="font-bold text-base md:text-lg mb-4 text-[#241a06] dark:text-[#f0e6d6]"> 
                 {position === 'left' ? 'Anúncios Locais' : 'Parceiros em Destaque'}
             </h3>
             {ads.map((ad, index) => (
                 <AdCard key={index} {...ad} />
             ))}
             
-            <div className="text-center mt-6 p-4 border rounded-xl bg-gray-50">
-                <p className="text-sm text-gray-500">Publicidade</p>
+            <div className="text-center mt-6 p-3 border border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl bg-[#f5ede5] dark:bg-[#241a06]">
+                <p className="text-xs uppercase tracking-wider text-[#8a7968] dark:text-[#c5b49e] font-medium">Publicidade</p>
             </div>
         </div>
     );

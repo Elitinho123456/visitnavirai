@@ -8,6 +8,9 @@ import Home from "@/components/pages/Home.tsx";
 // Navirai Pages
 import Historia from "@/components/pages/navirai/Historia.tsx";
 import Investir from "@/components/pages/navirai/Investir.tsx";
+import Contato from "@/components/pages/navirai/Contato.tsx";
+import ComoChegar from "@/components/pages/navirai/ComoChegar.tsx";
+import DadosTuristicos from "@/components/pages/navirai/DadosTuristicos.tsx";
 // Onde Dormir Pages
 import Acomodacoes from "@/components/pages/ondeDormir/hoteis/Hoteis.tsx";
 import HotelInfo from "@/components/pages/ondeDormir/hoteis/HotelInfo.tsx";
@@ -224,12 +227,24 @@ const router = createBrowserRouter([
         element: <Historia />
       },
       {
+        path: "/como-chegar",
+        element: <ComoChegar />
+      },
+      {
+        path: "/dados-turisticos",
+        element: <DadosTuristicos />
+      },
+      {
         path: "/event",
         element: <Eventos />
       },
       {
         path: "/investir",
         element: <Investir />
+      },
+      {
+        path: "/contato",
+        element: <Contato />
       },
       // Serviços
       {

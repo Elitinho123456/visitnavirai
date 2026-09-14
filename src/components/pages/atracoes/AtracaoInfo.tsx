@@ -4,6 +4,7 @@ import type { Hotel } from "../../../types/interfacesTypes"; // Attractions use 
 import { ChevronLeft, ChevronRight, BeerOff, Clock, X, ZoomIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL, apiFetch } from "@/config/api";
+import SocialLinksBar from "@/components/shared/SocialLinksBar";
 
 export default function AtracaoInfo() {
     const { id: attractionId } = useParams();
@@ -122,10 +123,10 @@ export default function AtracaoInfo() {
                     </button>
 
                     <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4 sm:px-6">
-                        <h1 className="text-(--color-neutral-white) text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg animate-fade-in">
+                        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg animate-fade-in">
                             {attractionData.name}
                         </h1>
-                        <p className="text-(--color-neutral-light) text-base sm:text-lg md:text-xl max-w-xl md:max-w-2xl font-light leading-relaxed">
+                        <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-xl md:max-w-2xl font-light leading-relaxed drop-shadow">
                             {attractionData.distance || "Naviraí - MS"}
                         </p>
                     </div>
@@ -220,7 +221,7 @@ export default function AtracaoInfo() {
                             <div className="flex gap-3 overflow-x-auto pb-2">
                                 {allGalleryImages.map((url, idx) => (
                                     <button key={idx} onClick={() => setGalleryIndex(idx)}
-                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${idx === galleryIndex ? 'border-(--color-primary) ring-2 ring-(--color-primary)/30' : 'border-slate-200 opacity-70 hover:opacity-100'
+                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${idx === galleryIndex ? 'border-(--color-primary) ring-2 ring-(--color-primary)/30' : 'border-[#ede0d8] dark:border-[#3a2e1a] opacity-70 hover:opacity-100'
                                             }`}>
                                         <img src={url} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
                                     </button>
@@ -242,8 +243,8 @@ export default function AtracaoInfo() {
                                         <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-(--color-primary) text-white flex items-center justify-center font-bold text-sm md:text-base mb-3 md:mb-4 shadow-lg ring-4 ring-(--color-neutral-light)">
                                             {item.label}
                                         </div>
-                                        <h4 className="text-gray-700 font-bold text-base md:text-lg">{item.title}</h4>
-                                        <p className="text-sm text-gray-700 mt-2 leading-snug wrap-break-word whitespace-pre-wrap">{item.desc}</p>
+                                        <h4 className="text-[#241a06] dark:text-[#f0e6d6] font-bold text-base md:text-lg">{item.title}</h4>
+                                        <p className="text-sm text-[#5a4d3e] dark:text-[#c5b49e] mt-2 leading-snug wrap-break-word whitespace-pre-wrap">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -253,14 +254,14 @@ export default function AtracaoInfo() {
                     {/* Bloco 5: Recomendações / Regras */}
                     {displayRules.length > 0 && (
                         <div className="bg-(--color-neutral-white) rounded-(--border-radius-lg) p-6 sm:p-8 md:p-12 shadow-lg border-t-4 border-amber-400 mb-16 md:mb-24">
-                            <h3 className="text-center text-amber-700 text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
+                            <h3 className="text-center text-amber-700 dark:text-amber-400 text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
                                 <BeerOff size={32} /> Recomendações de Visita
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 {displayRules.map((item: any, index: number) => (
-                                    <div key={index} className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center">
-                                        <h4 className="text-amber-800 font-bold text-lg mb-2">{item.title}</h4>
-                                        <p className="text-sm text-amber-700/90 leading-relaxed wrap-break-word whitespace-pre-wrap">{item.desc}</p>
+                                    <div key={index} className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-2xl p-6 text-center">
+                                        <h4 className="text-amber-800 dark:text-amber-300 font-bold text-lg mb-2">{item.title}</h4>
+                                        <p className="text-sm text-amber-700/90 dark:text-amber-200/90 leading-relaxed wrap-break-word whitespace-pre-wrap">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -312,13 +313,16 @@ export default function AtracaoInfo() {
                         </div>
                     )}
 
-                    {cta && (
+                    {cta ? (
                         <div className="bg-(--color-primary) text-white p-6 sm:p-10 md:p-14 rounded-(--border-radius-lg) text-center shadow-xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{cta.title}</h3>
                             <p className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed opacity-90 wrap-break-word whitespace-pre-wrap">
                                 {cta.desc}
                             </p>
+                            <SocialLinksBar socials={attractionData.socials} />
                         </div>
+                    ) : (
+                        <SocialLinksBar socials={attractionData.socials} />
                     )}
 
                 </div>

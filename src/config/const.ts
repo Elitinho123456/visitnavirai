@@ -5,8 +5,8 @@ const navItems = [
         name: 'Naviraí',
         path: '/historia',
         subItems: [
-            { name: 'Como Chegar', path: '#', label: 'Como Chegar' },
-            { name: 'Dados Turísticos', path: '#', label: 'Dados Turísticos' },
+            { name: 'Como Chegar', path: '/como-chegar', label: 'Como Chegar' },
+            { name: 'Dados Turísticos', path: '/dados-turisticos', label: 'Dados Turísticos' },
             { name: 'História', path: '/historia', label: 'História' },
             { name: 'Investir', path: '/investir', label: 'Investir' },
         ],
@@ -48,7 +48,7 @@ const navItems = [
         ],
     },
 
-     {
+    {
         name: 'nav.sports',
         path: '/esportes',
         subItems: [
@@ -56,7 +56,7 @@ const navItems = [
             { name: 'Basket', path: '/esportes?tipo=Basket', label: 'Basket' },
             { name: 'Volei', path: '/esportes?tipo=Vôlei', label: 'Volei' },
             { name: 'Basebol', path: '/esportes?tipo=Beisebol', label: 'Basebol' },
-            
+
         ],
     },
 
@@ -78,7 +78,6 @@ const navItems = [
         path: '/event',
         subItems: [
             { name: 'Eventos', path: '/event', label: 'Eventos' },
-            { name: 'Cadastro de Eventos', path: '#', label: 'Cadastro de Eventos' },
         ],
     },
 ];
@@ -412,4 +411,4 @@ const restaurantsData: Restaurant[] = [
 
 
 
-export { navItems, navImages, navEvents, hotelsData, servicesData, venuesData, restaurantsData,  translateFeature };
+export { navItems, navImages, navEvents, hotelsData, servicesData, venuesData, restaurantsData, translateFeature };

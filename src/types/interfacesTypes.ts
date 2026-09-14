@@ -1,3 +1,10 @@
+export interface Socials {
+    facebook?: string;
+    instagram?: string;
+    website?: string;
+    whatsapp?: string;
+}
+
 export interface Hotel {
     id?: number | string;
     _id?: string;
@@ -9,11 +16,7 @@ export interface Hotel {
     highlightExpiration?: string;
     latitude: number;
     longitude: number;
-    socials?: {
-        facebook?: string;
-        instagram?: string;
-        website?: string;
-    };
+    socials?: Socials;
     gallery?: string[];
     about?: {
         title?: string;
@@ -69,12 +72,7 @@ export interface Venue {
     latitude: number;
     longitude: number;
     
-    socials?: {
-        facebook?: string;
-        instagram?: string;
-        website?: string;
-        whatsapp?: string; // Adicionei WhatsApp, muito comum para reservar quadras
-    };
+    socials?: Socials;
     
     gallery?: string[];
     
@@ -142,12 +140,7 @@ export interface Restaurant {
     latitude: number;
     longitude: number;
     
-    socials?: {
-        facebook?: string;
-        instagram?: string;
-        website?: string;
-        whatsapp?: string;
-    };
+    socials?: Socials;
     
     gallery?: string[];
     

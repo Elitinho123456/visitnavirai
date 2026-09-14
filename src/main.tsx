@@ -13,6 +13,14 @@ import '@/styles/vars.css'
 
 const queryClient = new QueryClient()
 
+// Inicialização imediata do tema para evitar flash de luz branca
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark');
+} else {
+  document.documentElement.classList.remove('dark');
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

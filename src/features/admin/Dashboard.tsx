@@ -101,12 +101,12 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-50 overflow-hidden font-sans selection:bg-(--color-primary) selection:text-white">
+        <div className="flex h-screen bg-[#fff8f3] dark:bg-[#110d04] overflow-hidden font-sans selection:bg-(--color-primary) selection:text-white">
 
             {/* Overlay Mobile */}
             {isSidebarOpen && (
                 <div
-                    className="md:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 transition-opacity"
+                    className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity"
                     onClick={() => setIsSidebarOpen(false)}
                 />
             )}
@@ -114,27 +114,27 @@ export default function Dashboard() {
             {/* Sidebar */}
             <aside
                 className={`
-                    fixed md:relative z-50 h-full w-280px bg-white border-r border-slate-200 shadow-2xl md:shadow-none
+                    fixed md:relative z-50 h-full w-[280px] bg-white dark:bg-[#1a1208] border-r border-[#ede0d8] dark:border-[#3a2e1a] shadow-2xl md:shadow-none
                     transition-transform duration-300 ease-in-out flex flex-col
-                    \${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+                    ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
                 `}
             >
-                <div className="flex items-center justify-between p-6 h-20 border-b border-slate-100">
+                <div className="flex items-center justify-between p-6 h-20 border-b border-[#ede0d8] dark:border-[#3a2e1a]">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-(--color-primary) flex items-center justify-center text-white font-black text-xl shadow-lg shadow-(--color-primary)/30">
                             N
                         </div>
-                        <h1 className="text-xl font-black text-slate-800 tracking-tight">
+                        <h1 className="text-xl font-black text-[#241a06] dark:text-[#f0e6d6] tracking-tight">
                             Admin<span className="text-(--color-primary)">Naviraí</span>
                         </h1>
                     </div>
-                    <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-lg">
+                    <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-[#8a7968] hover:text-[#241a06] dark:hover:text-white bg-[#f5ede5] dark:bg-[#2e2310] p-2 rounded-lg">
                         <X size={20} />
                     </button>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-4 py-6 customized-scrollbar">
-                    <div className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest px-4">Menu Principal</div>
+                    <div className="text-xs font-bold text-[#8a7968] dark:text-[#c5b49e]/60 mb-4 uppercase tracking-widest px-4">Menu Principal</div>
                     <nav className="space-y-1.5">
                         {navItems.map((item) => {
                             const isActive = location.pathname === item.path ||
@@ -145,13 +145,13 @@ export default function Dashboard() {
                                     to={item.path}
                                     onClick={closeSidebarMobile}
                                     className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all font-semibold text-sm group relative overflow-hidden
-                                        \${isActive
-                                            ? "text-(--color-primary) opacity-100"
-                                            : "text-slate-600/80 hover:bg-slate-50 hover:text-slate-900 hover:opacity-100"}
+                                        ${isActive
+                                            ? "text-(--color-primary) bg-[#f5ede5] dark:bg-[#241a06] opacity-100 font-bold"
+                                            : "text-[#5a4d3e] dark:text-[#c5b49e] hover:bg-[#f5ede5] dark:hover:bg-[#241a06] hover:text-[#241a06] dark:hover:text-[#f0e6d6] hover:opacity-100"}
                                     `}
                                 >
                                     {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-(--color-primary) rounded-r-full" />}
-                                    <item.icon size={20} className={`transition-transform duration-300 \${isActive ? "text-(--color-primary)" : "text-slate-400 group-hover:text-slate-600 group-hover:scale-110"}`} />
+                                    <item.icon size={20} className={`transition-transform duration-300 ${isActive ? "text-(--color-primary)" : "text-[#8a7968] dark:text-[#c5b49e]/60 group-hover:text-[#241a06] dark:group-hover:text-[#f0e6d6] group-hover:scale-110"}`} />
                                     {item.label}
                                 </Link>
                             );
@@ -159,18 +159,18 @@ export default function Dashboard() {
                     </nav>
                 </div>
 
-                <div className="p-4 border-t border-slate-100 bg-slate-50/50">
+                <div className="p-4 border-t border-[#ede0d8] dark:border-[#3a2e1a] bg-[#f5ede5]/50 dark:bg-[#1a1208]/80">
                     <label htmlFor="perfil" className="hidden">Perfil</label>
                     <div
                         onClick={() => fileInputRef.current?.click()}
-                        className="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white border border-slate-200 shadow-sm cursor-pointer hover:border-(--color-primary)/50 hover:shadow-md transition-all group"
+                        className="flex items-center gap-3 mb-4 p-2 rounded-xl bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] shadow-sm cursor-pointer hover:border-(--color-primary)/50 hover:shadow-md transition-all group"
                         title="Alterar foto de perfil"
                     >
                         <div className="w-10 h-10 rounded-full bg-linear-to-tr from-(--color-secondary) to-(--color-primary) text-white flex items-center justify-center font-bold text-lg shadow-inner relative overflow-hidden shrink-0">
                             {uploadingAvatar ? (
                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                             ) : user?.profileImage ? (
-                                <img src={`\${API_BASE_URL}\${user.profileImage}`} alt={user.name} className="w-full h-full object-cover" />
+                                <img src={`${API_BASE_URL}${user.profileImage}`} alt={user.name} className="w-full h-full object-cover" />
                             ) : (
                                 user?.name?.charAt(0).toUpperCase() || "A"
                             )}
@@ -180,8 +180,8 @@ export default function Dashboard() {
                             </div>
                         </div>
                         <div className="overflow-hidden flex-1">
-                            <p className="text-sm font-bold text-slate-900 truncate group-hover:text-(--color-primary) transition-colors">{user?.name || "Administrador"}</p>
-                            <p className="text-xs text-slate-500 truncate">{user?.email}</p>
+                            <p className="text-sm font-bold text-[#241a06] dark:text-[#f0e6d6] truncate group-hover:text-(--color-primary) transition-colors">{user?.name || "Administrador"}</p>
+                            <p className="text-xs text-[#8a7968] dark:text-[#c5b49e] truncate">{user?.email}</p>
                         </div>
                     </div>
                     {/* Input invisível disparado pelo clique */}
@@ -194,7 +194,7 @@ export default function Dashboard() {
                     />
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-200 transition-colors font-bold text-sm border border-transparent hover:border-red-100 cursor-pointer"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors font-bold text-sm border border-transparent hover:border-red-100 dark:hover:border-red-900/50 cursor-pointer"
                     >
                         <LogOut size={18} />
                         Sair do Sistema
@@ -206,20 +206,20 @@ export default function Dashboard() {
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
 
                 {/* Header Top Bar (Glassmorphism) */}
-                <header className="h-20 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 flex items-center justify-between px-4 md:px-8 z-30 shrink-0 sticky top-0">
+                <header className="h-20 bg-white/80 dark:bg-[#1a1208]/90 backdrop-blur-xl border-b border-[#ede0d8] dark:border-[#3a2e1a] flex items-center justify-between px-4 md:px-8 z-30 shrink-0 sticky top-0">
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setIsSidebarOpen(true)}
-                            className="md:hidden p-2.5 bg-white border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 shadow-sm"
+                            className="md:hidden p-2.5 bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-xl text-[#5a4d3e] dark:text-[#c5b49e] hover:bg-[#f5ede5] dark:hover:bg-[#2e2310] shadow-sm"
                         >
                             <Menu size={20} />
                         </button>
 
                         <div>
-                            <h2 className="text-xl md:text-2xl font-black text-slate-800 hidden md:block tracking-tight">
+                            <h2 className="text-xl md:text-2xl font-black text-[#241a06] dark:text-[#f0e6d6] hidden md:block tracking-tight">
                                 {navItems.find(i => i.path === location.pathname || (i.path !== '/admin' && location.pathname.startsWith(i.path)))?.label || "Painel de Controle"}
                             </h2>
-                            <p className="text-sm text-slate-500 font-medium md:hidden">
+                            <p className="text-sm text-[#8a7968] dark:text-[#c5b49e] font-medium md:hidden">
                                 {navItems.find(i => i.path === location.pathname || (i.path !== '/admin' && location.pathname.startsWith(i.path)))?.label || "Painel"}
                             </p>
                         </div>
@@ -227,10 +227,10 @@ export default function Dashboard() {
 
                     <div className="flex items-center gap-3 md:gap-6">
                         <div className="hidden md:block text-right">
-                            <p className="text-sm font-bold text-slate-800">{greeting}, {user?.name?.split(' ')[0] || "Admin"} 👋</p>
-                            <p className="text-xs text-slate-500 font-medium">{new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+                            <p className="text-sm font-bold text-[#241a06] dark:text-[#f0e6d6]">{greeting}, {user?.name?.split(' ')[0] || "Admin"} 👋</p>
+                            <p className="text-xs text-[#8a7968] dark:text-[#c5b49e] font-medium">{new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
                         </div>
-                        <Link to="/" className="relative p-2.5 bg-white border border-slate-200 rounded-full text-slate-500 hover:text-(--color-primary) hover:border-(--color-primary)/30 transition-all shadow-sm">
+                        <Link to="/" className="relative p-2.5 bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] rounded-full text-[#8a7968] dark:text-[#c5b49e] hover:text-(--color-primary) hover:border-(--color-primary)/30 transition-all shadow-sm">
                             <Home size={20} />
                         </Link>
                     </div>
@@ -239,7 +239,7 @@ export default function Dashboard() {
                 {/* Content Area */}
                 <div className="flex-1 overflow-y-auto p-4 md:p-8 customized-scrollbar relative">
                     {/* Elementos decorativos de fundo */}
-                    <div className="absolute top-0 left-0 w-full h-64 bg-linear-to-b from-slate-100 to-transparent -z-10 pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-full h-64 bg-linear-to-b from-[#ede0d8]/30 dark:from-[#1a1208] to-transparent -z-10 pointer-events-none" />
 
                     {!loadingUser && (
                         (() => {
@@ -288,8 +288,8 @@ export default function Dashboard() {
                                             <div className="absolute inset-0 bg-red-500/10 mix-blend-multiply animate-pulse"></div>
                                             <AlertOctagon size={48} />
                                         </div>
-                                        <h2 className="text-3xl font-black text-slate-800 mb-2 tracking-tight">Acesso Restrito</h2>
-                                        <p className="text-slate-500 max-w-md text-base leading-relaxed mb-8">
+                                        <h2 className="text-3xl font-black text-[#241a06] mb-2 tracking-tight">Acesso Restrito</h2>
+                                        <p className="text-[#8a7968] max-w-md text-base leading-relaxed mb-8">
                                             <b>{denyReason}</b> Se precisar de acesso, converse com o dono do portal.
                                         </p>
                                         <Link
@@ -342,10 +342,10 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
         <div className="space-y-8 max-w-7xl mx-auto">
 
             {/* Bloco de Boas-vindas Rápido */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 relative overflow-hidden">
+            <div className="bg-white dark:bg-[#241a06] rounded-2xl p-6 md:p-8 shadow-sm border border-[#ede0d8] dark:border-[#3a2e1a] relative overflow-hidden">
                 <div className="relative z-10 md:w-2/3">
-                    <h3 className="text-2xl font-black text-slate-800 mb-3">Resumo do Portal</h3>
-                    <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                    <h3 className="text-2xl font-black text-[#241a06] dark:text-[#f0e6d6] mb-3">Resumo do Portal</h3>
+                    <p className="text-[#5a4d3e] dark:text-[#c5b49e] text-sm md:text-base leading-relaxed">
                         Acompanhe o crescimento do turismo e dos usuários locais. Utilize o menu lateral para cadastrar e gerenciar hotéis, eventos e os acessos ao sistema. As mudanças refletem instantaneamente no site público.
                     </p>
                 </div>
@@ -362,7 +362,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Usuários Ativos" value={stats.users} icon={Users}
                             trend="Cadastrados no sistema" trendUp={true}
-                            iconBg="bg-blue-100" iconColor="text-blue-600"
+                            iconBg="bg-amber-100 dark:bg-amber-950/50" iconColor="text-amber-600 dark:text-amber-400"
                         />
                     </Link>
                 )}
@@ -371,7 +371,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Total de Alojamentos" value={stats.hotels ?? stats.inns ?? 0} icon={Hotel}
                             trend="Acomodações ativas" trendUp={true}
-                            iconBg="bg-emerald-100" iconColor="text-emerald-600"
+                            iconBg="bg-emerald-100 dark:bg-emerald-950/50" iconColor="text-emerald-600 dark:text-emerald-400"
                         />
                     </Link>
                 )}
@@ -380,7 +380,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Serviços Cadastrados" value={stats.services ?? 0} icon={Briefcase}
                             trend="Serviços ativos" trendUp={true}
-                            iconBg="bg-teal-100" iconColor="text-teal-600"
+                            iconBg="bg-amber-100 dark:bg-amber-950/50" iconColor="text-amber-600 dark:text-amber-400"
                         />
                     </Link>
                 )}
@@ -389,7 +389,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Pontos Turísticos" value={stats.attractions ?? 0} icon={Camera}
                             trend="Atrações cadastradas" trendUp={true}
-                            iconBg="bg-rose-100" iconColor="text-rose-600"
+                            iconBg="bg-rose-100 dark:bg-rose-950/50" iconColor="text-rose-600 dark:text-rose-400"
                         />
                     </Link>
                 )}
@@ -398,7 +398,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Eventos Ativos" value={stats.events} icon={Calendar}
                             trend="No portfólio" trendUp={null}
-                            iconBg="bg-amber-100" iconColor="text-amber-600"
+                            iconBg="bg-amber-100 dark:bg-amber-950/50" iconColor="text-amber-600 dark:text-amber-400"
                         />
                     </Link>
                 )}
@@ -408,7 +408,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Locais Esportivos" value={stats.sports ?? 0} icon={Trophy}
                             trend="Quadras e complexos" trendUp={true}
-                            iconBg="bg-indigo-100" iconColor="text-indigo-600"
+                            iconBg="bg-emerald-100 dark:bg-emerald-950/50" iconColor="text-emerald-600 dark:text-emerald-400"
                         />
                     </Link>
                 )}
@@ -418,7 +418,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                         <StatCard
                             title="Restaurantes cadastrados" value={stats.restaurants} icon={UtensilsCrossed}
                             trend="Restaurantes ativos" trendUp={null}
-                            iconBg="bg-red-100" iconColor="text-red-600"
+                            iconBg="bg-amber-100 dark:bg-amber-950/50" iconColor="text-amber-600 dark:text-amber-400"
                         />
                     </Link>
                 )}
@@ -426,7 +426,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                     <StatCard
                         title="Visitas ao Portal" value="8.4k" icon={LayoutDashboard}
                         trend="-3% que ontem" trendUp={false}
-                        iconBg="bg-purple-100" iconColor="text-purple-600"
+                        iconBg="bg-[#ede0d8] dark:bg-[#2e2310]" iconColor="text-[#5a4d3e] dark:text-[#c5b49e]"
                     />
                 </Link>
             </div>
@@ -436,26 +436,26 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
 
 function StatCard({ title, value, icon: Icon, trend, trendUp, iconBg, iconColor }: any) {
     return (
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-(--color-primary)/20 transition-all duration-300 group">
+        <div className="bg-white dark:bg-[#241a06] rounded-2xl p-6 shadow-sm border border-[#ede0d8] dark:border-[#3a2e1a] hover:shadow-md hover:border-(--color-primary)/30 transition-all duration-300 group">
             <div className="flex justify-between items-start mb-4">
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconBg} ${iconColor} group-hover:scale-110 transition-transform duration-300`}>
                     <Icon size={24} strokeWidth={2.5} />
                 </div>
 
                 {trendUp !== null && (
-                    <span className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full \${trendUp ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
+                    <span className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${trendUp ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400' : 'bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400'}`}>
                         {trendUp ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                     </span>
                 )}
             </div>
 
             <div>
-                <h4 className="text-3xl font-black text-slate-800 mb-1">{value}</h4>
-                <p className="text-sm font-semibold text-slate-500">{title}</p>
+                <h4 className="text-3xl font-black text-[#241a06] dark:text-[#f0e6d6] mb-1">{value}</h4>
+                <p className="text-sm font-semibold text-[#8a7968] dark:text-[#c5b49e]">{title}</p>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-50">
-                <p className="text-xs text-slate-400 font-medium truncate">{trend}</p>
+            <div className="mt-4 pt-4 border-t border-[#ede0d8] dark:border-[#3a2e1a]">
+                <p className="text-xs text-[#8a7968] dark:text-[#c5b49e] font-medium truncate">{trend}</p>
             </div>
         </div>
     );

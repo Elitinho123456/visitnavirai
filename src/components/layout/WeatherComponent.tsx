@@ -1,4 +1,3 @@
-import { apiFetch } from '@/config/api';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, Cloud, CloudRain, CloudFog, CloudLightning, Droplets, Thermometer } from 'lucide-react';
@@ -38,7 +37,7 @@ export default function WeatherWidget() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        apiFetch('https://api.open-meteo.com/v1/forecast?latitude=-23.0645&longitude=-54.1959&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo')
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=-23.0645&longitude=-54.1959&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo')
             .then(response => response.json())
             .then(data => {
                 setWeather(data);
@@ -62,12 +61,12 @@ export default function WeatherWidget() {
             whileHover={{ y: -5 }}
             className="relative flex flex-col items-center justify-center bg-white/40 dark:bg-(--color-neutral-light)/40 backdrop-blur-xl p-6 md:p-8 rounded-4xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/40 dark:border-white/10 w-full overflow-hidden group"
         >
-            <div className="absolute top-0 right-0 -m-4 w-24 h-24 bg-blue-400/20 rounded-full blur-2xl group-hover:bg-blue-400/30 transition-colors" />
+            <div className="absolute top-0 right-0 -m-4 w-24 h-24 bg-amber-400/20 rounded-full blur-2xl group-hover:bg-amber-400/30 transition-colors" />
             <div className="absolute bottom-0 left-0 -m-4 w-24 h-24 bg-yellow-400/20 rounded-full blur-2xl group-hover:bg-yellow-400/30 transition-colors" />
 
             <div className="relative z-10 w-full">
                 <div className="flex justify-between items-start w-full mb-6">
-                    <h3 className="text-gray-800 font-black text-xl tracking-tight uppercase">
+                    <h3 className="text-[#241a06] dark:text-[#f0e6d6] font-black text-xl tracking-tight uppercase">
                         Tempo em Naviraí
                     </h3>
                     <motion.div
@@ -80,7 +79,7 @@ export default function WeatherWidget() {
                 </div>
 
                 <div className="flex items-end gap-2 mb-2">
-                    <div className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-linear-to-br from-(--color-primary) to-blue-500 drop-shadow-sm leading-none">
+                    <div className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-linear-to-br from-(--color-primary) to-amber-500 drop-shadow-sm leading-none">
                         {Math.round(weather.current.temperature_2m)}°
                     </div>
                 </div>

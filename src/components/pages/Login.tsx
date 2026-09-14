@@ -100,7 +100,7 @@ export default function Login() {
                 <div className="w-full max-w-md px-4 z-10">
                     <motion.div
                         layout
-                        className="bg-white/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-3xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] p-8 sm:p-10 overflow-hidden relative"
+                        className="bg-white/90 dark:bg-[#241a06]/95 backdrop-blur-2xl border border-[#ede0d8] dark:border-[#3a2e1a] rounded-3xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] p-8 sm:p-10 overflow-hidden relative"
                     >
                         {/* Shimmer effect border */}
                         <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-(--color-primary)/10 dark:ring-white/5 pointer-events-none" />
@@ -135,7 +135,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <User className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="text" id="name" placeholder="João da Silva"
                                                     value={name} onChange={(e) => setName(e.target.value)}
                                                     required
@@ -150,7 +150,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <Mail className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="email" id="email-reg" placeholder="joao@exemplo.com"
                                                     value={email} onChange={(e) => setEmail(e.target.value)}
                                                     required
@@ -165,7 +165,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="password" id="password-reg" placeholder="••••••••"
                                                     value={password} onChange={(e) => setPassword(e.target.value)}
                                                     required
@@ -180,7 +180,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="password" id="confirmPassword" placeholder="••••••••"
                                                     value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                                                     required
@@ -242,7 +242,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <Mail className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3.5 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3.5 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="email" id="email-login" placeholder="joao@exemplo.com"
                                                     value={email} onChange={(e) => setEmail(e.target.value)}
                                                     required
@@ -262,7 +262,7 @@ export default function Login() {
                                             <div className="relative group">
                                                 <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-(--color-neutral-gray) group-focus-within:text-(--color-primary) transition-colors" />
                                                 <input
-                                                    className="w-full pl-11 pr-4 py-3.5 bg-white/50 dark:bg-(--color-neutral-light)/10 border border-(--color-neutral-gray)/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-(--color-neutral-gray)/60"
+                                                    className="w-full pl-11 pr-4 py-3.5 bg-white/50 dark:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] rounded-xl focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 focus:border-(--color-primary) transition-all shadow-sm placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60"
                                                     type="password" id="password-login" placeholder="••••••••"
                                                     value={password} onChange={(e) => setPassword(e.target.value)}
                                                     required

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { navItems } from '../../config/const';
 import { Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -27,10 +28,9 @@ export default function Header() {
         const token = localStorage.getItem('token');
         if (token) {
             try {
-                const payload = token.split(".")[1];
-                const decoded = JSON.parse(atob(payload));
+                const decoded = jwtDecode<{ role?: string }>(token);
                 setUserRole(decoded.role || "user");
-            } catch (e) {
+            } catch {
                 setUserRole(null);
             }
         } else {
@@ -71,9 +71,11 @@ export default function Header() {
         const root = document.documentElement;
         if (root.classList.contains('dark')) {
             root.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
             setIsDarkMode(false);
         } else {
             root.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
             setIsDarkMode(true);
         }
     };
@@ -91,12 +93,12 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-(--color-neutral-light) shadow-sm sticky top-0 z-50 w-full">
+        <header className="bg-[#f5ede5]/95 dark:bg-[#1a1208]/95 backdrop-blur-md border-b border-[#ede0d8]/80 dark:border-[#3a2e1a] shadow-xs sticky top-0 z-50 w-full transition-colors">
             <div className="max-w-8xl mx-auto px-(--spacing-md) py-(--spacing-md) flex items-center justify-between">
 
                 {/* Logo */}
                 <Link to="/" className="group z-50 relative">
-                    <h1 className="text-black text-2xl md:text-3xl font-bold tracking-tight group-hover:opacity-80 transition-opacity">
+                    <h1 className="text-[#241a06] dark:text-[#f0e6d6] text-2xl md:text-3xl font-bold tracking-tight group-hover:opacity-80 transition-opacity">
                         <b className='text-(--color-primary)'>VISIT</b>Naviraí
                     </h1>
                 </Link>
@@ -122,21 +124,21 @@ export default function Header() {
                 )}
 
                 <nav className={`
-                    fixed inset-y-0 right-0 z-40 w-64 bg-(--color-neutral-light) shadow-xl transform transition-transform duration-300 ease-in-out
-                    lg:static lg:inset-auto lg:w-auto lg:bg-transparent lg:shadow-none lg:transform-none
+                    fixed inset-y-0 right-0 z-40 w-64 bg-[#f5ede5] border-l border-[#ede0d8] dark:border-[#3a2e1a] shadow-xl transform transition-transform duration-300 ease-in-out
+                    lg:static lg:inset-auto lg:w-auto lg:bg-transparent lg:border-none lg:shadow-none lg:transform-none
                     ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
                 `}>
                     <ul className="flex flex-col lg:flex-row lg:items-center gap-6 p-8 lg:p-0 h-full overflow-y-auto lg:overflow-visible">
 
                         <li className='mt-10 lg:mt-0'>
-                            <Link to="/" className="text-(--color-text-body) font-medium hover:text-(--color-link-hover) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link to="/" className="text-[#241a06] dark:text-[#f0e6d6] font-medium hover:text-(--color-primary) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                                 Início
                             </Link>
                         </li>
 
                         {navItems.map((item) => (
                             <li key={item.name} className="group relative flex flex-col lg:flex-row lg:items-center cursor-pointer">
-                                <div className="flex items-center justify-between text-(--color-text-body) font-medium lg:group-hover:text-(--color-link-hover) transition-colors py-2">
+                                <div className="flex items-center justify-between text-[#241a06] dark:text-[#f0e6d6] font-medium lg:group-hover:text-(--color-primary) transition-colors py-2">
                                     <Link to={String(item.path)}>
                                         <span className="relative inline-block transition-transform duration-300 lg:group-hover:scale-110 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-(--color-primary) after:transition-all after:duration-300 after:w-0 lg:group-hover:after:w-full">
                                             {navLabels[item.name] || item.name}
@@ -149,23 +151,23 @@ export default function Header() {
 
                                 {/* Submenu */}
                                 <div className="relative lg:absolute lg:top-full lg:left-0 lg:pt-4 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 z-50 min-w-55">
-                                    <ul className="pl-4 lg:pl-0  border-(--color-accent-gold)  lg:bg-(--color-neutral-white) lg:rounded-(--border-radius-lg) lg:shadow-xl  lg:border-(--color-neutral-gray)/20 lg:border-t-4 lg:border-t-(--color-accent-gold)">
+                                    <ul className="pl-4 lg:pl-0 lg:bg-white dark:lg:bg-[#241a06] lg:rounded-(--border-radius-lg) lg:shadow-xl lg:border border-[#ede0d8] dark:border-[#3a2e1a] lg:border-t-4 lg:border-t-(--color-primary)">
                                         {item.subItems.map((subItem) => (
 
                                             <li key={subItem.name} className="py-1 lg:py-0">
 
                                                 {subItem === item.subItems[0] ? (
-                                                    <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-tr-xl lg:hover:rounded-tl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                    <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-[#5a4d3e] dark:text-[#d7cbbe] hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-white lg:hover:rounded-tr-xl lg:hover:rounded-tl-xl transition-all" onClick={() => setIsMobileMenuOpen(false)}>
                                                         {subItem.label}
                                                     </Link>
                                                 ) : (
                                                     <>
                                                         {subItem === item.subItems[item.subItems.length - 1] ? (
-                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white) lg:hover:rounded-br-xl lg:hover:rounded-bl-xl  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-[#5a4d3e] dark:text-[#d7cbbe] hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-white lg:hover:rounded-br-xl lg:hover:rounded-bl-xl transition-all" onClick={() => setIsMobileMenuOpen(false)}>
                                                                 {subItem.label}
                                                             </Link>
                                                         ) : (
-                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-(--color-neutral-gray) lg:text-(--color-text-body) hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-(--color-neutral-white)  transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                                            <Link to={subItem.path} className="block lg:px-(--spacing-md) lg:py-(--spacing-sm) text-sm text-[#5a4d3e] dark:text-[#d7cbbe] hover:text-(--color-primary) lg:hover:bg-(--color-primary) lg:hover:text-white transition-all" onClick={() => setIsMobileMenuOpen(false)}>
                                                                 {subItem.label}
                                                             </Link>
                                                         )
@@ -191,7 +193,7 @@ export default function Header() {
                         <li className="flex items-center gap-2 lg:ml-4 border-t lg:border-t-0 pt-4 lg:pt-0 mt-4 lg:mt-0">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 rounded-full bg-(--color-background) border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors cursor-pointer"
+                                className="p-2 rounded-full bg-[#ede0d8]/60 dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] hover:bg-(--color-primary) hover:text-white transition-colors cursor-pointer"
                                 aria-label="Alternar tema"
                             >
                                 {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -200,7 +202,7 @@ export default function Header() {
                             <div className="relative" ref={userMenuRef}>
                                 <button
                                     onClick={handleUserClick}
-                                    className={`p-2 rounded-full border border-(--color-neutral-gray)/30 text-(--color-text-body) hover:bg-(--color-primary) hover:text-white transition-colors ${userRole ? "bg-(--color-primary)/10 text-(--color-primary) border-(--color-primary)/50" : "bg-(--color-background) cursor-pointer"
+                                    className={`p-2 rounded-full border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] hover:bg-(--color-primary) hover:text-white transition-colors ${userRole ? "bg-(--color-primary)/10 text-(--color-primary) border-(--color-primary)/50" : "bg-[#ede0d8]/60 dark:bg-[#241a06] cursor-pointer"
                                         }`}
                                     aria-label="Minha Conta"
                                 >
@@ -209,19 +211,19 @@ export default function Header() {
 
                                 {/* Dropdown Menu de Usuário */}
                                 {isUserMenuOpen && userRole && (
-                                    <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-(--color-neutral-light) rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 py-2 z-50">
-                                        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800 mb-1">
-                                            <p className="text-sm font-medium text-gray-500 text-center capitalize">
-                                                {userRole === 'admin' ? 'Administrador' : 
-                                                 userRole === 'user' ? 'Usuário Comum' : 
-                                                 userRole}
+                                    <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-[#241a06] rounded-xl shadow-xl border border-[#ede0d8] dark:border-[#3a2e1a] py-2 z-50">
+                                        <div className="px-4 py-2 border-b border-[#ede0d8] dark:border-[#3a2e1a] mb-1">
+                                            <p className="text-sm font-medium text-[#5a4d3e] dark:text-[#c5b49e] text-center capitalize">
+                                                {userRole === 'admin' ? 'Administrador' :
+                                                    userRole === 'user' ? 'Usuário Comum' :
+                                                        userRole}
                                             </p>
                                         </div>
 
                                         {userRole !== 'user' && (
                                             <button
                                                 onClick={() => { setIsUserMenuOpen(false); navigate('/admin'); }}
-                                                className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-(--color-primary)/10 hover:text-(--color-primary) transition-colors flex items-center gap-2"
+                                                className="w-full text-left px-4 py-3 text-sm text-[#241a06] dark:text-[#f0e6d6] hover:bg-(--color-primary)/10 hover:text-(--color-primary) transition-colors flex items-center gap-2"
                                             >
                                                 <LayoutDashboard size={16} />
                                                 Acessar Painel

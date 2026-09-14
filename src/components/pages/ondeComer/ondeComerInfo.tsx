@@ -4,6 +4,7 @@ import type { Restaurant } from "../../../types/interfacesTypes";
 import { ChevronLeft, ChevronRight, Info, X, ZoomIn, Utensils } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL, apiFetch } from "@/config/api";
+import SocialLinksBar from "@/components/shared/SocialLinksBar";
 
 export default function OndeComerInfo() {
     const { id: restaurantId } = useParams();
@@ -124,10 +125,10 @@ export default function OndeComerInfo() {
                         <span className="bg-(--color-primary) text-white px-3 py-1 rounded-full text-sm font-semibold mb-4 tracking-wider uppercase">
                             {restaurantData.category}
                         </span>
-                        <h1 className="text-(--color-neutral-white) text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg">
+                        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-3 md:mb-4 drop-shadow-lg">
                             {restaurantData.name}
                         </h1>
-                        <p className="text-(--color-neutral-light) text-base sm:text-lg md:text-xl max-w-xl md:max-w-2xl font-light leading-relaxed flex items-center justify-center gap-2">
+                        <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-xl md:max-w-2xl font-light leading-relaxed flex items-center justify-center gap-2 drop-shadow">
                             {/* Pode ser o endereço, a distância ou um resumo */}
                             {restaurantData.address || "Localização privilegiada na cidade"}
                         </p>
@@ -218,7 +219,7 @@ export default function OndeComerInfo() {
                             <div className="flex gap-3 overflow-x-auto pb-2">
                                 {allGalleryImages.map((url, idx) => (
                                     <button key={idx} onClick={() => setGalleryIndex(idx)}
-                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${idx === galleryIndex ? 'border-(--color-primary) ring-2 ring-(--color-primary)/30' : 'border-slate-200 opacity-70 hover:opacity-100'
+                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${idx === galleryIndex ? 'border-(--color-primary) ring-2 ring-(--color-primary)/30' : 'border-[#ede0d8] dark:border-[#3a2e1a] opacity-70 hover:opacity-100'
                                             }`}>
                                         <img src={url} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
                                     </button>
@@ -230,18 +231,18 @@ export default function OndeComerInfo() {
                     {/* Bloco 4: Informações Úteis (Horários, Reservas, etc) */}
                     {usefulInfo && usefulInfo.length > 0 && (
                         <div className="bg-(--color-neutral-white) rounded-(--border-radius-lg) p-6 sm:p-8 md:p-12 shadow-lg border-t-4 border-amber-500 mb-16 md:mb-24">
-                            <h3 className="text-center text-amber-700 text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
+                            <h3 className="text-center text-amber-700 dark:text-amber-400 text-2xl sm:text-3xl font-bold mb-8 md:mb-10 flex items-center justify-center gap-2">
                                 <Info size={32} /> Informações Úteis
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 {usefulInfo.map((item: any, index: number) => (
-                                    <div key={index} className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center flex flex-col items-center">
+                                    <div key={index} className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-2xl p-6 text-center flex flex-col items-center">
                                         <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm mb-3 shadow-md">
                                             {/* Pode usar ícones dinâmicos ou a primeira letra */}
                                             {item.icon ? <img src={item.icon} alt="" className="w-6 h-6" /> : item.label || (index + 1)}
                                         </div>
-                                        <h4 className="text-amber-800 font-bold text-lg mb-2">{item.title}</h4>
-                                        <p className="text-sm text-amber-700/90 leading-relaxed wrap-break-word whitespace-pre-wrap">{item.desc}</p>
+                                        <h4 className="text-amber-800 dark:text-amber-300 font-bold text-lg mb-2">{item.title}</h4>
+                                        <p className="text-sm text-amber-700/90 dark:text-amber-200/90 leading-relaxed wrap-break-word whitespace-pre-wrap">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -274,23 +275,16 @@ export default function OndeComerInfo() {
                     )}
 
                     {/* Bloco CTA: Reservas ou Pedidos */}
-                    {cta && (
+                    {cta ? (
                         <div className="bg-(--color-primary) text-white p-6 sm:p-10 md:p-14 rounded-(--border-radius-lg) text-center shadow-xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{cta.title || "Ficou com vontade?"}</h3>
-                            <p className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed opacity-90 wrap-break-word whitespace-pre-wrap mb-8">
+                            <p className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed opacity-90 wrap-break-word whitespace-pre-wrap">
                                 {cta.desc || "Faça sua reserva agora mesmo ou peça pelo delivery."}
                             </p>
-                            {restaurantData.socials?.whatsapp && (
-                                <a
-                                    href={`https://wa.me/${restaurantData.socials.whatsapp}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="inline-block bg-white text-(--color-primary) font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition-colors"
-                                >
-                                    Fazer Reserva / Pedido
-                                </a>
-                            )}
+                            <SocialLinksBar socials={restaurantData.socials} />
                         </div>
+                    ) : (
+                        <SocialLinksBar socials={restaurantData.socials} />
                     )}
 
                 </div>

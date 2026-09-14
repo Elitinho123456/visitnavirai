@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import type { User } from '@/types/api';
 import { API_BASE_URL, apiFetch } from '@/config/api';
 
@@ -20,8 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const authenticate = async (token: string) => {
     localStorage.setItem("token", token);
     try {
-      const payload = token.split(".")[1];
-      const decoded = JSON.parse(atob(payload));
+      const decoded = jwtDecode<{ id: string }>(token);
       const res = await apiFetch(`${API_BASE_URL}/api/users/${decoded.id}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });

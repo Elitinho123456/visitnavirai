@@ -115,7 +115,7 @@
   --md-tertiary-container: #ede2f2;
   --md-on-tertiary:        #ffffff;
 
-  /* Surface Hierarchy */
+  /* Surface Hierarchy — Warm Living Sanctuary */
   --md-surface:                    #fff8f3;
   --md-surface-container-lowest:   #ffffff;
   --md-surface-container-low:      #f5ede5;
@@ -140,18 +140,18 @@
      ================================================================ */
   --color-primary:       var(--md-primary);
   --color-primary-dark:  #0a5416;
-  --color-secondary:     #000000;
+  --color-secondary:     #241a06;
   --color-tertiary:      var(--md-tertiary);
-  --color-accent-gold:   var(--md-secondary-container);
+  --color-accent-gold:   #febb06;
 
-  --color-neutral-light: var(--md-surface-container-low);
-  --color-neutral-dark:  var(--md-on-surface);
-  --color-neutral-white: var(--md-surface-container-lowest);
-  --color-neutral-gray:  var(--md-on-surface-variant);
+  --color-neutral-light: #f5ede5;
+  --color-neutral-dark:  #241a06;
+  --color-neutral-white: #ffffff;
+  --color-neutral-gray:  #5a4d3e;
 
-  --color-text-body:    var(--md-on-surface);
+  --color-text-body:    #5a4d3e;
   --color-text-header:  var(--md-primary);
-  --color-background:   var(--md-surface);
+  --color-background:   #fff8f3;
   --color-button-background: var(--md-secondary-container);
   --color-button-text:  var(--md-on-secondary-container);
   --color-link:         var(--md-primary);
@@ -185,9 +185,10 @@
 }
 
 /* ================================================================
-   DARK THEME
+   DARK THEME — Warm Earthy Brown (Living Sanctuary)
    ================================================================ */
 .dark {
+  color-scheme: dark;
   --md-surface:                   #1a1208;
   --md-surface-container-lowest:  #110d04;
   --md-surface-container-low:     #241a06;
@@ -203,8 +204,11 @@
   --color-neutral-light: var(--md-surface-container-low);
   --color-neutral-dark:  var(--md-on-surface);
   --color-neutral-gray:  var(--md-on-surface-variant);
-  --color-text-header:   #f9fafb;
+  --color-text-header:   #ffffff;
   --color-text-body:     var(--md-on-surface);
+  --color-secondary:     #f0e6d6;
+  --color-link:          #499e49;
+  --color-link-hover:    #6dbb6d;
 }
 
 /* ================================================================
@@ -224,3 +228,4 @@
 }
 
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));

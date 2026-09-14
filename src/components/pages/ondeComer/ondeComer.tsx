@@ -70,7 +70,7 @@ function RestaurantCard({ restaurant, onQuickView }: { restaurant: Restaurant; o
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             onClick={() => onQuickView(restaurant)}
-            className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col"
+            className="group bg-white dark:bg-[#241a06] rounded-2xl shadow-sm hover:shadow-xl border border-[#ede0d8] dark:border-[#3a2e1a] overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col"
         >
             {/* Imagem */}
             <div className="relative h-52 overflow-hidden">
@@ -88,7 +88,7 @@ function RestaurantCard({ restaurant, onQuickView }: { restaurant: Restaurant; o
                 )}
 
                 {(restaurant as any).category && (
-                    <div className="absolute top-3 left-3 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    <div className="absolute top-3 left-3 bg-white/25 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                         {(restaurant as any).category}
                     </div>
                 )}
@@ -105,13 +105,13 @@ function RestaurantCard({ restaurant, onQuickView }: { restaurant: Restaurant; o
             <div className="p-5 flex flex-col grow">
                 <div className="flex flex-wrap gap-1.5 mb-4">
                     {restaurant.features?.slice(0, 3).map((feature, i) => (
-                        <span key={i} className="text-[11px] font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
+                        <span key={i} className="text-[11px] font-medium bg-[#f5ede5] dark:bg-[#2e2310] text-[#5a4d3e] dark:text-[#c5b49e] px-2.5 py-1 rounded-full">
                             {translateFeature(feature)}
                         </span>
                     ))}
                 </div>
 
-                <div className="flex gap-2 mt-auto pt-4 border-t border-slate-50">
+                <div className="flex gap-2 mt-auto pt-4 border-t border-[#ede0d8] dark:border-[#3a2e1a]">
                     <Link
                         to={`/restaurantes/${restaurant._id || restaurant.id}`}
                         onClick={(e) => e.stopPropagation()}
@@ -123,18 +123,24 @@ function RestaurantCard({ restaurant, onQuickView }: { restaurant: Restaurant; o
             </div>
         </motion.div>
     );
+};
+
+// --- Modal de Pré-visualização Rápida ---
+interface QuickViewModalProps {
+    restaurant: Restaurant;
+    onClose: () => void;
 }
 
-function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClose: () => void }) {
+const QuickViewModal: React.FC<QuickViewModalProps> = ({ restaurant, onClose }) => {
     const allImages = [restaurant.image, ...(restaurant.gallery || [])].filter(Boolean) as string[];
-    const [activeImage, setActiveImage] = useState<string>(allImages[0] || 'https://placehold.co/400x300');
+    const [activeImage, setActiveImage] = useState(allImages[0] || '');
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs"
             onClick={onClose}
         >
             <motion.div
@@ -142,11 +148,11 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl"
+                className="bg-white dark:bg-[#241a06] rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl border border-[#ede0d8] dark:border-[#3a2e1a]"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Imagem Principal */}
-                <div className="relative h-56 bg-slate-100">
+                <div className="relative h-56 bg-[#f5ede5] dark:bg-[#1a1208]">
                     <img
                         src={activeImage}
                         alt={restaurant.name}
@@ -169,7 +175,7 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
 
                 {/* Thumbnails da Galeria */}
                 {allImages.length > 1 && (
-                    <div className="flex gap-2 overflow-x-auto p-4 bg-slate-50 border-b border-slate-100 custom-scrollbar">
+                    <div className="flex gap-2 overflow-x-auto p-4 bg-[#f5ede5] dark:bg-[#1a1208] border-b border-[#ede0d8] dark:border-[#3a2e1a] custom-scrollbar">
                         {allImages.map((img, idx) => (
                             <button
                                 key={idx}
@@ -195,7 +201,7 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
                     </div>
 
                     {restaurant.about?.desc?.[0] && (
-                        <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">{restaurant.about.desc[0]}</p>
+                        <p className="text-[#5a4d3e] dark:text-[#c5b49e] text-sm leading-relaxed mb-6 line-clamp-3">{restaurant.about.desc[0]}</p>
                     )}
 
                     <div className="flex gap-3 pt-2">
@@ -208,7 +214,7 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
                         </Link>
                         <button
                             onClick={onClose}
-                            className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition-all cursor-pointer"
+                            className="px-6 py-3.5 bg-[#f5ede5] dark:bg-[#2e2310] hover:bg-[#ede0d8] dark:hover:bg-[#3a2e1a] text-[#5a4d3e] dark:text-[#f0e6d6] font-bold rounded-xl transition-all cursor-pointer"
                         >
                             Fechar
                         </button>
@@ -219,7 +225,7 @@ function QuickViewModal({ restaurant, onClose }: { restaurant: Restaurant; onClo
     );
 }
 
-export default function restaurantes() {
+export default function Restaurantes() {
     const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
     const isDetailPage = /\/restaurantes\/.+/.test(location.pathname);
@@ -317,7 +323,7 @@ export default function restaurantes() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+        <div className="flex flex-col min-h-screen bg-(--color-background)">
             <Header />
 
             <main className="grow">
@@ -374,7 +380,7 @@ export default function restaurantes() {
                                 onClick={() => { searchParams.delete('tipo'); setSearchParams(searchParams); }}
                                 className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${!activeCategory
                                     ? 'bg-(--color-primary) text-white shadow-lg shadow-(--color-primary)/25'
-                                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                                    : 'bg-white dark:bg-[#241a06] text-[#5a4d3e] dark:text-[#c5b49e] hover:bg-[#f5ede5] dark:hover:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a]'
                                     }`}
                             >
                                 Todos
@@ -385,7 +391,7 @@ export default function restaurantes() {
                                     onClick={() => setCategory(cat)}
                                     className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${activeCategory === cat
                                         ? 'bg-(--color-primary) text-white shadow-lg shadow-(--color-primary)/25'
-                                        : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                                        : 'bg-white dark:bg-[#241a06] text-[#5a4d3e] dark:text-[#c5b49e] hover:bg-[#f5ede5] dark:hover:bg-[#2e2310] border border-[#ede0d8] dark:border-[#3a2e1a]'
                                         }`}
                                 >
                                     {categoryConfig[cat]?.icon}
@@ -396,18 +402,18 @@ export default function restaurantes() {
 
                         {/* Search */}
                         <div className="relative w-full md:w-80 shrink-0">
-                            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7968] dark:text-[#c5b49e]" />
                             <input
                                 type="text"
                                 placeholder="Buscar restaurante, bar..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-(--color-primary)/30 focus:border-(--color-primary) outline-none transition-all shadow-sm text-sm"
+                                className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[#241a06] border border-[#ede0d8] dark:border-[#3a2e1a] text-[#241a06] dark:text-[#f0e6d6] placeholder:text-[#8a7968] dark:placeholder:text-[#c5b49e]/60 rounded-xl focus:ring-2 focus:ring-(--color-primary)/30 focus:border-(--color-primary) outline-none transition-all shadow-sm text-sm"
                             />
                             {searchQuery && (
                                 <button
                                     onClick={() => setSearchQuery('')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8a7968] hover:text-[#241a06] dark:hover:text-[#f0e6d6] cursor-pointer"
                                 >
                                     <X size={16} />
                                 </button>
@@ -416,7 +422,7 @@ export default function restaurantes() {
                     </div>
 
                     {/* Contagem de resultados */}
-                    <p className="text-slate-500 text-sm mb-6">
+                    <p className="text-[#8a7968] dark:text-[#c5b49e] text-sm mb-6">
                         {loading ? 'Carregando...' : `${filteredRestaurants.length} local(is) encontrado(s)`}
                     </p>
 
@@ -427,19 +433,19 @@ export default function restaurantes() {
                         </div>
                     ) : filteredRestaurants.length === 0 ? (
                         <div className="text-center py-20">
-                            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Utensils size={32} className="text-slate-400" />
+                            <div className="w-20 h-20 bg-[#f5ede5] dark:bg-[#241a06] rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Utensils size={32} className="text-[#8a7968] dark:text-[#c5b49e]" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-700 mb-2">Nenhum local encontrado</h3>
-                            <p className="text-slate-500">Tente ajustar os filtros ou a busca.</p>
+                            <h3 className="text-xl font-bold text-[#241a06] dark:text-[#f0e6d6] mb-2">Nenhum local encontrado</h3>
+                            <p className="text-[#8a7968] dark:text-[#c5b49e]">Tente ajustar os filtros ou a busca.</p>
                         </div>
                     ) : (
                         <div className="space-y-16">
                             {/* Destaques */}
                             {highlightedRestaurants.length > 0 && (
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-3">
-                                        <Star className="text-yellow-500 fill-yellow-500" size={28} />
+                                    <h2 className="text-3xl font-black text-[#241a06] dark:text-[#f0e6d6] mb-6 flex items-center gap-2 border-b border-[#ede0d8] dark:border-[#3a2e1a] pb-3">
+                                        <Star className="text-amber-500 fill-amber-500" size={28} />
                                         Mais Avaliados e Destaques
                                     </h2>
                                     <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -455,7 +461,7 @@ export default function restaurantes() {
                             {/* Locais Regulares */}
                             {regularRestaurants.length > 0 && (
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-800 mb-6 border-b border-slate-200 pb-3">
+                                    <h2 className="text-3xl font-black text-[#241a06] dark:text-[#f0e6d6] mb-6 border-b border-[#ede0d8] dark:border-[#3a2e1a] pb-3">
                                         Todos os Locais
                                     </h2>
                                     <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -468,11 +474,11 @@ export default function restaurantes() {
 
                                     {/* Paginação */}
                                     {totalPages > 1 && (
-                                        <div className="flex justify-center items-center gap-4 mt-12 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-100 w-fit mx-auto">
+                                        <div className="flex justify-center items-center gap-4 mt-12 bg-white dark:bg-[#241a06] px-6 py-4 rounded-2xl shadow-sm border border-[#ede0d8] dark:border-[#3a2e1a] w-fit mx-auto">
                                             <button 
                                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                                 disabled={currentPage === 1}
-                                                className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
+                                                className="px-4 py-2 rounded-xl text-sm text-[#8a7968] dark:text-[#c5b49e] font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#f5ede5] dark:hover:bg-[#2e2310] hover:text-[#241a06] dark:hover:text-[#f0e6d6] transition-colors cursor-pointer"
                                             >
                                                 &lt; Anterior
                                             </button>
@@ -485,7 +491,7 @@ export default function restaurantes() {
                                                         className={`w-10 h-10 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer ${
                                                             currentPage === i + 1 
                                                             ? 'bg-(--color-primary) text-white shadow-md' 
-                                                            : 'text-slate-500 hover:bg-slate-100'
+                                                            : 'text-[#8a7968] dark:text-[#c5b49e] hover:bg-[#f5ede5] dark:hover:bg-[#2e2310]'
                                                         }`}
                                                     >
                                                         {i + 1}
@@ -496,7 +502,7 @@ export default function restaurantes() {
                                             <button 
                                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                                 disabled={currentPage === totalPages}
-                                                className="px-4 py-2 rounded-xl text-sm text-slate-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 hover:text-slate-800 transition-colors cursor-pointer"
+                                                className="px-4 py-2 rounded-xl text-sm text-[#8a7968] dark:text-[#c5b49e] font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#f5ede5] dark:hover:bg-[#2e2310] hover:text-[#241a06] dark:hover:text-[#f0e6d6] transition-colors cursor-pointer"
                                             >
                                                 Próximo &gt;
                                             </button>

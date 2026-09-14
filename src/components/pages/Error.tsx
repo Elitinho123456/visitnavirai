@@ -24,7 +24,7 @@ export default function Error() {
                         inline-block
                         px-8 py-3 
                         bg-(--color-primary) 
-                        text-(--color-neutral-white) 
+                        text-white 
                         font-bold 
                         rounded-full 
                         shadow-md 
