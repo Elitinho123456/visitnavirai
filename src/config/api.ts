@@ -2,12 +2,13 @@ import { toast } from '../utils/toast';
 
 const apiPort = import.meta.env.VITE_API_PORT || "3000";
 const apiProtocol = (import.meta.env.VITE_API_PROTOCOL || "http").replace(":", "");
+const configuredUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
 const configuredHost = (import.meta.env.VITE_API_HOST || "auto").trim();
 
 const runtimeHost = typeof window !== "undefined" ? window.location.hostname : "localhost";
 const apiHost = configuredHost && configuredHost !== "auto" ? configuredHost : (runtimeHost || "localhost");
 
-export const API_BASE_URL = `${apiProtocol}://${apiHost}:${apiPort}`;
+export const API_BASE_URL = configuredUrl || `${apiProtocol}://${apiHost}:${apiPort}`;
 
 /**
  * Wrapper for the native fetch API that intercepts 401 responses.
@@ -32,4 +33,4 @@ export const apiFetch = async (input: RequestInfo | URL, init?: RequestInit): Pr
     }
     
     return response;
-};
+};

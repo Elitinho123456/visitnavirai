@@ -10,6 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const apiUrl = env.VITE_API_URL?.replace(/\/+$/, '');
   const apiHost = env.VITE_API_HOST && env.VITE_API_HOST !== 'auto' ? env.VITE_API_HOST : 'localhost';
   const apiProtocol = env.VITE_API_PROTOCOL || 'http';
   return {
@@ -32,7 +33,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/imgs': {
-          target: `${apiProtocol}://${apiHost}:${env.VITE_API_PORT || 3000}`,
+          target: apiUrl || `${apiProtocol}://${apiHost}:${env.VITE_API_PORT || 3000}`,
           changeOrigin: true,
         },
       },
