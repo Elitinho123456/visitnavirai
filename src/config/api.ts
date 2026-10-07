@@ -15,10 +15,15 @@ export const API_BASE_URL = configuredUrl || `${apiProtocol}://${apiHost}:${apiP
  * If a 401 is detected, it clears the token and redirects to login.
  */
 export const apiFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
-    // Inject token if available (optional, but good practice if you want it centralized)
-    // For now we just pass through what was requested, and only intercept the response.
-    
-    const response = await fetch(input, init);
+    // Injeta o token automaticamente quando a chamada não definiu Authorization
+    // (ex.: uploads de imagem, que agora exigem login no backend).
+    const token = localStorage.getItem('token');
+    const headers = new Headers(init?.headers);
+    if (token && !headers.has('Authorization')) {
+        headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    const response = await fetch(input, { ...init, headers });
     
     if (response.status === 401) {
         if (window.location.pathname !== '/login') {

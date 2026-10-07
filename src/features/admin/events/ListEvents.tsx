@@ -10,8 +10,16 @@ import type { AppEvent } from './CadEvento'; // Reusing interface
 import { formatDateDisplay, formatDateInputValue } from "@/utils/date-format";
 import SocialsInput from "@/components/shared/SocialsInput";
 import type { Socials } from "@/types/interfacesTypes";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function ListEvents() {
+    const { user } = useAuth();
+    const isAdmin = user?.role === "admin";
+    const permissions = user?.permissions?.events;
+    const canCreate = isAdmin || permissions?.create === true;
+    const canEdit = isAdmin || permissions?.edit === true;
+    const canDelete = isAdmin || permissions?.delete === true;
+
     const [eventsData, setEventsData] = useState<AppEvent[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
@@ -198,13 +206,15 @@ export default function ListEvents() {
                                 Gerencie todos os eventos cadastrados no site.
                             </p>
                         </div>
-                        <Link
-                            to="/admin/eventos/novo"
-                            className="bg-(--color-primary) text-white px-6 py-4 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg shadow-(--color-primary)/20 flex items-center gap-2 font-bold text-lg self-start md:self-center cursor-pointer"
-                        >
-                            <Plus size={24} />
-                            Novo Evento
-                        </Link>
+                        {canCreate && (
+                            <Link
+                                to="/admin/eventos/novo"
+                                className="bg-(--color-primary) text-white px-6 py-4 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg shadow-(--color-primary)/20 flex items-center gap-2 font-bold text-lg self-start md:self-center cursor-pointer"
+                            >
+                                <Plus size={24} />
+                                Novo Evento
+                            </Link>
+                        )}
                     </div>
 
                     <div className="mt-8 flex flex-col md:flex-row gap-4">
@@ -256,14 +266,20 @@ export default function ListEvents() {
                                             <span className="flex items-center gap-1.5"><Clock size={14} className="text-(--color-primary)" /> {event.startTime} - {event.endTime}</span>
                                         </div>
                                     </div>
-                                    <div className="flex gap-2 mt-5 pt-4 border-t border-[#ede0d8] dark:border-[#3a2e1a]">
-                                        <button onClick={() => handleEditClick(event)} className="flex-1 bg-(--color-primary)/10 text-(--color-primary) hover:bg-(--color-primary) hover:text-white py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer">
-                                            <Edit3 size={14} /> Editar
-                                        </button>
-                                        <button onClick={() => confirmDelete(event._id)} className="px-3 bg-red-50 dark:bg-red-950/40 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors cursor-pointer">
-                                            <Trash2 size={16} />
-                                        </button>
-                                    </div>
+                                    {(canEdit || canDelete) && (
+                                        <div className="flex gap-2 mt-5 pt-4 border-t border-[#ede0d8] dark:border-[#3a2e1a]">
+                                            {canEdit && (
+                                                <button onClick={() => handleEditClick(event)} className="flex-1 bg-(--color-primary)/10 text-(--color-primary) hover:bg-(--color-primary) hover:text-white py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer">
+                                                    <Edit3 size={14} /> Editar
+                                                </button>
+                                            )}
+                                            {canDelete && (
+                                                <button onClick={() => confirmDelete(event._id)} className="px-3 bg-red-50 dark:bg-red-950/40 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors cursor-pointer">
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}

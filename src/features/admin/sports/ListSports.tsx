@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import type { Venue } from "../../../types/interfacesTypes";
 import { Plus, Search, MapPin, Edit3, Trash2, Trophy, AlertTriangle, X, Star } from "lucide-react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
-import { jwtDecode } from "jwt-decode";
+import { useAuth } from "@/contexts/AuthContext";
 
 const CATEGORY_FILTERS = [
     { label: "Todos", value: "all" },
@@ -22,8 +22,8 @@ export default function ListSports() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [sportToDelete, setSportToDelete] = useState<string | null>(null);
 
-    const [permissions, setPermissions] = useState<any>({});
-    const [isAdmin, setIsAdmin] = useState(false);
+    const { user } = useAuth();
+    const isAdmin = user?.role === "admin";
 
     const fetchSports = async () => {
         setLoading(true);
@@ -41,18 +41,11 @@ export default function ListSports() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const decoded: any = jwtDecode(token);
-                if (decoded.role === "admin") setIsAdmin(true);
-                setPermissions(decoded.permissions?.sports || {});
-            } catch (error) {
-                console.error("Token parsing error");
-            }
-        }
         fetchSports();
     }, []);
+
+    // Permissões vindas do AuthContext (buscadas no backend), não do JWT, para refletir o cargo atual
+    const permissions = user?.permissions?.sports;
 
     const canCreate = isAdmin || permissions?.create === true;
     const canEdit = isAdmin || permissions?.edit === true;
