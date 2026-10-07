@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import type { Restaurant } from "../../../types/interfacesTypes";
 import { Plus, Search, MapPin, Edit3, Trash2, Briefcase, AlertTriangle, X, Star, UtensilsCrossed } from "lucide-react";
 import { API_BASE_URL, apiFetch } from "@/config/api";
-import { jwtDecode } from "jwt-decode";
+import { useAuth } from "@/contexts/AuthContext";
 
 const CATEGORY_FILTERS = [
     { label: "Todos", value: "all" },
@@ -25,8 +25,8 @@ export default function ListRestaurants() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [restaurantToDelete, setRestaurantToDelete] = useState<string | null>(null);
 
-    const [permissions, setPermissions] = useState<any>({});
-    const [isAdmin, setIsAdmin] = useState(false);
+    const { user } = useAuth();
+    const isAdmin = user?.role === "admin";
 
     const fetchRestaurants = async () => {
         setLoading(true);
@@ -44,18 +44,11 @@ export default function ListRestaurants() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const decoded: any = jwtDecode(token);
-                if (decoded.role === "admin") setIsAdmin(true);
-                setPermissions(decoded.permissions?.where_to_eat || {});
-            } catch (error) {
-                console.error("Token parsing error");
-            }
-        }
         fetchRestaurants();
     }, []);
+
+    // Permissões vindas do AuthContext (buscadas no backend), não do JWT, para refletir o cargo atual
+    const permissions = user?.permissions?.where_to_eat;
 
     const canCreate = isAdmin || permissions?.create === true;
     const canEdit = isAdmin || permissions?.edit === true;

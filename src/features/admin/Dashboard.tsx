@@ -413,7 +413,7 @@ function OverviewArea({ userPerms }: { userPerms?: any }) {
                     </Link>
                 )}
 
-                {(!userPerms || userPerms.restaurants?.read) && (
+                {(!userPerms || userPerms.where_to_eat?.read) && (
                     <Link to="/admin/restaurants" className="transition-all duration-300 hover:scale-105">
                         <StatCard
                             title="Restaurantes cadastrados" value={stats.restaurants} icon={UtensilsCrossed}
